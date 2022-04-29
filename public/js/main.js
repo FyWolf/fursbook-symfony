@@ -1,0 +1,1 @@
+const sidebarjs = new SidebarJS();

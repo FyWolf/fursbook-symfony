@@ -8,14 +8,17 @@
         <link rel="shortcut icon" href="ressources/favicon.ico" type="image/x-icon">
         {% block stylesheets %}
             {{ encore_entry_link_tags('app') }}
+            <link rel="stylesheet" href="css/main.css">
         {% endblock %}
 
         {% block javascripts %}
             {{ encore_entry_script_tags('app') }}
+            <script src="js/sidebar.js"></script>
+            <script src="js/main.js" defer></script>
         {% endblock %}
     </head>
     <body>
-        {% include "./fursbook/nav.html" %}
+        {% include "./fursbook/nav.html.twig" %}
         {% block body %}{% endblock %}
     </body>
 </html>

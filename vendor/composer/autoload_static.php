@@ -101,6 +101,7 @@ class ComposerStaticInitb1f81f42438cfb9097adc424d2d76f44
             'Symfony\\Bridge\\ProxyManager\\' => 28,
             'Symfony\\Bridge\\Monolog\\' => 23,
             'Symfony\\Bridge\\Doctrine\\' => 24,
+            'SymfonyCasts\\Bundle\\VerifyEmail\\' => 32,
             'Sensio\\Bundle\\FrameworkExtraBundle\\' => 35,
         ),
         'P' => 
@@ -430,6 +431,10 @@ class ComposerStaticInitb1f81f42438cfb9097adc424d2d76f44
         array (
             0 => __DIR__ . '/..' . '/symfony/doctrine-bridge',
         ),
+        'SymfonyCasts\\Bundle\\VerifyEmail\\' => 
+        array (
+            0 => __DIR__ . '/..' . '/symfonycasts/verify-email-bundle/src',
+        ),
         'Sensio\\Bundle\\FrameworkExtraBundle\\' => 
         array (
             0 => __DIR__ . '/..' . '/sensio/framework-extra-bundle/src',
@@ -551,7 +556,10 @@ class ComposerStaticInitb1f81f42438cfb9097adc424d2d76f44
 
     public static $classMap = array (
         'App\\Controller\\FursbookController' => __DIR__ . '/../..' . '/src/Controller/FursbookController.php',
+        'App\\Controller\\LoginController' => __DIR__ . '/../..' . '/src/Controller/LoginController.php',
+        'App\\Entity\\User' => __DIR__ . '/../..' . '/src/Entity/User.php',
         'App\\Kernel' => __DIR__ . '/../..' . '/src/Kernel.php',
+        'App\\Repository\\UserRepository' => __DIR__ . '/../..' . '/src/Repository/UserRepository.php',
         'Collator' => __DIR__ . '/..' . '/symfony/polyfill-intl-icu/Resources/stubs/Collator.php',
         'Composer\\InstalledVersions' => __DIR__ . '/..' . '/composer/InstalledVersions.php',
         'Doctrine\\Bundle\\DoctrineBundle\\Attribute\\AsEntityListener' => __DIR__ . '/..' . '/doctrine/doctrine-bundle/Attribute/AsEntityListener.php',
@@ -2434,6 +2442,18 @@ class ComposerStaticInitb1f81f42438cfb9097adc424d2d76f44
         'Sensio\\Bundle\\FrameworkExtraBundle\\Security\\ExpressionLanguage' => __DIR__ . '/..' . '/sensio/framework-extra-bundle/src/Security/ExpressionLanguage.php',
         'Sensio\\Bundle\\FrameworkExtraBundle\\SensioFrameworkExtraBundle' => __DIR__ . '/..' . '/sensio/framework-extra-bundle/src/SensioFrameworkExtraBundle.php',
         'Sensio\\Bundle\\FrameworkExtraBundle\\Templating\\TemplateGuesser' => __DIR__ . '/..' . '/sensio/framework-extra-bundle/src/Templating/TemplateGuesser.php',
+        'SymfonyCasts\\Bundle\\VerifyEmail\\DependencyInjection\\Configuration' => __DIR__ . '/..' . '/symfonycasts/verify-email-bundle/src/DependencyInjection/Configuration.php',
+        'SymfonyCasts\\Bundle\\VerifyEmail\\DependencyInjection\\SymfonyCastsVerifyEmailExtension' => __DIR__ . '/..' . '/symfonycasts/verify-email-bundle/src/DependencyInjection/SymfonyCastsVerifyEmailExtension.php',
+        'SymfonyCasts\\Bundle\\VerifyEmail\\Exception\\ExpiredSignatureException' => __DIR__ . '/..' . '/symfonycasts/verify-email-bundle/src/Exception/ExpiredSignatureException.php',
+        'SymfonyCasts\\Bundle\\VerifyEmail\\Exception\\InvalidSignatureException' => __DIR__ . '/..' . '/symfonycasts/verify-email-bundle/src/Exception/InvalidSignatureException.php',
+        'SymfonyCasts\\Bundle\\VerifyEmail\\Exception\\VerifyEmailExceptionInterface' => __DIR__ . '/..' . '/symfonycasts/verify-email-bundle/src/Exception/VerifyEmailExceptionInterface.php',
+        'SymfonyCasts\\Bundle\\VerifyEmail\\Exception\\WrongEmailVerifyException' => __DIR__ . '/..' . '/symfonycasts/verify-email-bundle/src/Exception/WrongEmailVerifyException.php',
+        'SymfonyCasts\\Bundle\\VerifyEmail\\Generator\\VerifyEmailTokenGenerator' => __DIR__ . '/..' . '/symfonycasts/verify-email-bundle/src/Generator/VerifyEmailTokenGenerator.php',
+        'SymfonyCasts\\Bundle\\VerifyEmail\\Model\\VerifyEmailSignatureComponents' => __DIR__ . '/..' . '/symfonycasts/verify-email-bundle/src/Model/VerifyEmailSignatureComponents.php',
+        'SymfonyCasts\\Bundle\\VerifyEmail\\SymfonyCastsVerifyEmailBundle' => __DIR__ . '/..' . '/symfonycasts/verify-email-bundle/src/SymfonyCastsVerifyEmailBundle.php',
+        'SymfonyCasts\\Bundle\\VerifyEmail\\Util\\VerifyEmailQueryUtility' => __DIR__ . '/..' . '/symfonycasts/verify-email-bundle/src/Util/VerifyEmailQueryUtility.php',
+        'SymfonyCasts\\Bundle\\VerifyEmail\\VerifyEmailHelper' => __DIR__ . '/..' . '/symfonycasts/verify-email-bundle/src/VerifyEmailHelper.php',
+        'SymfonyCasts\\Bundle\\VerifyEmail\\VerifyEmailHelperInterface' => __DIR__ . '/..' . '/symfonycasts/verify-email-bundle/src/VerifyEmailHelperInterface.php',
         'Symfony\\Bridge\\Doctrine\\CacheWarmer\\ProxyCacheWarmer' => __DIR__ . '/..' . '/symfony/doctrine-bridge/CacheWarmer/ProxyCacheWarmer.php',
         'Symfony\\Bridge\\Doctrine\\ContainerAwareEventManager' => __DIR__ . '/..' . '/symfony/doctrine-bridge/ContainerAwareEventManager.php',
         'Symfony\\Bridge\\Doctrine\\DataCollector\\DoctrineDataCollector' => __DIR__ . '/..' . '/symfony/doctrine-bridge/DataCollector/DoctrineDataCollector.php',

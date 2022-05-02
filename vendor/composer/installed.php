@@ -5,7 +5,7 @@
         'type' => 'project',
         'install_path' => __DIR__ . '/../../',
         'aliases' => array(),
-        'reference' => '1e69989878f70314295231fea641ee1f4d486e8e',
+        'reference' => '500a268bda4032bce80cce85423a498395cb0506',
         'name' => '__root__',
         'dev' => true,
     ),
@@ -16,7 +16,7 @@
             'type' => 'project',
             'install_path' => __DIR__ . '/../../',
             'aliases' => array(),
-            'reference' => '1e69989878f70314295231fea641ee1f4d486e8e',
+            'reference' => '500a268bda4032bce80cce85423a498395cb0506',
             'dev_requirement' => false,
         ),
         'doctrine/annotations' => array(
@@ -1017,6 +1017,15 @@
             'install_path' => __DIR__ . '/../symfony/yaml',
             'aliases' => array(),
             'reference' => 'e77f3ea0b21141d771d4a5655faa54f692b34af5',
+            'dev_requirement' => false,
+        ),
+        'symfonycasts/verify-email-bundle' => array(
+            'pretty_version' => 'v1.10.0',
+            'version' => '1.10.0.0',
+            'type' => 'symfony-bundle',
+            'install_path' => __DIR__ . '/../symfonycasts/verify-email-bundle',
+            'aliases' => array(),
+            'reference' => '7b9b1f59093dd260afa91eb6b3a220906a0fe0e2',
             'dev_requirement' => false,
         ),
         'twig/extra-bundle' => array(

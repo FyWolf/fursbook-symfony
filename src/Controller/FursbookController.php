@@ -16,10 +16,18 @@ class FursbookController extends AbstractController
         ]);
     }
 
-    #[Route('/', name: 'fursbook')]
+    #[Route('/', name: 'home_fursbook')]
     public function home(): Response
     {
         return $this->render('fursbook/home.html.twig', [
+            'controller_name' => 'FursbookController',
+        ]);
+    }
+
+    #[Route('/recovery', name: 'recovery_fursbook')]
+    public function recovery(): Response
+    {
+        return $this->render('fursbook/recovery.html.twig', [
             'controller_name' => 'FursbookController',
         ]);
     }

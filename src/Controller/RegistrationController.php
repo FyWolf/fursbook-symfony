@@ -37,8 +37,16 @@ class RegistrationController extends AbstractController
             return $this->redirectToRoute('home_fursbook');
         }
 
+        if ($this->getUser()) {
+            $user = $this->getUser()->getUsername();
+        }
+        else {
+            $user = "empty";
+        }
+
         return $this->render('registration/register.html.twig', [
             'registrationForm' => $form->createView(),
+            'obj' => $user,
         ]);
     }
 }

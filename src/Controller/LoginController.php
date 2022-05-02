@@ -12,6 +12,12 @@ class LoginController extends AbstractController
     #[Route('/login', name: 'login')]
     public function index(AuthenticationUtils $authenticationUtils): Response
     {
+        if ($this->getUser()) {
+            $user = $this->getUser()->getUsername();
+        }
+        else {
+            $user = "empty";
+        }
         // get the login error if there is one
         $error = $authenticationUtils->getLastAuthenticationError();
         // last username entered by the user
@@ -20,6 +26,7 @@ class LoginController extends AbstractController
             'controller_name' => 'LoginController',
             'last_username' => $lastUsername,
             'error'         => $error,
+            'obj' => $user,
               ]);
           }
       }

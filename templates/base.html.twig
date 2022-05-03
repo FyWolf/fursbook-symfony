@@ -5,20 +5,20 @@
         <title>{% block title %}Welcome!{% endblock %}</title>
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
         <meta http-equiv="X-UA-Compatible" content="IE=edge">
-        <link rel="shortcut icon" href="ressources/favicon.ico" type="image/x-icon">
+        <link rel="shortcut icon" href="{{ asset('ressources/favicon.ico') }}" type="image/x-icon">
         {% block stylesheets %}
             {{ encore_entry_link_tags('app') }}
-            <link rel="stylesheet" href="css/main.css">
+            <link rel="stylesheet" href="{{ asset('css/main.css') }}">
         {% endblock %}
 
         {% block javascripts %}
             {{ encore_entry_script_tags('app') }}
-            <script src="js/sidebar.js"></script>
-            <script src="js/main.js" defer></script>
+            <script src="{{ asset('js/sidebar.js') }}"></script>
+            <script src="{{ asset('js/main.js') }}" defer></script>
         {% endblock %}
     </head>
     <body>
-        {% include "./fursbook/nav.html.twig" %}
+        {% include "fursbook/nav.html.twig" %}
         {% block body %}{% endblock %}
     </body>
 </html>

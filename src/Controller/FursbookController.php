@@ -6,20 +6,19 @@ use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
 
-
 class FursbookController extends AbstractController
 {
     #[Route('/', name: 'home_fursbook')]
     public function home(): Response
     {
         if ($this->getUser()) {
-            $user = $this->getUser()->getUsername();
+            $userUsername = $this->getUser()->getUsername();
         }
         else {
-            $user = "empty";
+            $userUsername = "empty";
         }
         return $this->render('fursbook/home.html.twig', [
-            'obj' => $user,
+            'loggedUserUsername' => $userUsername,
         ],);
     }
 
@@ -27,13 +26,13 @@ class FursbookController extends AbstractController
     public function recovery(): Response
     {
         if ($this->getUser()) {
-            $user = $this->getUser()->getUsername();
+            $userUsername = $this->getUser()->getUsername();
         }
         else {
-            $user = "empty";
+            $userUsername = "empty";
         }
         return $this->render('fursbook/recovery.html.twig', [
-            'obj' => $user,
+            'loggedUserUsername' => $userUsername,
         ],);
     }
 }

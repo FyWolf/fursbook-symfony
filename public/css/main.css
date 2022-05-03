@@ -297,7 +297,9 @@ body nav a h1 img {
 .profilePicture {
     margin: 2%;
     width: 8vh;
+    height: 8vh;
     border-radius: 50%;
+    object-fit: cover;
 }
 
 .navProfile p {
@@ -354,7 +356,7 @@ body nav a h1 img {
     ####
 ***/
 
-.loginPage div {
+.loginPage > div {
     border: 1px solid var(--scndAltBgColor);
     border-radius: 10px;
     display: flex;
@@ -365,7 +367,7 @@ body nav a h1 img {
     padding: 1vh 2vh;
 }
 
-.loginPage div > a {
+.loginPage > div > a {
     background-color: var(--altBgColor);
     color: white;
     border: 1px solid black;
@@ -388,13 +390,21 @@ body nav a h1 img {
     align-items: center;
 }
 
-.loginPage form input {
+.loginPage div form input {
     background-color: var(--altBgColor);
     border: 1px solid black;
     color: white;
     border-radius: 5px;
     margin: 1vh 0;
-    font-size: 1.5rem;
+    font-size: 1.3rem;
+    padding: 1vh;
+    width: 20vw;
+    text-align: center;
+}
+
+.loginPage div form div {
+    display: flex;
+    flex-direction: column;
 }
 
 .loginPage button {
@@ -422,4 +432,71 @@ body nav a h1 img {
 
 .loginPage form a:hover {
     text-decoration: underline;
+}
+
+/***
+    ####
+        PROFILE PAGE CSS
+    ####
+***/
+
+.userProfile {
+    display: flex;
+    flex-direction: column;
+}
+
+.userProfile .userProfileDiv {
+    width: 90vw;
+    max-width: 400px;
+    object-fit: cover;
+    margin: auto;
+    background-color: var(--altBgColor);
+    border-bottom: 1px solid black;
+    border-radius: 10px;
+    overflow: hidden;
+}
+
+.userProfile .userProfileDiv .banner {
+    width: 100%;
+    position: relative;
+}
+
+.userProfile .userProfileDiv .banner .bannerImg {
+    width: 100%;
+}
+
+.userProfile .userProfileDiv .banner .pfp {
+    width: 12vh;
+    height: 12vh;
+    object-fit: cover;
+    border-radius: 50%;
+    bottom: -60px;
+    left: 1%;
+    position: absolute;
+    border-top: 2px black solid;
+}
+
+.userProfile .userProfileDiv .banner .more {
+    position: absolute;
+    bottom: -30px;
+    right: 1%;
+    width: 4vh;
+    background: none;
+    border: none;
+}
+
+.userProfile .userProfileDiv .infos {
+    margin-top: 60px;
+    padding: 1vh;
+    position: relative;
+}
+
+.userProfile .userProfileDiv .infos .username {
+    font-size: 1.2rem;
+    font-weight: 600;
+}
+
+.userProfile .userProfileDiv .infos .bio {
+    font-size: 0.8rem;
+    font-weight: 300;
 }

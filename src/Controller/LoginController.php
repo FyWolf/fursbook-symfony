@@ -13,10 +13,12 @@ class LoginController extends AbstractController
     public function index(AuthenticationUtils $authenticationUtils): Response
     {
         if ($this->getUser()) {
-            $user = $this->getUser()->getUsername();
+            $userUsername = $this->getUser()->getUsername();
+            $userProfilePicture = $this->getUser()->getProfilePicture();
         }
         else {
-            $user = "empty";
+            $userUsername = "empty";
+            $userProfilePicture = "empty";
         }
         // get the login error if there is one
         $error = $authenticationUtils->getLastAuthenticationError();
@@ -26,7 +28,8 @@ class LoginController extends AbstractController
             'controller_name' => 'LoginController',
             'last_username' => $lastUsername,
             'error'         => $error,
-            'obj' => $user,
+            'loggedUserUsername' => $userUsername,
+            'loggedUserProfilePicture' => $userProfilePicture,
               ]);
           }
       }

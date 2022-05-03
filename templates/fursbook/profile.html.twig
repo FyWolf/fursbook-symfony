@@ -1,11 +1,24 @@
 {% extends 'base.html.twig' %}
 
 {% block title %}
-    Fursbook | Home
+    Fursbook | Profile
 {% endblock %}
 
 {% block body %}
-    <main>
+<main class="userProfile">
+    {% if isUserValid == true %}
+    <div class="userProfileDiv">
+        <div class="banner">
+            <img class="bannerImg" src="https://via.placeholder.com/400x150">
+            <img class="pfp"  src="{{ asset(showedUserProfilePicture) }}">
+            <button class="more"><img class="svg" src="{{ asset('ressources/svg/ellipsis.svg') }}"></button>
+        </div>
+        <div class="infos">
+            <p class="username">{{showedUserUsername}}</p>
+            <p class="bio">ceci est une petite bio</p>
+        </div>
+    </div>
+    <div class="postsDiv">
         <article class="posts">
             <div class="userDiv">
                 <div>
@@ -129,5 +142,13 @@
                 </div>
             </div>
         </article>
-    </main>
+    </div>
+    {% endif %}
+
+    {% if isUserValid == false %}
+    <div>
+        <p>The user you requested does not exist</p>
+    </div>
+    {% endif %}
+</main>
 {% endblock %}

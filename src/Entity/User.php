@@ -36,6 +36,9 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
     #[ORM\Column(type: 'string')]
     private $profilePicture = "";
 
+    #[ORM\Column(type: 'string')]
+    private $profileBanner = "";
+
     public function getId(): ?int
     {
         return $this->id;
@@ -51,6 +54,11 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
         return $this->bio;
     }
 
+    public function getprofileBanner(): ?string
+    {
+        return $this->profileBanner;
+    }
+
     public function getUsername(): ?string
     {
         return $this->username;
@@ -58,7 +66,15 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
 
     public function getProfilePicture(): ?string
     {
-        return $this->profilePicture;
+        $pfp = $this->profilePicture;
+        if ($pfp == ""){
+            $result = "ressources/images/default/profilePicture.png";
+            return $result;
+        }
+        else {
+            $result = $pfp;
+            return $result;
+        }
     }
 
     public function setEmail(string $email): self
@@ -71,6 +87,13 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
     public function setBio(string $bio): self
     {
         $this->bio = $bio;
+
+        return $this;
+    }
+
+    public function setprofileBanner(string $profileBanner): self
+    {
+        $this->profileBanner = $profileBanner;
 
         return $this;
     }

@@ -10,6 +10,7 @@ use Symfony\Component\Form\Extension\Core\Type\TextType;
 use Symfony\Component\Form\Extension\Core\Type\FileType;
 use Symfony\Component\OptionsResolver\OptionsResolver;
 use Symfony\Component\Validator\Constraints\Length;
+use Symfony\Component\Validator\Constraints\Image;
 
 class SettingsType extends AbstractType
 {
@@ -39,16 +40,28 @@ class SettingsType extends AbstractType
                         'maxMessage' => "Le description ne peut excéder {{ limit }} caractères",
                         // max length allowed by Symfony for security reasons
                         'max' => 180,
-                    ])
-                ]
+                    ]),
+                ],
             ])
             ->add('profilePicture', FileType::class, [
                 'mapped' => false,
                 'required' => false,
+                'constraints' => [
+                    new Image([
+                        'maxSize' => '5M',
+                        'maxSizeMessage' => "L'image ne peut excéder 10Mo",
+                    ]),
+                ],
             ])
             ->add('profileBanner', FileType::class, [
                 'mapped' => false,
                 'required' => false,
+                'constraints' => [
+                    new Image([
+                        'maxSize' => '5M',
+                        'maxSizeMessage' => "L'image ne peut excéder 10Mo",
+                    ])
+                ]
             ]);;
     }
 

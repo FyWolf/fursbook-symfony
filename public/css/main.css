@@ -540,6 +540,7 @@ body nav a h1 img {
     left: 1%;
     position: absolute;
     border-top: 2px black solid;
+    background-color: var(--mainBgColor);
 }
 
 .userProfile .userProfileDiv .banner .more {

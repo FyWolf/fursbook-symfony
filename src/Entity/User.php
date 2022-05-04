@@ -56,7 +56,15 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
 
     public function getprofileBanner(): ?string
     {
-        return $this->profileBanner;
+        $banner = $this->profileBanner;
+        if ($banner == ""){
+            $result = "ressources/images/default/banner.png";
+            return $result;
+        }
+        else {
+            $result = $banner;
+            return $result;
+        }
     }
 
     public function getUsername(): ?string
@@ -91,13 +99,19 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
         return $this;
     }
 
-    public function setprofileBanner(string $profileBanner): self
+    public function setProfileBanner(string $profileBanner): self
     {
         $this->profileBanner = $profileBanner;
 
         return $this;
     }
 
+    public function setProfilePicture(string $profilePicture): self
+    {
+        $this->profilePicture = $profilePicture;
+
+        return $this;
+    }
 
     public function setUsername(string $username): self
     {

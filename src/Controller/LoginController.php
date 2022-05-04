@@ -17,8 +17,8 @@ class LoginController extends AbstractController
             $userProfilePicture = $this->getUser()->getProfilePicture();
         }
         else {
-            $userUsername = "empty";
-            $userProfilePicture = "empty";
+            $userUsername = "";
+            $userProfilePicture = "";
         }
         // get the login error if there is one
         $error = $authenticationUtils->getLastAuthenticationError();

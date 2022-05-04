@@ -9,13 +9,20 @@
     {% if isUserValid == true %}
     <div class="userProfileDiv">
         <div class="banner">
-            <img class="bannerImg" src="https://via.placeholder.com/400x150">
+            <img class="bannerImg" src="{{ asset(showedUserProfileBanner) }}">
             <img class="pfp"  src="{{ asset(showedUserProfilePicture) }}">
             <button class="more"><img class="svg" src="{{ asset('ressources/svg/ellipsis.svg') }}"></button>
         </div>
         <div class="infos">
             <p class="username">{{showedUserUsername}}</p>
-            <p class="bio">ceci est une petite bio</p>
+            <p class="bio">
+                {% if showedUserBio == "" %}
+                    Cet utilisateur n'as pas de description, quelle personne mystérieuse :O
+                {% endif %}
+                {% if not showedUserBio == "" %}
+                    {{ showedUserBio }}
+                {% endif %}
+        </p>
         </div>
     </div>
     <div class="postsDiv">

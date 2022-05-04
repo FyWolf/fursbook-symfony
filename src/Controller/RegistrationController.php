@@ -29,6 +29,8 @@ class RegistrationController extends AbstractController
                     $form->get('plainPassword')->getData()
                 )
             );
+            $user->setUsername($form->get('username')->getData());
+            $user->setEmail($form->get('email')->getData());
 
             $entityManager->persist($user);
             $entityManager->flush();
@@ -39,14 +41,18 @@ class RegistrationController extends AbstractController
 
         if ($this->getUser()) {
             $userUsername = $this->getUser()->getUsername();
+            $userProfilePicture = $this->getUser()->getProfilePicture();
         }
         else {
-            $userUsername = "empty";
+            $userUsername = "";
+            $userProfilePicture = "";
+
         }
 
         return $this->render('registration/register.html.twig', [
             'registrationForm' => $form->createView(),
             'loggedUserUsername' => $userUsername,
+            'loggedUserProfilePicture' => $userProfilePicture,
         ]);
     }
 }

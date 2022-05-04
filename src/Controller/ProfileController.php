@@ -9,9 +9,18 @@ use Symfony\Component\Routing\Annotation\Route;
 use Doctrine\Persistence\ManagerRegistry;
 
 class ProfileController extends AbstractController{
+
+    #[Route('/profile', name: 'profile404_fursbook')]
+    public function profile404(): Response
+    {
+        return $this->redirectToRoute('home_fursbook');
+
+    }
+
     #[Route("/profile/{username}", name: 'profile_fursbook')]
     public function profile(ManagerRegistry $doctrine, string $username): Response
     {
+
         if ($this->getUser()) {
             $userUsername = $this->getUser()->getUsername();
             $userProfilePicture = $this->getUser()->getProfilePicture();
@@ -26,6 +35,8 @@ class ProfileController extends AbstractController{
                 'loggedUserUsername' => $userUsername,
                 'showedUserUsername' => $showedUser->getusername(),
                 'showedUserProfilePicture' => $showedUser->getProfilePicture(),
+                'showedUserProfileBanner' => $showedUser->getProfileBanner(),
+                'showedUserBio' => $showedUser->getBio(),
                 'isUserValid' => $isUserValid,
                 'loggedUserProfilePicture' => $userProfilePicture,
             ],);

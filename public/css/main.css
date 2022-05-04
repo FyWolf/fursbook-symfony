@@ -345,10 +345,66 @@ body nav a h1 img {
 
 /***
     ####
-        MAIN PAGE CSS
+        HOME PAGE CSS
     ####
 ***/
 
+.homePage {
+    display: grid;
+    grid-template-columns: 1fr;
+    grid-template-areas:
+    "leftContent"
+    "contentPage"
+    ;
+}
+
+.homePage .leftContentDiv {
+    grid-area: leftContent;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.homePage .postDiv {
+    grid-area: contentPage;
+}
+
+.homePage .leftContentDiv .welcome {
+    font-size: 2rem;
+    font-weight: 100;
+    margin: 0;
+}
+
+.homePage .leftContentDiv .subWelcome {
+    font-size: 1.4rem;
+    font-weight: 100;
+    margin: 0;
+}
+
+.homePage .leftContentDiv a {
+    color: white;
+    display: flex;
+    align-items: center;
+    background-color: var(--altBgColor);
+    border: 1px solid black;
+    padding: 1% 3%;
+    width: fit-content;
+    border-radius: 10px;
+    font-size: 1rem;
+    cursor: pointer;
+    transition: all 0.2s ease-in-out;
+    margin-top: 1vh;
+    text-decoration: none;
+}
+
+.homePage .leftContentDiv a:hover {
+    border-color: white;
+}
+
+.homePage .leftContentDiv a img {
+    width: 3vh;
+    margin-right: 5px;
+}
 
 /***
     ####
@@ -385,6 +441,8 @@ body nav a h1 img {
 }
 
 .loginPage form{
+    width: 80vw;
+    max-width: 400px;
     display: flex;
     flex-direction: column;
     align-items: center;
@@ -397,8 +455,8 @@ body nav a h1 img {
     border-radius: 5px;
     margin: 1vh 0;
     font-size: 1.3rem;
+    width: 100%;
     padding: 1vh;
-    width: 20vw;
     text-align: center;
 }
 
@@ -441,8 +499,12 @@ body nav a h1 img {
 ***/
 
 .userProfile {
-    display: flex;
-    flex-direction: column;
+    display: grid;
+    grid-template-columns: 1fr;
+    grid-template-areas:
+    "userPage"
+    "contentPage"
+    ;
 }
 
 .userProfile .userProfileDiv {
@@ -454,6 +516,7 @@ body nav a h1 img {
     border-bottom: 1px solid black;
     border-radius: 10px;
     overflow: hidden;
+    grid-area: userPage;
 }
 
 .userProfile .userProfileDiv .banner {
@@ -463,6 +526,9 @@ body nav a h1 img {
 
 .userProfile .userProfileDiv .banner .bannerImg {
     width: 100%;
+    height: 13vh;
+    object-fit: cover;
+    background-color: var(--scndAltBgColor);
 }
 
 .userProfile .userProfileDiv .banner .pfp {
@@ -499,4 +565,138 @@ body nav a h1 img {
 .userProfile .userProfileDiv .infos .bio {
     font-size: 0.8rem;
     font-weight: 300;
+}
+
+.userProfile .postDiv {
+    grid-area: contentPage;
+}
+
+/***
+    ####
+        SETTINGS PAGE CSS
+    ####
+***/
+
+.settings .profileSettings {
+    width: 90vw;
+    max-width: 700px;
+    margin: auto;
+}
+
+.settings .profileSettings fieldset {
+    background-color: var(--altBgColor);
+    border: 2px solid var(--scndAltBgColor);
+    border-radius: 10px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.settings .profileSettings fieldset legend {
+    font-weight: 600;
+    font-size: 1.3rem;
+}
+
+.settings .profileSettings fieldset form {
+    width: 95%;
+    display: flex;
+    align-items: center;
+    flex-direction: column;
+}
+
+.settings .profileSettings fieldset form label {
+    margin: 1vh;
+}
+
+.settings .profileSettings fieldset form div {
+    width: 100%;
+}
+
+.settings .profileSettings fieldset form div input,
+.settings .profileSettings fieldset form div textarea {
+    background-color: var(--scndAltBgColor);
+    border: 1px solid black;
+    color: white;
+    border-radius: 5px;
+    margin: 1vh 0;
+    font-size: 1rem;
+    padding: 0.5vh 0;
+    text-align: center;
+    resize: none;
+    width: 100%;
+}
+
+.settings .profileSettings fieldset form div textarea {
+    height: 120px;
+}
+
+.settings .profileSettings fieldset form button {
+    background-color: var(--altBgColor);
+    color: white;
+    border: 1px solid black;
+    padding: 1% 3%;
+    border-radius: 5px;
+    font-size: 1.1rem;
+    cursor: pointer;
+    transition: all 0.2s ease-in-out;
+}
+
+/*
+    Media query TABLET
+*/
+
+@media screen and ( min-width:780px) {
+}
+
+
+/*
+    Media query DESKTOP
+*/
+
+@media screen and (min-width:1200px){
+
+    /***
+        ####
+            PROFILE PAGE CSS
+        ####
+    ***/
+
+    .userProfile {
+        grid-template-columns: 1fr 1fr 1fr;
+        grid-template-rows: auto;
+        grid-template-areas:
+        "userPage contentPage"
+        ;
+        justify-content: start;
+    }
+
+    .userProfile .userProfileDiv {
+        margin: initial;
+        align-self: start;
+        justify-self: center;
+        position: sticky;
+        top: 70px;
+    }
+
+    /***
+        ####
+            HOME PAGE CSS
+        ####
+    ***/
+
+    .homePage {
+        grid-template-columns: 1fr 1fr 1fr;
+        grid-template-areas:
+        "leftContent contentDiv contentDiv"
+        ;
+    }
+
+    .homePage .leftContentDiv .welcome, .homePage .leftContentDiv .subWelcome {
+        text-align: right;
+        margin-right: 2vh;
+    }
+
+    .homePage .leftContentDiv {
+        align-items: flex-end;
+    }
 }

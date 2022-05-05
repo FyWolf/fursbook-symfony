@@ -48,7 +48,7 @@ class SettingsType extends AbstractType
                 'required' => false,
                 'constraints' => [
                     new Image([
-                        'maxSize' => '5M',
+                        'maxSize' => '10M',
                         'maxSizeMessage' => "L'image ne peut excéder 10Mo",
                     ]),
                 ],
@@ -58,7 +58,7 @@ class SettingsType extends AbstractType
                 'required' => false,
                 'constraints' => [
                     new Image([
-                        'maxSize' => '5M',
+                        'maxSize' => '10M',
                         'maxSizeMessage' => "L'image ne peut excéder 10Mo",
                     ])
                 ]

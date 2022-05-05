@@ -9,6 +9,7 @@
         <section class="profileSettings">
                 <fieldset>
                     <legend>Paramètres de profil</legend>
+                    <p>{{ message }}</p>
                     {{ form_start(form) }}
                         {{ form_label(form.username, "Nom d'utilisateur") }}
                         {{ form_row(form.username, {label: false}) }}

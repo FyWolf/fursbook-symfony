@@ -3,6 +3,7 @@
 namespace App\Controller;
 
 use App\Entity\User;
+use App\Repository\UserRepository;
 use Symfony\Component\Security\Http\Authentication\AuthenticationUtils;
 use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
@@ -38,11 +39,12 @@ class SearchController extends AbstractController
             'loggedUserUsername' => $userUsername,
             'loggedUserProfilePicture' => $userProfilePicture,
             'resultArray' => [],
+            'actualSearch' => '',
               ]);
           }
 
     #[Route("/search/{search}", name: 'searchId')]
-    public function searchId(Request $request, ManagerRegistry $doctrine, string $search): Response
+    public function searchId(Request $request, ManagerRegistry $doctrine, UserRepository $userRepository, string $search): Response
     {
         unset($form);
         $form = $this->createForm(SearchType::class);
@@ -59,14 +61,14 @@ class SearchController extends AbstractController
             return $this->redirectToRoute('searchId', ['search' => $form->get('search')->getData()]);
         }
 
-        $repository = $doctrine->getRepository(User::class);
-        $foundUsers = $repository->findBy(['username' => $search]);
+        $foundUsers = $userRepository->findByUsername('%'.$search.'%');
 
         return $this->render('fursbook/search.html.twig', [
         'form' => $form->createView(),
         'loggedUserUsername' => $userUsername,
         'loggedUserProfilePicture' => $userProfilePicture,
         'resultArray' => $foundUsers,
+        'actualSearch' => $search,
         ]);
     }
 }

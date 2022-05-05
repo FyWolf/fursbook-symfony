@@ -8,7 +8,7 @@
 <main class="searchPage">
     <div class="searchBar">
         {{ form_start(form) }}
-            {{ form_row(form.search, {label: false, 'attr': {'placeholder': "Nom d'utilisateur"}}) }}
+            {{ form_row(form.search, {label: false, 'value' : actualSearch, 'attr': {'placeholder': "Nom d'utilisateur"}}) }}
             <button type="submit" class="btn">Rechercher</button>
         {{ form_end(form) }}
     </div>

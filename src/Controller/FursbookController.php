@@ -54,7 +54,7 @@ class FursbookController extends AbstractController
         $userProfilePicture = $this->getUser()->getProfilePicture();
         $form = $this->createForm(SettingsType::class);
         $form->handleRequest($request);
-
+        $message = '';
         if ($form->isSubmitted())
         {
             if (null !== $form->get('username')->getData()){
@@ -89,16 +89,18 @@ class FursbookController extends AbstractController
                 $userProfileBanner = '/userRessources/'.$user->getUsername().'/profileBanner/'.$newFilename;
                 $user->setProfileBanner($userProfileBanner);
             }
+            $message = 'Modifications enregistrées';
+            $userUsername = $this->getUser()->getUsername();
+            $userProfilePicture = $this->getUser()->getProfilePicture();
+
             $entityManager->persist($user);
             $entityManager->flush();
-
-
-            return $this->redirectToRoute('settings_fursbook');
         }
         return $this->render('fursbook/settings.html.twig', [
             'loggedUserUsername' => $userUsername,
             'loggedUserProfilePicture' => $userProfilePicture,
             'form' => $form->createView(),
+            'message' => $message,
         ],);
     }
 }

@@ -64,6 +64,8 @@ body::-webkit-scrollbar {
 
 .posts .userDiv div img {
     width: 8vh;
+    height: 8vh;
+    object-fit: cover;
     border-radius: 50%;
     -webkit-border-radius: 50%;
     -moz-border-radius: 50%;
@@ -113,6 +115,9 @@ body::-webkit-scrollbar {
     -ms-border-radius: 10px;
     -o-border-radius: 10px;
     overflow: hidden;
+}
+.posts .contentdiv .middle p {
+    overflow-wrap: break-word;
 }
 
 .posts .contentdiv .middle .postPictures {
@@ -724,6 +729,59 @@ body nav a h1 img {
 
 .searchPage .contentDiv .userDiv div a:hover {
     text-decoration: underline;
+}
+
+/***
+    ####
+        NEW POST PAGE CSS
+    ####
+***/
+
+.newPost fieldset {
+    width: 80vw;
+    font-size: 1.2rem;
+    max-width: 600px;
+    margin: auto;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    background-color: var(--altBgColor);
+    border: 2px solid var(--scndAltBgColor);
+    border-radius: 10px;
+}
+
+.newPost fieldset form {
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+}
+
+.newPost fieldset form textarea {
+    background-color: var(--scndAltBgColor);
+    border: 1px solid black;
+    color: white;
+    border-radius: 5px;
+    font-size: 1rem;
+    padding: 0.5vh 0;
+    text-align: center;
+    resize: none;
+    width: 100%;
+    height: 160px;
+}
+.newPost fieldset form input {
+    align-self: flex-start;
+    margin: 1vh 0;
+}
+
+.newPost fieldset form button {
+    background-color: var(--altBgColor);
+    color: white;
+    border: 1px solid black;
+    padding: 1% 3%;
+    border-radius: 10px;
+    font-size: 1.1rem;
+    cursor: pointer;
+    transition: all 0.2s ease-in-out;
 }
 
 /*

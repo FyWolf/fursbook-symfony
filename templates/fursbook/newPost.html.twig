@@ -1,0 +1,25 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}
+    Fursbook | New post
+{% endblock %}
+
+{% block body %}
+<main class="newPost">
+        <fieldset>
+            <legend>Nouveau post</legend>
+            {{ form_start(form) }}
+                {{ form_row(form.content,  {label: false, 'attr': {'class': 'textArea', 'maxlength': '300'}}) }}
+                {{ form_row(form.image1, {label: false, 'attr': {'id': 'fileInput', 'accept': 'image/png, image/jpg, image/jpeg, images/gif', 'multiple': false}}) }}
+                {{ form_row(form.image2, {label: false, 'attr': {'id': 'fileInput', 'accept': 'image/png, image/jpg, image/jpeg, images/gif', 'multiple': false}}) }}
+                {{ form_row(form.image3, {label: false, 'attr': {'id': 'fileInput', 'accept': 'image/png, image/jpg, image/jpeg, images/gif', 'multiple': false}}) }}
+                {{ form_row(form.image4, {label: false, 'attr': {'id': 'fileInput', 'accept': 'image/png, image/jpg, image/jpeg, images/gif', 'multiple': false}}) }}
+                <button type="submit" class="btn">Envoyer</button>
+            {{ form_end(form) }}
+        </fieldset>
+</main>
+{% endblock %}
+
+{% block javascripts %}
+    <script src="{{ asset('js/posts.js') }}" defer></script>
+{% endblock %}

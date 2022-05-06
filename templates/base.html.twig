@@ -6,12 +6,12 @@
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
         <meta http-equiv="X-UA-Compatible" content="IE=edge">
         <link rel="shortcut icon" href="{{ asset('ressources/favicon.ico') }}" type="image/x-icon">
+        <script src="{{ asset('js/main.js') }}" defer></script>
+        <script src="{{ asset('js/sidebar.js') }}"></script>
 
 
         {% block javascripts %}
             {{ encore_entry_script_tags('app') }}
-            <script src="{{ asset('js/sidebar.js') }}"></script>
-            <script src="{{ asset('js/main.js') }}" defer></script>
         {% endblock %}
     </head>
     <body>
@@ -20,7 +20,7 @@
 
         {% block stylesheets %}
             {{ encore_entry_link_tags('app') }}
-            <link rel="stylesheet" href="{{ asset('css/main.css') }}">
         {% endblock %}
+            <link rel="stylesheet" href="{{ asset('css/main.css') }}">
     </body>
 </html>

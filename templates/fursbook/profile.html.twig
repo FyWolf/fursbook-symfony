@@ -26,129 +26,19 @@
         </div>
     </div>
     <div class="postsDiv">
-        <article class="posts">
-            <div class="userDiv">
-                <div>
-                    <img src="https://via.placeholder.com/150">
-                    <a href="#">Exemple de pseudo</a>
-                </div>
-                <span>jj/mm/aaaa</span>
-            </div>
-            <div class="contentdiv">
-                <div class="top">
-                    <button><img class="svg" src="{{ asset('ressources/svg/ellipsis.svg') }}"></button>
-                </div>
-                <div class="middle">
-                    <p>Lorem ipsum dolor, sit amet consectetur adipisicing elit. Mollitia fugit ipsam nesciunt omnis in nobis.</p>
-                </div>
-                <div class="bottom">
-                    <button class="commentBtn"><img class="svg" src="{{ asset('ressources/svg/comment.svg') }}"></button>
-                    <button class="likeBtn"><img class="svg" src="{{ asset('ressources/svg/like.svg') }}"></button>
-                </div>
-            </div>
-        </article>
-        <article class="posts">
-            <div class="userDiv">
-                <div>
-                    <img src="https://via.placeholder.com/150">
-                    <a href="#">Exemple de pseudo</a>
-                </div>
-                <span>jj/mm/aaaa</span>
-            </div>
-            <div class="contentdiv">
-                <div class="top">
-                    <button><img class="svg" src="{{ asset('ressources/svg/ellipsis.svg') }}"></button>
-                </div>
-                <div class="middle">
-                    <div>
-                        <img class="picture1" src="{{ asset('ressources/images/temp/FyWolf-Ref.jpg') }}">
-                    </div>
-                    <p>Lorem ipsum dolor, sit amet consectetur adipisicing elit. Mollitia fugit ipsam nesciunt omnis in nobis.</p>
-                </div>
-                <div class="bottom">
-                    <button class="commentBtn"><img class="svg" src="{{ asset('ressources/svg/comment.svg') }}"></button>
-                    <button class="likeBtn"><img class="svg" src="{{ asset('ressources/svg/like.svg') }}"></button>
-                </div>
-            </div>
-        </article>
-        <article class="posts">
-            <div class="userDiv">
-                <div>
-                    <img src="https://via.placeholder.com/150">
-                    <a href="#">Exemple de pseudo</a>
-                </div>
-                <span>jj/mm/aaaa</span>
-            </div>
-            <div class="contentdiv">
-                <div class="top">
-                    <button><img class="svg" src="{{ asset('ressources/svg/ellipsis.svg') }}"></button>
-                </div>
-                <div class="middle">
-                    <div class="postPictures pic2">
-                        <img class="picture1" src="{{ asset('ressources/images/temp/FyWolf-Ref.jpg') }}">
-                        <img class="picture2" src="{{ asset('ressources/images/temp/FyWolf-trans.png') }}">
-                    </div>
-                    <p>Lorem ipsum dolor, sit amet consectetur adipisicing elit. Mollitia fugit ipsam nesciunt omnis in nobis.</p>
-                </div>
-                <div class="bottom">
-                    <button class="commentBtn"><img class="svg" src="{{ asset('ressources/svg/comment.svg') }}"></button>
-                    <button class="likeBtn"><img class="svg" src="{{ asset('ressources/svg/like.svg') }}"></button>
-                </div>
-            </div>
-        </article>
-        <article class="posts">
-            <div class="userDiv">
-                <div>
-                    <img src="https://via.placeholder.com/150">
-                    <a href="#">Exemple de pseudo</a>
-                </div>
-                <span>jj/mm/aaaa</span>
-            </div>
-            <div class="contentdiv">
-                <div class="top">
-                    <button><img class="svg" src="{{ asset('ressources/svg/ellipsis.svg') }}"></button>
-                </div>
-                <div class="middle">
-                    <div class="postPictures pic3">
-                        <img class="picture1" src="{{ asset('ressources/images/temp/FyWolf-Ref.jpg') }}">
-                        <img class="picture2" src="{{ asset('ressources/images/temp/FyWolf-trans.png') }}">
-                        <img class="picture3" src="{{ asset('ressources/images/temp/FyWolf-headshot.png') }}">
-                    </div>
-                    <p>Lorem ipsum dolor, sit amet consectetur adipisicing elit. Mollitia fugit ipsam nesciunt omnis in nobis.</p>
-                </div>
-                <div class="bottom">
-                    <button class="commentBtn"><img class="svg" src="{{ asset('ressources/svg/comment.svg') }}"></button>
-                    <button class="likeBtn"><img class="svg" src="{{ asset('ressources/svg/like.svg') }}"></button>
-                </div>
-            </div>
-        </article>
-        <article class="posts">
-            <div class="userDiv">
-                <div>
-                    <img src="https://via.placeholder.com/150">
-                    <a href="#">Exemple de pseudo</a>
-                </div>
-                <span>jj/mm/aaaa</span>
-            </div>
-            <div class="contentdiv">
-                <div class="top">
-                    <button><img class="svg" src="{{ asset('ressources/svg/ellipsis.svg') }}"></button>
-                </div>
-                <div class="middle">
-                    <div class="postPictures pic4">
-                        <img class="picture1" src="{{ asset('ressources/images/temp/FyWolf-Ref.jpg') }}">
-                        <img class="picture2" src="{{ asset('ressources/images/temp/FyWolf-trans.png') }}">
-                        <img class="picture3" src="{{ asset('ressources/images/temp/FyWolf-headshot.png') }}">
-                        <img class="picture4" src="{{ asset('ressources/images/temp/FyWolf-banner.png') }}">
-                    </div>
-                    <p>Lorem ipsum dolor, sit amet consectetur adipisicing elit. Mollitia fugit ipsam nesciunt omnis in nobis.</p>
-                </div>
-                <div class="bottom">
-                    <button class="commentBtn"><img class="svg" src="{{ asset('ressources/svg/comment.svg') }}"></button>
-                    <button class="likeBtn"><img class="svg" src="{{ asset('ressources/svg/like.svg') }}"></button>
-                </div>
-            </div>
-        </article>
+    {% for post in posts %}
+        {% if post.nbPictures == 0 %}
+            {% include "/fursbook/posts/postTextOnly.html.twig" %}
+            {% elseif post.nbPictures == 1 %}
+                {% include "/fursbook/posts/post1Image.html.twig" %}
+            {% elseif post.nbPictures == 2 %}
+                {% include "/fursbook/posts/post2Image.html.twig" %}
+            {% elseif post.nbPictures == 3 %}
+                {% include "/fursbook/posts/post3Image.html.twig" %}
+            {% elseif post.nbPictures == 4 %}
+                {% include "/fursbook/posts/post4Image.html.twig" %}
+        {% endif %}
+    {% endfor %}
     </div>
     {% endif %}
 

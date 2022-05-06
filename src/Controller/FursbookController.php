@@ -2,18 +2,22 @@
 
 namespace App\Controller;
 
-use App\Form\SettingsType;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
+use Symfony\Component\Routing\Annotation\Route;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\HttpFoundation\Request;
-use Symfony\Component\Routing\Annotation\Route;
+use Doctrine\Persistence\ManagerRegistry;
 use Doctrine\ORM\EntityManagerInterface;
+use App\Repository\UserRepository;
 use Gedmo\Sluggable\Util\Urlizer;
+use App\Form\SettingsType;
+use App\Entity\Posts;
+use App\Entity\User;
 
 class FursbookController extends AbstractController
 {
     #[Route('/', name: 'home_fursbook')]
-    public function home(): Response
+    public function home(ManagerRegistry $doctrine): Response
     {
         if ($this->getUser()) {
             $userUsername = $this->getUser()->getUsername();
@@ -23,9 +27,34 @@ class FursbookController extends AbstractController
             $userUsername = "";
             $userProfilePicture = "";
         }
+
+        $postRepo = $doctrine->getRepository(Posts::class);
+        $foundPosts = $postRepo->findAllPosts();
+        $resultPosts = [];
+
+        foreach ($foundPosts as $result) {
+            $userRepo = $doctrine->getRepository(User::class);
+            $user = $userRepo->findOneBy(['id' => $result->getOwner()]);
+            $constructedResult = (object) [
+                'ownerProfilePicture' => $user->getProfilePicture(),
+                'ownerUsername' => $user->getUsername(),
+                'content' => $result->getContent(),
+                'nbPictures' => $result->getNbPictures(),
+                'picture1' => $result->getPicture1(),
+                'picture2' => $result->getPicture2(),
+                'picture3' => $result->getPicture3(),
+                'picture4' => $result->getPicture4(),
+                'date' => date('h:m d M Y', intval($result->getDatePosted())),
+                'likes' => $result->getLikes(),
+            ];
+
+            array_push($resultPosts, $constructedResult);
+        }
+
         return $this->render('fursbook/home.html.twig', [
             'loggedUserUsername' => $userUsername,
             'loggedUserProfilePicture' => $userProfilePicture,
+            'posts' => $resultPosts,
         ],);
     }
 

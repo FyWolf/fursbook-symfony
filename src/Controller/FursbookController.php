@@ -94,7 +94,7 @@ class FursbookController extends AbstractController
             }
             if (null !== $form->get('profilePicture')->getData()){
                 $uploadedFile = $form->get('profilePicture')->getData();
-                $destination = $this->getParameter('kernel.project_dir').'/public/userRessources/'.$user->getUsername().'/profilePictures';
+                $destination = $this->getParameter('kernel.project_dir').'/public/userRessources/'.$user->getId().'/profilePictures';
                 $originalFilename = pathinfo($uploadedFile->getClientOriginalName(), PATHINFO_FILENAME);
                 $newFilename = $user->getUsername().'-'.uniqid().'.'.$uploadedFile->guessExtension();
 
@@ -102,12 +102,12 @@ class FursbookController extends AbstractController
                     $destination,
                     $newFilename
                 );
-                $userProfilePicture = '/userRessources/'.$user->getUsername().'/profilePictures/'.$newFilename;
+                $userProfilePicture = '/userRessources/'.$user->getId().'/profilePictures/'.$newFilename;
                 $user->setProfilePicture($userProfilePicture);
             }
             if (null !== $form->get('profileBanner')->getData()){
                 $uploadedFile = $form->get('profileBanner')->getData();
-                $destination = $this->getParameter('kernel.project_dir').'/public/userRessources/'.$user->getUsername().'/profileBanner';
+                $destination = $this->getParameter('kernel.project_dir').'/public/userRessources/'.$user->getId().'/profileBanner';
                 $originalFilename = pathinfo($uploadedFile->getClientOriginalName(), PATHINFO_FILENAME);
                 $newFilename = $user->getUsername().'-'.uniqid().'.'.$uploadedFile->guessExtension();
 
@@ -115,7 +115,7 @@ class FursbookController extends AbstractController
                     $destination,
                     $newFilename
                 );
-                $userProfileBanner = '/userRessources/'.$user->getUsername().'/profileBanner/'.$newFilename;
+                $userProfileBanner = '/userRessources/'.$user->getId().'/profileBanner/'.$newFilename;
                 $user->setProfileBanner($userProfileBanner);
             }
             $message = 'Modifications enregistrées';

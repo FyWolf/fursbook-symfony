@@ -33,7 +33,7 @@ class newPostController extends AbstractController
 
             if (null !== $form->get('image1')->getData()){
                 $uploadedFile = $form->get('image1')->getData();
-                $destination = $this->getParameter('kernel.project_dir').'/public/userRessources/'.$this->getUser()->getUsername().'/postsPictures';
+                $destination = $this->getParameter('kernel.project_dir').'/public/userRessources/'.$this->getUser()->getId().'/postsPictures';
                 $originalFilename = pathinfo($uploadedFile->getClientOriginalName(), PATHINFO_FILENAME);
                 $newFilename = $this->getUser()->getUsername().'-'.uniqid().'.'.$uploadedFile->guessExtension();
 
@@ -42,14 +42,14 @@ class newPostController extends AbstractController
                     $newFilename
                 );
 
-                $postPicture1 = '/userRessources/'.$this->getUser()->getUsername().'/postsPictures/'.$newFilename;
+                $postPicture1 = '/userRessources/'.$this->getUser()->getId().'/postsPictures/'.$newFilename;
                 $post->setPicture1($postPicture1);
                 $nbPictures = 1;
             }
 
             if (null !== $form->get('image2')->getData()){
                 $uploadedFile = $form->get('image2')->getData();
-                $destination = $this->getParameter('kernel.project_dir').'/public/userRessources/'.$this->getUser()->getUsername().'/postsPictures';
+                $destination = $this->getParameter('kernel.project_dir').'/public/userRessources/'.$this->getUser()->getId().'/postsPictures';
                 $originalFilename = pathinfo($uploadedFile->getClientOriginalName(), PATHINFO_FILENAME);
                 $newFilename = $this->getUser()->getUsername().'-'.uniqid().'.'.$uploadedFile->guessExtension();
 
@@ -58,14 +58,14 @@ class newPostController extends AbstractController
                     $newFilename
                 );
 
-                $postPicture2 = '/userRessources/'.$this->getUser()->getUsername().'/postsPictures/'.$newFilename;
+                $postPicture2 = '/userRessources/'.$this->getUser()->getId().'/postsPictures/'.$newFilename;
                 $post->setPicture2($postPicture2);
                 $nbPictures = 2;
             }
 
             if (null !== $form->get('image3')->getData()){
                 $uploadedFile = $form->get('image3')->getData();
-                $destination = $this->getParameter('kernel.project_dir').'/public/userRessources/'.$this->getUser()->getUsername().'/postsPictures';
+                $destination = $this->getParameter('kernel.project_dir').'/public/userRessources/'.$this->getUser()->getId().'/postsPictures';
                 $originalFilename = pathinfo($uploadedFile->getClientOriginalName(), PATHINFO_FILENAME);
                 $newFilename = $this->getUser()->getUsername().'-'.uniqid().'.'.$uploadedFile->guessExtension();
 
@@ -74,14 +74,14 @@ class newPostController extends AbstractController
                     $newFilename
                 );
 
-                $postPicture3 = '/userRessources/'.$this->getUser()->getUsername().'/postsPictures/'.$newFilename;
+                $postPicture3 = '/userRessources/'.$this->getUser()->getId().'/postsPictures/'.$newFilename;
                 $post->setPicture3($postPicture3);
                 $nbPictures = 3;
             }
 
             if (null !== $form->get('image4')->getData()){
                 $uploadedFile = $form->get('image4')->getData();
-                $destination = $this->getParameter('kernel.project_dir').'/public/userRessources/'.$this->getUser()->getUsername().'/postsPictures';
+                $destination = $this->getParameter('kernel.project_dir').'/public/userRessources/'.$this->getUser()->getId().'/postsPictures';
                 $originalFilename = pathinfo($uploadedFile->getClientOriginalName(), PATHINFO_FILENAME);
                 $newFilename = $this->getUser()->getUsername().'-'.uniqid().'.'.$uploadedFile->guessExtension();
 
@@ -90,7 +90,7 @@ class newPostController extends AbstractController
                     $newFilename
                 );
 
-                $postPicture4 = '/userRessources/'.$this->getUser()->getUsername().'/postsPictures/'.$newFilename;
+                $postPicture4 = '/userRessources/'.$this->getUser()->getId().'/postsPictures/'.$newFilename;
                 $post->setPicture4($postPicture4);
                 $nbPictures = 4;
             }

@@ -21,10 +21,13 @@ class ProfileController extends AbstractController{
     #[Route("/profile/{username}", name: 'profile_fursbook')]
     public function profile(ManagerRegistry $doctrine, string $username): Response
     {
-
         if ($this->getUser()) {
             $userUsername = $this->getUser()->getUsername();
             $userProfilePicture = $this->getUser()->getProfilePicture();
+        }
+        else {
+            $userUsername = "";
+            $userProfilePicture = "";
         }
 
         $repository = $doctrine->getRepository(User::class);

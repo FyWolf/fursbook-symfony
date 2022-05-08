@@ -622,6 +622,8 @@ body nav a h1 img {
 
 .userProfile .userProfileDiv .banner .dropdown__menu > li {
   list-style: none;
+  width: 200px;
+  padding: 3px;
 }
 
 .userProfile .userProfileDiv .banner .dropdown__menu > li > a {

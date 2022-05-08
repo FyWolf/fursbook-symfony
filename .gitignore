@@ -49,3 +49,7 @@
 
 # Embedded web-server pid file
 /.web-server-pid
+
+
+#environement variables
+.env

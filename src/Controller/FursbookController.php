@@ -44,7 +44,7 @@ class FursbookController extends AbstractController
                 'picture2' => $result->getPicture2(),
                 'picture3' => $result->getPicture3(),
                 'picture4' => $result->getPicture4(),
-                'date' => date('h:m d M Y', intval($result->getDatePosted())),
+                'date' => date('h:i d M Y', intval($result->getDatePosted())),
                 'likes' => $result->getLikes(),
             ];
 

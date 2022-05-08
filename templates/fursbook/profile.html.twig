@@ -11,7 +11,21 @@
         <div class="banner">
             <img class="bannerImg" src="{{ asset(showedUserProfileBanner) }}">
             <img class="pfp"  src="{{ asset(showedUserProfilePicture) }}">
-            <button class="more"><img class="svg" src="{{ asset('ressources/svg/ellipsis.svg') }}"></button>
+            <div class="dropdown">
+                <input class="dropdown__check" type="checkbox" id="dropdown[1]">
+                <label class="dropdown__toggle" for="dropdown[1]"><img class="svg" src="{{ asset('ressources/svg/ellipsis.svg') }}"></label>
+                <ul class="dropdown__menu">
+                    {% if loggedUserUsername == showedUserUsername %}
+                        <li>
+                            <a href="/settings">Paramètres de profil</a>
+                        </li>
+                    {% else %}
+                        <li>
+                            <p>Rien disponnible sur ce profil</p>
+                        </li>
+                    {% endif %}
+                </ul>
+            </div>
         </div>
         <div class="infos">
             <p class="username">{{showedUserUsername}}</p>

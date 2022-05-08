@@ -558,8 +558,7 @@ body nav a h1 img {
     border: none;
 }
 
-.userProfile .userProfileDiv .banner *:before,
-.userProfile .userProfileDiv .banner *:after {
+.userProfile .userProfileDiv .banner *:before, .userProfile .userProfileDiv .banner *:after {
   box-sizing: border-box;
 }
 

@@ -8,7 +8,21 @@
     </div>
     <div class="contentdiv">
         <div class="top">
-            <button><img class="svg" src="{{ asset('ressources/svg/ellipsis.svg') }}"></button>
+            <div class="dropdown">
+                <input class="dropdown__check" type="checkbox" id="dropdown[1]">
+                <label class="dropdown__toggle" for="dropdown[1]"><img class="svg" src="{{ asset('ressources/svg/ellipsis.svg') }}"></label>
+                <ul class="dropdown__menu">
+                    {% if loggedUserUsername == post.ownerUsername %}
+                        <li>
+                            <a href="/settings">Paramètres de profil</a>
+                        </li>
+                    {% else %}
+                        <li>
+                            <p>Rien disponnible sur ce post</p>
+                        </li>
+                    {% endif %}
+                </ul>
+            </div>
         </div>
         <div class="middle">
             <p>{{ post.content }}</p>

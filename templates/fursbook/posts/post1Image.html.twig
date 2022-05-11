@@ -1,24 +1,8 @@
-<article class="posts">
-    <div class="userDiv">
-        <div>
-            <img src="{{ asset(post.ownerProfilePicture) }}">
-            <a href="/profile/{{ post.ownerUsername }}">{{ post.ownerUsername }}</a>
-        </div>
-        <span>{{ post.date }}</span>
+{% extends "postsMaster.html.twig" %}
+
+{% block content %}
+    <div>
+        <img class="picture1" src="{{ asset(post.picture1) }}">
     </div>
-    <div class="contentdiv">
-        <div class="top">
-            <button><img class="svg" src="{{ asset('ressources/svg/ellipsis.svg') }}"></button>
-        </div>
-        <div class="middle">
-            <div>
-                <img class="picture1" src="{{ asset(post.picture1) }}">
-            </div>
-            <p>{{ post.content }}</p>
-        </div>
-        <div class="bottom">
-            <button class="commentBtn"><img class="svg" src="{{ asset('ressources/svg/comment.svg') }}"></button>
-            <button class="likeBtn"><img class="svg" src="{{ asset('ressources/svg/like.svg') }}"></button>
-        </div>
-    </div>
-</article>
+    <p>{{ post.content }}</p>
+{% endblock %}

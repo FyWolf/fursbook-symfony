@@ -1,27 +1,11 @@
-<article class="posts">
-    <div class="userDiv">
-        <div>
-            <img src="{{ asset(post.ownerProfilePicture) }}">
-            <a href="/profile/{{ post.ownerUsername }}">{{ post.ownerUsername }}</a>
-        </div>
-        <span>{{ post.date }}</span>
+{% extends "postsMaster.html.twig" %}
+
+{% block content %}
+    <div class="postPictures pic4">
+        <img class="picture1" src="{{ asset(post.picture1) }}">
+        <img class="picture2" src="{{ asset(post.picture2) }}">
+        <img class="picture3" src="{{ asset(post.picture3) }}">
+        <img class="picture4" src="{{ asset(post.picture4) }}">
     </div>
-    <div class="contentdiv">
-        <div class="top">
-            <button><img class="svg" src="{{ asset('ressources/svg/ellipsis.svg') }}"></button>
-        </div>
-        <div class="middle">
-            <div class="postPictures pic4">
-                <img class="picture1" src="{{ asset(post.picture1) }}">
-                <img class="picture2" src="{{ asset(post.picture2) }}">
-                <img class="picture3" src="{{ asset(post.picture3) }}">
-                <img class="picture4" src="{{ asset(post.picture4) }}">
-            </div>
-            <p>{{ post.content }}</p>
-        </div>
-        <div class="bottom">
-            <button class="commentBtn"><img class="svg" src="{{ asset('ressources/svg/comment.svg') }}"></button>
-            <button class="likeBtn"><img class="svg" src="{{ asset('ressources/svg/like.svg') }}"></button>
-        </div>
-    </div>
-</article>
+    <p>{{ post.content }}</p>
+{% endblock %}

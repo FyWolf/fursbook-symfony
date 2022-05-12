@@ -22,7 +22,6 @@ function getmoredata() {
     function (response) {
       $('#postsDiv').append(response.classifiedList);
       postsDiv.classList.remove("spinner");
-      console.log(response);
       window.__isFetching = false;
     },
   );

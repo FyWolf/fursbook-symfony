@@ -492,6 +492,28 @@ body nav a h1 img {
     margin-right: 5px;
 }
 
+@keyframes spinner {
+    to {transform: rotate(360deg);}
+}
+
+.spinner:after {
+    content: '';
+    box-sizing: border-box;
+    position: absolute;
+    left: 50%;
+    width: 5vh;
+    height: 5vh;
+    margin-top: -30px;
+    margin-bottom: 2vh;
+    margin-left: -10px;
+    border-radius: 50%;
+    border-top: 3px solid var(--scndAltBgColor);
+    border-right: 3px solid transparent;
+    animation: spinner .6s linear infinite;
+}
+
+
+
 /***
     ####
         LOGIN/REGISTER PAGE CSS

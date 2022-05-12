@@ -39,7 +39,7 @@
         </p>
         </div>
     </div>
-    <div class="postsDiv">
+    <div class="postsDiv" id="postsDiv">
     {% for post in posts %}
         {% if post.nbPictures == 0 %}
             {% include "/fursbook/posts/postTextOnly.html.twig" %}
@@ -62,4 +62,9 @@
     </div>
     {% endif %}
 </main>
+{% endblock %}
+
+{% block javascripts %}
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js" defer></script>
+    <script src="/js/postScroll.js" defer></script>
 {% endblock %}

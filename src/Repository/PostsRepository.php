@@ -64,24 +64,26 @@ class PostsRepository extends ServiceEntityRepository
     }
     */
 
-    public function findAllPostsById($value)
+    public function findAllPostsById($id, $offset)
     {
         return $this->createQueryBuilder('u')
             ->andWhere('u.Owner = :id')
-            ->setParameter('id', $value)
+            ->setParameter('id', $id)
             ->orderBy('u.id', 'DESC')
-            ->setMaxResults(50)
+            ->setMaxResults(5)
             ->getQuery()
+            ->setFirstResult($offset)
             ->getResult()
         ;
     }
 
-    public function findAllPosts()
+    public function findAllPosts($offset)
     {
         return $this->createQueryBuilder('u')
             ->orderBy('u.id', 'DESC')
-            ->setMaxResults(50)
+            ->setMaxResults(5)
             ->getQuery()
+            ->setFirstResult($offset)
             ->getResult()
         ;
     }

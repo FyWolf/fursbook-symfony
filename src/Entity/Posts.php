@@ -2,6 +2,7 @@
 
 namespace App\Entity;
 
+use App\Entity\User;
 use App\Repository\PostsRepository;
 use Doctrine\ORM\Mapping as ORM;
 
@@ -13,7 +14,8 @@ class Posts
     #[ORM\Column(type: 'integer')]
     private $id;
 
-    #[ORM\Column(type: 'string')]
+    #[ORM\ManyToOne(targetEntity: User::class, inversedBy: 'id')]
+    #[ORM\Column(type: 'integer', length: 11)]
     private $Owner;
 
     #[ORM\Column(type: 'string', length: 300, nullable: true)]
@@ -36,9 +38,6 @@ class Posts
 
     #[ORM\Column(type: 'string', length: 255)]
     private $datePosted;
-
-    #[ORM\Column(type: 'string', length: 255, nullable: true)]
-    private $likes;
 
     public function getId(): ?int
     {
@@ -137,18 +136,6 @@ class Posts
     public function setDatePosted(string $datePosted): self
     {
         $this->datePosted = $datePosted;
-
-        return $this;
-    }
-
-    public function getLikes(): ?string
-    {
-        return $this->likes;
-    }
-
-    public function setLikes(?string $likes): self
-    {
-        $this->likes = $likes;
 
         return $this;
     }

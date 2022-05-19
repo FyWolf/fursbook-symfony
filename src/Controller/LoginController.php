@@ -25,7 +25,6 @@ class LoginController extends AbstractController
         // last username entered by the user
         $lastUsername = $authenticationUtils->getLastUsername();
         return $this->render('fursbook/login.html.twig', [
-            'controller_name' => 'LoginController',
             'last_username' => $lastUsername,
             'error'         => $error,
             'loggedUserUsername' => $userUsername,

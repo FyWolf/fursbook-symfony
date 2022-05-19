@@ -9,7 +9,7 @@
         <div class="leftContentDiv">
             {% if app.user %}
                 <p class="welcome">Bon retour {{ loggedUserUsername }} !</p>
-            <p class="subWelcome">Qu'as tu envie d'écrire aujourd'hui ?</p>
+            <p class="subWelcome">{% trans %}welcomeSubMessage{% endtrans %}</p>
             <a href="/newpost"><img class="svg" src="{{ asset('ressources/svg/write.svg') }}" alt="sign in">Nouveau post</a>
             {% endif %}
             {% if not app.user %}

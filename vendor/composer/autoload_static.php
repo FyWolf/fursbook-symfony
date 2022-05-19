@@ -561,6 +561,7 @@ class ComposerStaticInitb1f81f42438cfb9097adc424d2d76f44
         'App\\Controller\\RegistrationController' => __DIR__ . '/../..' . '/src/Controller/RegistrationController.php',
         'App\\Controller\\SearchController' => __DIR__ . '/../..' . '/src/Controller/SearchController.php',
         'App\\Controller\\SecurityController' => __DIR__ . '/../..' . '/src/Controller/SecurityController.php',
+        'App\\Controller\\SettingsController' => __DIR__ . '/../..' . '/src/Controller/SettingsController.php',
         'App\\Controller\\newPostController' => __DIR__ . '/../..' . '/src/Controller/newPostController.php',
         'App\\Entity\\Likes' => __DIR__ . '/../..' . '/src/Entity/Likes.php',
         'App\\Entity\\Posts' => __DIR__ . '/../..' . '/src/Entity/Posts.php',

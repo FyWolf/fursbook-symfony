@@ -1,0 +1,27 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}
+    Fursbook | Settings
+{% endblock %}
+
+{% block body %}
+    <main class="settings">
+        <section class="profileSettings">
+                <fieldset>
+                    <legend>Paramètres de profil</legend>
+                    <p>{{ message }}</p>
+                    {{ form_start(form) }}
+                        {{ form_label(form.username, "Nom d'utilisateur") }}
+                        {{ form_row(form.username, {label: false}) }}
+                        {{ form_label(form.bio, 'Description') }}
+                        {{ form_row(form.bio,  {label: false, 'attr': {'class': 'textArea', 'maxlength': '180'}}) }}
+                        {{ form_label(form.profilePicture, "Image de profil") }}
+                        {{ form_row(form.profilePicture, {label: false, 'attr': {'accept': 'image/png, image/jpg, image/jpeg, images/gif', 'multiple': false}}) }}
+                        {{ form_label(form.profileBanner, "Bannière de profil") }}
+                        {{ form_row(form.profileBanner, {label: false, 'attr': {'accept': 'image/png, image/jpg, image/jpeg, images/gif', 'multiple': false}}) }}
+                        <button type="submit" class="btn">Enregistrer</button>
+                        {{ form_end(form) }}
+                </fieldset>
+        </section>
+    </main>
+{% endblock %}

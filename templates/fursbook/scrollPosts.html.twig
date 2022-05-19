@@ -1,0 +1,13 @@
+{% for post in posts %}
+    {% if post.nbPictures == 0 %}
+        {% include "/fursbook/posts/postTextOnly.html.twig" %}
+        {% elseif post.nbPictures == 1 %}
+            {% include "/fursbook/posts/post1Image.html.twig" %}
+        {% elseif post.nbPictures == 2 %}
+            {% include "/fursbook/posts/post2Image.html.twig" %}
+        {% elseif post.nbPictures == 3 %}
+            {% include "/fursbook/posts/post3Image.html.twig" %}
+        {% elseif post.nbPictures == 4 %}
+            {% include "/fursbook/posts/post4Image.html.twig" %}
+    {% endif %}
+{% endfor %}

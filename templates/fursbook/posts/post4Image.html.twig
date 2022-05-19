@@ -1,0 +1,11 @@
+{% extends 'postsMaster.html.twig' %}
+
+{% block content %}
+            <div class="postPictures pic4">
+                <img class="picture1" src="{{ asset(post.picture1) }}">
+                <img class="picture2" src="{{ asset(post.picture2) }}">
+                <img class="picture3" src="{{ asset(post.picture3) }}">
+                <img class="picture4" src="{{ asset(post.picture4) }}">
+            </div>
+            <p>{{ post.content }}</p>
+{% endblock %}

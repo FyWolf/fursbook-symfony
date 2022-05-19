@@ -1,0 +1,46 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}
+    Fursbook | Home
+{% endblock %}
+
+{% block body %}
+    <main class="homePage">
+        <div class="leftContentDiv">
+            {% if app.user %}
+                <p class="welcome">Bon retour {{ loggedUserUsername }} !</p>
+            <p class="subWelcome">Qu'as tu envie d'écrire aujourd'hui ?</p>
+            <a href="/newpost"><img class="svg" src="{{ asset('ressources/svg/write.svg') }}" alt="sign in">Nouveau post</a>
+            {% endif %}
+            {% if not app.user %}
+                <p class="welcome">Bienvenue !</p>
+                <p class="subWelcome">Vous pouvez vous connecter ici:</p>
+                <a href="/login"><img class="svg" src="{{ asset('ressources/svg/signInLogo.svg') }}" alt="sign in"> Se connecter</a>
+            {% endif %}
+
+        </div>
+        <div class="postsDiv" id="postsDiv">
+        {% for post in posts %}
+            {% if post.nbPictures == 0 %}
+                {% include "/fursbook/posts/postTextOnly.html.twig" %}
+                {% elseif post.nbPictures == 1 %}
+                    {% include "/fursbook/posts/post1Image.html.twig" %}
+                {% elseif post.nbPictures == 2 %}
+                    {% include "/fursbook/posts/post2Image.html.twig" %}
+                {% elseif post.nbPictures == 3 %}
+                    {% include "/fursbook/posts/post3Image.html.twig" %}
+                {% elseif post.nbPictures == 4 %}
+                    {% include "/fursbook/posts/post4Image.html.twig" %}
+            {% endif %}
+        {% endfor %}
+        </div>
+        <div class="endScroll">
+            
+        </div>
+    </main>
+{% endblock %}
+
+{% block javascripts %}
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
+    <script src="/js/postScroll.js" defer></script>
+{% endblock %}

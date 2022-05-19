@@ -1,0 +1,25 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Fursbook | Register{% endblock %}
+
+{% block body %}
+    <main class="loginPage">
+        <div>
+            {{ form_start(registrationForm) }}
+                {{ form_row(registrationForm.username, {
+                    label: 'Username'
+                }) }}
+
+                {{ form_row(registrationForm.email, {
+                    label: 'Email'
+                }) }}
+
+                {{ form_row(registrationForm.plainPassword, {
+                    label: 'Password'
+                }) }}
+
+                <button type="submit" class="btn">Register</button>
+            {{ form_end(registrationForm) }}
+        </div>
+    </main>
+{% endblock %}

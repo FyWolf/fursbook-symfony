@@ -1,0 +1,28 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}
+    Fursbook | Search
+{% endblock %}
+
+{% block body %}
+<main class="searchPage">
+    <div class="searchBar">
+        {{ form_start(form) }}
+            {{ form_row(form.search, {label: false, 'value' : actualSearch, 'attr': {'placeholder': "Nom d'utilisateur"}}) }}
+            <button type="submit" class="btn">Rechercher</button>
+        {{ form_end(form) }}
+    </div>
+    <div class="contentDiv">
+        {% for user in resultArray %}
+            <div class="userDiv">
+                <div>
+                <img src="{{ user.profilePicture }}">
+                    <a href="/profile/{{ user.username }}">{{ user.username }}</a>
+                </div>
+            </div>
+        {% endfor %}
+    </div>
+</main>
+
+<link rel="stylesheet" href="{{ asset('css/main.css') }}">
+{% endblock %}

@@ -1,0 +1,33 @@
+<nav>
+    <aside class="js-sidebar">
+        <div class="js-sidebar--container">
+        <div class="navSideTopDiv">
+        {% if app.user %}
+            <div class="navProfile">
+                <img class="profilePicture" src="{{ asset(loggedUserProfilePicture) }}">
+                <p>{{ loggedUserUsername }}</p>
+            </div>
+        {% endif %}
+            <div class="navLinks">
+                <a href="/"><img class="svg" src="{{ asset('ressources/svg/navHome.svg') }}">Accueil</a>
+                <a href="/profile/{{ loggedUserUsername }}"><img class="svg" src="{{ asset('ressources/svg/sidePanelUser.svg') }}"> Profil</a>
+                <a href="/settings"><img class="svg" src="{{ asset('ressources/svg/navSettings.svg') }}">Paramètres</a>
+                <a href="/newpost"><img class="svg" src="{{ asset('ressources/svg/write.svg') }}">Nouveau post</a>
+            </div>
+        </div>
+        <div class="navSideBottomDiv">
+        {% if not app.user %}
+            <a href="/login"><img class="svg" src="{{ asset('ressources/svg/signInLogo.svg') }}" alt="sign in"></a>
+        {% endif %}
+
+        {% if app.user %}
+            <a href="/logout"><img class="svg" src="{{ asset('ressources/svg/signOutLogo.svg') }}" alt="sign in"></a>
+        {% endif %}
+        </div>
+        </div>
+        <div class="js-sidebar--background"></div>
+    </aside>
+    <button class="js-sidebar--open"><img class="svg" src="{{ asset('ressources/svg/navSidePannelToggle.svg') }}" alt="Side pannel button"></button>
+    <a href="/"><h1><img class="svg" src="{{ asset('ressources/svg/logo.svg') }}" alt="fursbook logo">ursbook</h1></a>
+    <a href="/search"><img class="svg" src="{{ asset('ressources/svg/navSearchBarIcon.svg') }}" alt="search bar button"></a>
+</nav>

@@ -1,0 +1,36 @@
+<article class="posts">
+    <div class="userDiv">
+        <div>
+            <img src="{{ asset(post.ownerProfilePicture) }}">
+            <a href="/profile/{{ post.ownerUsername }}">{{ post.ownerUsername }}</a>
+        </div>
+        <span>{{ post.date }}</span>
+    </div>
+    <div class="contentdiv">
+        <div class="top">
+            {# <div class="dropdown">
+                <input class="dropdown__check" type="checkbox" id="dropdown[1]">
+                <label class="dropdown__toggle" for="dropdown[1]"><img class="svg" src="{{ asset('ressources/svg/ellipsis.svg') }}"></label>
+                <ul class="dropdown__menu">
+                    {% if loggedUserUsername == post.ownerUsername %}
+                        <li>
+                            <a href="/settings">Paramètres de profil</a>
+                        </li>
+                    {% else %}
+                        <li>
+                            <p>Rien disponnible sur ce post</p>
+                        </li>
+                    {% endif %}
+                </ul>
+            </div> #}
+        </div>
+        <div class="middle">
+            {% block content %}
+            {% endblock %}
+        </div>
+        <div class="bottom">
+            <button class="commentBtn"><img class="svg" src="{{ asset('ressources/svg/comment.svg') }}"></button>
+            <button class="likeBtn"><img class="svg" src="{{ asset('ressources/svg/like.svg') }}"></button>
+        </div>
+    </div>
+</article>

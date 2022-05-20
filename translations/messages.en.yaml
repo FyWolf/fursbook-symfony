@@ -1,1 +1,4 @@
-welcomeSubMessage: What do you want to write today ?
+connectedWelcomeMainMessage: Welcome
+connectedWelcomeSubMessage: What do you want to write today ?
+welcomeMainMessage: Welcome !
+welcomeSubMessage: You can connect here

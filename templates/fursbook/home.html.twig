@@ -8,13 +8,13 @@
     <main class="homePage">
         <div class="leftContentDiv">
             {% if app.user %}
-                <p class="welcome">Bon retour {{ loggedUserUsername }} !</p>
-            <p class="subWelcome">{% trans %}welcomeSubMessage{% endtrans %}</p>
+                <p class="welcome">{% trans %}connectedWelcomeMainMessage{% endtrans %} {{ loggedUserUsername }} !</p>
+            <p class="subWelcome">{% trans %}connectedWelcomeSubMessage{% endtrans %}</p>
             <a href="/newpost"><img class="svg" src="{{ asset('ressources/svg/write.svg') }}" alt="sign in">Nouveau post</a>
             {% endif %}
             {% if not app.user %}
-                <p class="welcome">Bienvenue !</p>
-                <p class="subWelcome">Vous pouvez vous connecter ici:</p>
+                <p class="welcome">{% trans %}welcomeMainMessage{% endtrans %}</p>
+                <p class="subWelcome">{% trans %}welcomeSubMessage{% endtrans %}:</p>
                 <a href="/login"><img class="svg" src="{{ asset('ressources/svg/signInLogo.svg') }}" alt="sign in"> Se connecter</a>
             {% endif %}
 

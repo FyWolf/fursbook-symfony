@@ -1,2 +1,4 @@
-welcomeMainMessage: Bienvenue
-welcomeSubMessage: Qu'as tu envie d'écrire aujourd'hui ?
+connectedWelcomeMainMessage: Bienvenue
+connectedWelcomeSubMessage: Qu'as tu envie d'écrire aujourd'hui ?
+welcomeMainMessage: Bienvenue !
+welcomeSubMessage: Vous pouvez vous connecter ici

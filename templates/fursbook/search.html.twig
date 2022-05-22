@@ -1,15 +1,15 @@
 {% extends 'base.html.twig' %}
 
 {% block title %}
-    Fursbook | Search
+    Fursbook | {% trans %}search{% endtrans %}
 {% endblock %}
 
 {% block body %}
 <main class="searchPage">
     <div class="searchBar">
         {{ form_start(form) }}
-            {{ form_row(form.search, {label: false, 'value' : actualSearch, 'attr': {'placeholder': "Nom d'utilisateur"}}) }}
-            <button type="submit" class="btn">Rechercher</button>
+            {{ form_row(form.search, {label: false, 'value' : actualSearch, 'attr': {'placeholder': "username"}}) }}
+            <button type="submit" class="btn">{% trans %}search{% endtrans %}</button>
         {{ form_end(form) }}
     </div>
     <div class="contentDiv">

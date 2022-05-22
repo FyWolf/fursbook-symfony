@@ -1,20 +1,20 @@
 {% extends 'base.html.twig' %}
 
 {% block title %}
-    Fursbook | New post
+    Fursbook | {% trans %}newpost{% endtrans %}
 {% endblock %}
 
 {% block body %}
 <main class="newPost">
         <fieldset>
-            <legend>Nouveau post</legend>
+            <legend>{% trans %}newpost{% endtrans %}</legend>
             {{ form_start(form) }}
                 {{ form_row(form.content,  {label: false, 'attr': {'class': 'textArea', 'maxlength': '300'}}) }}
                 {{ form_row(form.image1, {label: false, 'attr': {'id': 'fileInput', 'accept': 'image/png, image/jpg, image/jpeg, images/gif', 'multiple': false}}) }}
                 {{ form_row(form.image2, {label: false, 'attr': {'id': 'fileInput', 'accept': 'image/png, image/jpg, image/jpeg, images/gif', 'multiple': false}}) }}
                 {{ form_row(form.image3, {label: false, 'attr': {'id': 'fileInput', 'accept': 'image/png, image/jpg, image/jpeg, images/gif', 'multiple': false}}) }}
                 {{ form_row(form.image4, {label: false, 'attr': {'id': 'fileInput', 'accept': 'image/png, image/jpg, image/jpeg, images/gif', 'multiple': false}}) }}
-                <button type="submit" class="btn">Envoyer</button>
+                <button type="submit" class="btn">{% trans %}sendPost{% endtrans %}</button>
             {{ form_end(form) }}
         </fieldset>
 </main>

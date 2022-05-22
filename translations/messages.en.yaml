@@ -1,4 +1,23 @@
 connectedWelcomeMainMessage: Welcome
 connectedWelcomeSubMessage: What do you want to write today ?
+profileNothingAvailable: Nothing available for that profile
 welcomeMainMessage: Welcome !
 welcomeSubMessage: You can connect here
+profileParameters: Profile settings
+passwordForgot: Password forgotten
+profilePicture: Profile Picture
+profileBanner: Profile banner
+profileNoUser: No user has been found with that username
+profileNoBio: This user doesn't have a desctiption, what a mysterious person :O
+description: Description
+newAccount: Create an account
+password: Password
+settings: Settings
+sendPost: Send post
+username: Username
+profile: Profile
+connect: Login
+newpost: New post
+search: Search
+home: Home
+save: Save

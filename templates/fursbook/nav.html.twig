@@ -9,10 +9,10 @@
             </div>
         {% endif %}
             <div class="navLinks">
-                <a href="/"><img class="svg" src="{{ asset('ressources/svg/navHome.svg') }}">Accueil</a>
-                <a href="/profile/{{ loggedUserUsername }}"><img class="svg" src="{{ asset('ressources/svg/sidePanelUser.svg') }}"> Profil</a>
-                <a href="/settings"><img class="svg" src="{{ asset('ressources/svg/navSettings.svg') }}">Paramètres</a>
-                <a href="/newpost"><img class="svg" src="{{ asset('ressources/svg/write.svg') }}">Nouveau post</a>
+                <a href="/"><img class="svg" src="{{ asset('ressources/svg/navHome.svg') }}">{% trans %}home{% endtrans %}</a>
+                <a href="/profile/{{ loggedUserUsername }}"><img class="svg" src="{{ asset('ressources/svg/sidePanelUser.svg') }}">{% trans %}profile{% endtrans %}</a>
+                <a href="/settings"><img class="svg" src="{{ asset('ressources/svg/navSettings.svg') }}">{% trans %}settings{% endtrans %}</a>
+                <a href="/newpost"><img class="svg" src="{{ asset('ressources/svg/write.svg') }}">{% trans %}newpost{% endtrans %}</a>
             </div>
         </div>
         <div class="navSideBottomDiv">

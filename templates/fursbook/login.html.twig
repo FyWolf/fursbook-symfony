@@ -13,12 +13,12 @@
             <form action="{{ path('login') }}" method="post">
                 <label for="username">Email</label>
                 <input type="email" id="username" name="_username" value="{{ last_username }}">
-                <label for="password">Mot de passe</label>
+                <label for="password">{% trans %}password{% endtrans %}</label>
                 <input type="password" id="password" name="_password">
-                <a href="/recovery">Mot de passe oublié</a>
-                <button type="submit">Se connecter</button>
+                <a href="/recovery">{% trans %}passwordForgot{% endtrans %}</a>
+                <button type="submit">{% trans %}connect{% endtrans %}</button>
             </form>
-        <a href="/register">Créer un compte</a>
+        <a href="/register">{% trans %}newAccount{% endtrans %}</a>
         </div>
     </main>
 {% endblock %}

@@ -1,4 +1,23 @@
 connectedWelcomeMainMessage: Bienvenue
 connectedWelcomeSubMessage: Qu'as tu envie d'écrire aujourd'hui ?
+profileNothingAvailable: Rien disponnible sur ce profil
 welcomeMainMessage: Bienvenue !
+profileParameters: Paramètres de profil
 welcomeSubMessage: Vous pouvez vous connecter ici
+passwordForgot: Mot de passe oublié
+profilePicture: Image de profil
+profileBanner: Banière de profil
+profileNoUser: Aucun utilisateur as été trouvé avec ce nom d'utilisateur
+profileNoBio: Cet utilisateur n'as pas de description, quelle personne mystérieuse :O
+description: Description
+newAccount: Créer un compte
+password: Mot de passe
+settings: Paramètres
+sendPost: Envoyer
+username: Nom d'utilisateur
+profile: Profil
+connect: Se connecter
+newpost: Nouveau post
+search: Rechercher
+home: Acceuil
+save: Sauvegarder

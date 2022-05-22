@@ -1,7 +1,7 @@
 {% extends 'base.html.twig' %}
 
 {% block title %}
-    Fursbook | Profile
+    Fursbook | {% trans %}profile{% endtrans %}
 {% endblock %}
 
 {% block body %}
@@ -17,11 +17,11 @@
                 <ul class="dropdown__menu">
                     {% if loggedUserUsername == showedUserUsername %}
                         <li>
-                            <a href="/settings">Paramètres de profil</a>
+                            <a href="/settings">{% trans %}profileParameters{% endtrans %}</a>
                         </li>
                     {% else %}
                         <li>
-                            <p>Rien disponnible sur ce profil</p>
+                            <p>{% trans %}profileNothingAvailable{% endtrans %}</p>
                         </li>
                     {% endif %}
                 </ul>
@@ -31,7 +31,7 @@
             <p class="username">{{showedUserUsername}}</p>
             <p class="bio">
                 {% if showedUserBio == "" %}
-                    Cet utilisateur n'as pas de description, quelle personne mystérieuse :O
+                    {% trans %}profileNoBio{% endtrans %}
                 {% endif %}
                 {% if not showedUserBio == "" %}
                     {{ showedUserBio }}
@@ -60,8 +60,8 @@
     {% endif %}
 
     {% if isUserValid == false %}
-    <div>
-        <p>The user you requested does not exist</p>
+    <div class="postsDiv">
+        <p>{% trans %}profileNoUser{% endtrans %}</p>
     </div>
     {% endif %}
 </main>

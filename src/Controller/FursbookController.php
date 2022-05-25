@@ -9,7 +9,6 @@ use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\HttpFoundation\Request;
 use Doctrine\Persistence\ManagerRegistry;
 use Doctrine\ORM\EntityManagerInterface;
-use App\Repository\PostsRepository;
 use App\Repository\UserRepository;
 use Gedmo\Sluggable\Util\Urlizer;
 use App\Form\SettingsType;
@@ -30,8 +29,8 @@ class FursbookController extends AbstractController
             $userProfilePicture = "";
         }
 
-        $postRepo = new PostsRepository;
-        $foundPosts = $postRepo->findAllPosts();
+        $postRepo = $doctrine->getRepository(Posts::class);
+        $foundPosts = $postRepo->findAllPosts(0);
         $resultPosts = [];
 
         foreach ($foundPosts as $result) {

@@ -9,18 +9,27 @@
         <section class="profileSettings">
                 <fieldset>
                     <legend>{% trans %}profileParameters{% endtrans %}</legend>
-                    <p>{{ message }}</p>
-                    {{ form_start(form) }}
-                        {{ form_label(form.username, 'username') }}
-                        {{ form_row(form.username, {label: false}) }}
-                        {{ form_label(form.bio, 'description') }}
-                        {{ form_row(form.bio,  {label: false, 'attr': {'class': 'textArea', 'maxlength': '180'}}) }}
-                        {{ form_label(form.profilePicture, "profilePicture") }}
-                        {{ form_row(form.profilePicture, {label: false, 'attr': {'accept': 'image/png, image/jpg, image/jpeg, images/gif', 'multiple': false}}) }}
-                        {{ form_label(form.profileBanner, "profileBanner") }}
-                        {{ form_row(form.profileBanner, {label: false, 'attr': {'accept': 'image/png, image/jpg, image/jpeg, images/gif', 'multiple': false}}) }}
+                    {{ form_start(profileForm) }}
+                        {{ form_label(profileForm.username, 'username') }}
+                        {{ form_row(profileForm.username, {label: false}) }}
+                        {{ form_label(profileForm.bio, 'description') }}
+                        {{ form_row(profileForm.bio,  {label: false, 'attr': {'class': 'textArea', 'maxlength': '180'}}) }}
+                        {{ form_label(profileForm.profilePicture, "profilePicture") }}
+                        {{ form_row(profileForm.profilePicture, {label: false, 'attr': {'accept': 'image/png, image/jpg, image/jpeg, images/gif', 'multiple': false}}) }}
+                        {{ form_label(profileForm.profileBanner, "profileBanner") }}
+                        {{ form_row(profileForm.profileBanner, {label: false, 'attr': {'accept': 'image/png, image/jpg, image/jpeg, images/gif', 'multiple': false}}) }}
                         <button type="submit" class="btn">{% trans %}save{% endtrans %}</button>
-                        {{ form_end(form) }}
+                        {{ form_end(profileForm) }}
+                </fieldset>
+        </section>
+        <section class="UserSettings">
+                <fieldset>
+                    <legend>{% trans %}userParameters{% endtrans %}</legend>
+                    {% if not app.user.isVerified %}
+                        {{ form_start(userForm) }}
+                            <button type="submit" class="btn">{% trans %}sendMail{% endtrans %}</button>
+                        {{ form_end(userForm) }}
+                    {% endif %}
                 </fieldset>
         </section>
     </main>

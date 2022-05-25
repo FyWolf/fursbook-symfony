@@ -6,10 +6,13 @@ profileParameters: Paramètres de profil
 welcomeSubMessage: Vous pouvez vous connecter ici
 passwordForgot: Mot de passe oublié
 profilePicture: Image de profil
+unverifiedMail: Votre compte dispose d'un accès restreint tant que vous n'avez pas vérifié votre mail.
+userParameters: Paramètres d'utilisateur
 profileBanner: Banière de profil
 profileNoUser: Aucun utilisateur as été trouvé avec ce nom d'utilisateur
 profileNoBio: Cet utilisateur n'as pas de description, quelle personne mystérieuse :O
 description: Description
+userVerify: Vérifier le compte
 newAccount: Créer un compte
 password: Mot de passe
 settings: Paramètres

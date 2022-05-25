@@ -24,6 +24,9 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
     #[ORM\Column(type: 'string', length: 180)]
     private $bio = '';
 
+    #[ORM\Column(type: 'boolean')]
+    private $isVerified = false;
+
     #[ORM\Column(type: 'json')]
     private $roles = [];
 
@@ -52,6 +55,11 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
     public function getBio(): ?string
     {
         return $this->bio;
+    }
+
+    public function getIsVerified(): ?bool
+    {
+        return $this->isVerified;
     }
 
     public function getprofileBanner(): ?string
@@ -96,6 +104,12 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
     {
         $this->bio = $bio;
 
+        return $this;
+    }
+
+    public function setIsVerified(bool $isVerified): self
+    {
+        $this->isVerified = $isVerified;
         return $this;
     }
 

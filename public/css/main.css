@@ -202,6 +202,10 @@ body::-webkit-scrollbar {
 ***/
 
 body nav {
+    margin-bottom: 2vh;
+}
+
+body nav .topNav {
     height: 5vh;
     position: sticky;
     top: 0;
@@ -214,34 +218,33 @@ body nav {
     box-shadow: 0px 0px 20px -1px #a795c0;
     z-index: 3;
     background-color: var(--mainBgColor);
-    margin-bottom: 2vh;
 }
 
-body nav button, body nav a {
+body nav .topNav button, body nav .topNav a {
     width: 10%;
     background: none;
     border: none;
 }
 
-body nav button img, body nav a img {
+body nav .topNav button img, body nav .topNav a img {
     width: 2.5vh;
 }
 
-body nav a h1 {
+body nav .topNav a h1 {
     display: flex;
     align-items: center;
     justify-content: center;
     font-size: 1.5rem;
 }
 
-body nav a {
+body nav .topNav a {
     text-decoration: none;
     color: white;
 }
-body nav a:visited {
+body nav .topNav a:visited {
     text-decoration: none;
 }
-body nav a h1 img {
+body nav .topNav a h1 img {
     width: 4vh;
 }
 
@@ -250,6 +253,16 @@ body nav a h1 img {
     left: 0;
     width: 100%;
     height: 100%;
+}
+
+body nav .alertDiv {
+    width: 100vw;
+    background-color: rgba(255, 238, 0, 0.397);
+    text-align: center;
+    padding: 0.5vh 0;
+    border-top: 1px solid;
+    border-bottom: 1px solid;
+    border-color: rgba(255, 238, 0, 0.712);
 }
 
 .js-sidebar {
@@ -700,13 +713,14 @@ body nav a h1 img {
     ####
 ***/
 
-.settings .profileSettings {
+.settings section {
     width: 90vw;
     max-width: 700px;
     margin: auto;
+    margin-bottom: 2vh;
 }
 
-.settings .profileSettings fieldset {
+.settings section fieldset {
     background-color: var(--altBgColor);
     border: 2px solid var(--scndAltBgColor);
     border-radius: 10px;
@@ -715,28 +729,28 @@ body nav a h1 img {
     align-items: center;
 }
 
-.settings .profileSettings fieldset legend {
+.settings section fieldset legend {
     font-weight: 600;
     font-size: 1.3rem;
 }
 
-.settings .profileSettings fieldset form {
+.settings section fieldset form {
     width: 95%;
     display: flex;
     align-items: center;
     flex-direction: column;
 }
 
-.settings .profileSettings fieldset form label {
+.settings section fieldset form label {
     margin: 1vh;
 }
 
-.settings .profileSettings fieldset form div {
+.settings section fieldset form div {
     width: 100%;
 }
 
-.settings .profileSettings fieldset form div input,
-.settings .profileSettings fieldset form div textarea {
+.settings section fieldset form div input,
+.settings section fieldset form div textarea {
     background-color: var(--scndAltBgColor);
     border: 1px solid black;
     color: white;
@@ -749,11 +763,11 @@ body nav a h1 img {
     width: 100%;
 }
 
-.settings .profileSettings fieldset form div textarea {
+.settings section fieldset form div textarea {
     height: 120px;
 }
 
-.settings .profileSettings fieldset form button {
+.settings section fieldset form button {
     background-color: var(--altBgColor);
     color: white;
     border: 1px solid black;
@@ -764,7 +778,7 @@ body nav a h1 img {
     transition: all 0.2s ease-in-out;
 }
 
-.settings .profileSettings fieldset form button:hover {
+.settings section fieldset form button:hover {
     border-color: white;
 }
 

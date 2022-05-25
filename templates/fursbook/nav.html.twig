@@ -16,13 +16,13 @@
                 </div>
             </div>
             <div class="navSideBottomDiv">
-                <form method="POST" action="/lang">
+                {# <form method="POST" action="/lang">
                     <select name="lang" onchange="this.form.submit()">
                         <option value="en">English</option>
                         <option value="fr">Français</option>
                     </select>
                     <input type="hidden" name="refer" value="{{ app.request.attributes.get('_route') }}" />
-                </form>
+                </form> #}
                 {% if not app.user %}
                     <a href="/login"><img class="svg" src="{{ asset('ressources/svg/signInLogo.svg') }}" alt="sign in"></a>
                 {% endif %}
@@ -34,7 +34,14 @@
         </div>
         <div class="js-sidebar--background"></div>
     </aside>
-    <button class="js-sidebar--open"><img class="svg" src="{{ asset('ressources/svg/navSidePannelToggle.svg') }}" alt="Side pannel button"></button>
-    <a href="/"><h1><img class="svg" src="{{ asset('ressources/svg/logo.svg') }}" alt="fursbook logo">ursbook</h1></a>
-    <a href="/search"><img class="svg" src="{{ asset('ressources/svg/navSearchBarIcon.svg') }}" alt="search bar button"></a>
+    <div class="topNav">
+        <button class="js-sidebar--open"><img class="svg" src="{{ asset('ressources/svg/navSidePannelToggle.svg') }}" alt="Side pannel button"></button>
+        <a href="/"><h1><img class="svg" src="{{ asset('ressources/svg/logo.svg') }}" alt="fursbook logo">ursbook</h1></a>
+        <a href="/search"><img class="svg" src="{{ asset('ressources/svg/navSearchBarIcon.svg') }}" alt="search bar button"></a>
+    </div>
+    {% if not app.user.isVerified %}
+        <div class="alertDiv">
+            {% trans %}unverifiedMail{% endtrans %} <a href="/settings"><button>{% trans %}userVerify{% endtrans %}</button></a>
+        </div>
+    {% endif %}
 </nav>

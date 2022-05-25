@@ -13,8 +13,7 @@ class LoginController extends AbstractController
     public function index(AuthenticationUtils $authenticationUtils): Response
     {
         if ($this->getUser()) {
-            $userUsername = $this->getUser()->getUsername();
-            $userProfilePicture = $this->getUser()->getProfilePicture();
+            return $this->redirectToRoute('home_fursbook');
         }
         else {
             $userUsername = "";

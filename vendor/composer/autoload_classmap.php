@@ -14,6 +14,7 @@ return array(
     'App\\Controller\\SearchController' => $baseDir . '/src/Controller/SearchController.php',
     'App\\Controller\\SecurityController' => $baseDir . '/src/Controller/SecurityController.php',
     'App\\Controller\\SettingsController' => $baseDir . '/src/Controller/SettingsController.php',
+    'App\\Controller\\mailController' => $baseDir . '/src/Controller/mailController.php',
     'App\\Controller\\newPostController' => $baseDir . '/src/Controller/newPostController.php',
     'App\\Entity\\Likes' => $baseDir . '/src/Entity/Likes.php',
     'App\\Entity\\Posts' => $baseDir . '/src/Entity/Posts.php',

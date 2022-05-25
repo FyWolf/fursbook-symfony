@@ -39,9 +39,11 @@
         <a href="/"><h1><img class="svg" src="{{ asset('ressources/svg/logo.svg') }}" alt="fursbook logo">ursbook</h1></a>
         <a href="/search"><img class="svg" src="{{ asset('ressources/svg/navSearchBarIcon.svg') }}" alt="search bar button"></a>
     </div>
-    {% if not app.user.isVerified %}
-        <div class="alertDiv">
-            {% trans %}unverifiedMail{% endtrans %} <a href="/settings"><button>{% trans %}userVerify{% endtrans %}</button></a>
-        </div>
+    {% if app.user %}
+        {% if not app.user.isVerified %}
+            <div class="alertDiv">
+                {% trans %}unverifiedMail{% endtrans %} <a href="/settings"><button>{% trans %}userVerify{% endtrans %}</button></a>
+            </div>
+        {% endif %}
     {% endif %}
 </nav>

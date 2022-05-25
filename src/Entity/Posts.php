@@ -14,7 +14,6 @@ class Posts
     #[ORM\Column(type: 'integer')]
     private $id;
 
-    #[ORM\ManyToOne(targetEntity: User::class, inversedBy: 'id')]
     #[ORM\Column(type: 'integer', length: 11)]
     private $Owner;
 

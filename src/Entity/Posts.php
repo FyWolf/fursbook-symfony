@@ -67,6 +67,18 @@ class Posts
         return $this;
     }
 
+    public function getDateCreated(): ?string
+    {
+        return $this->datePosted;
+    }
+
+    public function setDateCreated(?string $date): self
+    {
+        $this->datePosted = $date;
+
+        return $this;
+    }
+
     public function getNbPictures(): ?string
     {
         return $this->nbPictures;

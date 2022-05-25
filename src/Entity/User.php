@@ -42,6 +42,9 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
     #[ORM\Column(type: 'string')]
     private $profileBanner = "";
 
+    #[ORM\Column(type: 'string', length: 255)]
+    private $creationDate;
+
     public function getId(): ?int
     {
         return $this->id;

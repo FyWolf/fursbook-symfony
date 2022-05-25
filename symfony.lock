@@ -333,6 +333,15 @@
     "symfony/polyfill-php81": {
         "version": "v1.25.0"
     },
+    "symfony/postmark-mailer": {
+        "version": "6.0",
+        "recipe": {
+            "repo": "github.com/symfony/recipes",
+            "branch": "main",
+            "version": "4.4",
+            "ref": "84842f6791eaef80618dda244d4e3bbcbbcdf543"
+        }
+    },
     "symfony/process": {
         "version": "v6.0.8"
     },

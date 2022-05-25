@@ -14,8 +14,8 @@ class ComposerStaticInitb1f81f42438cfb9097adc424d2d76f44
         'e69f7f6ee287b969198c3c9d6777bd38' => __DIR__ . '/..' . '/symfony/polyfill-intl-normalizer/bootstrap.php',
         '8825ede83f2f289127722d4e842cf7e8' => __DIR__ . '/..' . '/symfony/polyfill-intl-grapheme/bootstrap.php',
         'b6b991a57620e2fb6b2f66f03fe9ddc2' => __DIR__ . '/..' . '/symfony/string/Resources/functions.php',
-        'c2aad8997a98dfc4771bdbffea3d62b7' => __DIR__ . '/..' . '/laminas/laminas-code/polyfill/ReflectionEnumPolyfill.php',
         'f598d06aa772fa33d905e87be6398fb1' => __DIR__ . '/..' . '/symfony/polyfill-intl-idn/bootstrap.php',
+        'c2aad8997a98dfc4771bdbffea3d62b7' => __DIR__ . '/..' . '/laminas/laminas-code/polyfill/ReflectionEnumPolyfill.php',
         '6a47392539ca2329373e0d33e1dba053' => __DIR__ . '/..' . '/symfony/polyfill-intl-icu/bootstrap.php',
         'a1105708a18b76903365ca1c4aa61b02' => __DIR__ . '/..' . '/symfony/translation/Resources/functions.php',
     );
@@ -73,6 +73,7 @@ class ComposerStaticInitb1f81f42438cfb9097adc424d2d76f44
             'Symfony\\Component\\Mime\\' => 23,
             'Symfony\\Component\\Messenger\\Bridge\\Doctrine\\' => 44,
             'Symfony\\Component\\Messenger\\' => 28,
+            'Symfony\\Component\\Mailer\\Bridge\\Postmark\\' => 41,
             'Symfony\\Component\\Mailer\\' => 25,
             'Symfony\\Component\\Intl\\' => 23,
             'Symfony\\Component\\HttpKernel\\' => 29,
@@ -319,6 +320,10 @@ class ComposerStaticInitb1f81f42438cfb9097adc424d2d76f44
         array (
             0 => __DIR__ . '/..' . '/symfony/messenger',
         ),
+        'Symfony\\Component\\Mailer\\Bridge\\Postmark\\' => 
+        array (
+            0 => __DIR__ . '/..' . '/symfony/postmark-mailer',
+        ),
         'Symfony\\Component\\Mailer\\' => 
         array (
             0 => __DIR__ . '/..' . '/symfony/mailer',
@@ -556,6 +561,7 @@ class ComposerStaticInitb1f81f42438cfb9097adc424d2d76f44
 
     public static $classMap = array (
         'App\\Controller\\FursbookController' => __DIR__ . '/../..' . '/src/Controller/FursbookController.php',
+        'App\\Controller\\LangController' => __DIR__ . '/../..' . '/src/Controller/LangController.php',
         'App\\Controller\\LoginController' => __DIR__ . '/../..' . '/src/Controller/LoginController.php',
         'App\\Controller\\ProfileController' => __DIR__ . '/../..' . '/src/Controller/ProfileController.php',
         'App\\Controller\\RegistrationController' => __DIR__ . '/../..' . '/src/Controller/RegistrationController.php',
@@ -3936,6 +3942,10 @@ class ComposerStaticInitb1f81f42438cfb9097adc424d2d76f44
         'Symfony\\Component\\Intl\\Util\\IcuVersion' => __DIR__ . '/..' . '/symfony/intl/Util/IcuVersion.php',
         'Symfony\\Component\\Intl\\Util\\IntlTestHelper' => __DIR__ . '/..' . '/symfony/intl/Util/IntlTestHelper.php',
         'Symfony\\Component\\Intl\\Util\\Version' => __DIR__ . '/..' . '/symfony/intl/Util/Version.php',
+        'Symfony\\Component\\Mailer\\Bridge\\Postmark\\Transport\\MessageStreamHeader' => __DIR__ . '/..' . '/symfony/postmark-mailer/Transport/MessageStreamHeader.php',
+        'Symfony\\Component\\Mailer\\Bridge\\Postmark\\Transport\\PostmarkApiTransport' => __DIR__ . '/..' . '/symfony/postmark-mailer/Transport/PostmarkApiTransport.php',
+        'Symfony\\Component\\Mailer\\Bridge\\Postmark\\Transport\\PostmarkSmtpTransport' => __DIR__ . '/..' . '/symfony/postmark-mailer/Transport/PostmarkSmtpTransport.php',
+        'Symfony\\Component\\Mailer\\Bridge\\Postmark\\Transport\\PostmarkTransportFactory' => __DIR__ . '/..' . '/symfony/postmark-mailer/Transport/PostmarkTransportFactory.php',
         'Symfony\\Component\\Mailer\\DataCollector\\MessageDataCollector' => __DIR__ . '/..' . '/symfony/mailer/DataCollector/MessageDataCollector.php',
         'Symfony\\Component\\Mailer\\DelayedEnvelope' => __DIR__ . '/..' . '/symfony/mailer/DelayedEnvelope.php',
         'Symfony\\Component\\Mailer\\Envelope' => __DIR__ . '/..' . '/symfony/mailer/Envelope.php',

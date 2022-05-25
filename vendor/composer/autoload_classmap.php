@@ -7,6 +7,7 @@ $baseDir = dirname($vendorDir);
 
 return array(
     'App\\Controller\\FursbookController' => $baseDir . '/src/Controller/FursbookController.php',
+    'App\\Controller\\LangController' => $baseDir . '/src/Controller/LangController.php',
     'App\\Controller\\LoginController' => $baseDir . '/src/Controller/LoginController.php',
     'App\\Controller\\ProfileController' => $baseDir . '/src/Controller/ProfileController.php',
     'App\\Controller\\RegistrationController' => $baseDir . '/src/Controller/RegistrationController.php',
@@ -3387,6 +3388,10 @@ return array(
     'Symfony\\Component\\Intl\\Util\\IcuVersion' => $vendorDir . '/symfony/intl/Util/IcuVersion.php',
     'Symfony\\Component\\Intl\\Util\\IntlTestHelper' => $vendorDir . '/symfony/intl/Util/IntlTestHelper.php',
     'Symfony\\Component\\Intl\\Util\\Version' => $vendorDir . '/symfony/intl/Util/Version.php',
+    'Symfony\\Component\\Mailer\\Bridge\\Postmark\\Transport\\MessageStreamHeader' => $vendorDir . '/symfony/postmark-mailer/Transport/MessageStreamHeader.php',
+    'Symfony\\Component\\Mailer\\Bridge\\Postmark\\Transport\\PostmarkApiTransport' => $vendorDir . '/symfony/postmark-mailer/Transport/PostmarkApiTransport.php',
+    'Symfony\\Component\\Mailer\\Bridge\\Postmark\\Transport\\PostmarkSmtpTransport' => $vendorDir . '/symfony/postmark-mailer/Transport/PostmarkSmtpTransport.php',
+    'Symfony\\Component\\Mailer\\Bridge\\Postmark\\Transport\\PostmarkTransportFactory' => $vendorDir . '/symfony/postmark-mailer/Transport/PostmarkTransportFactory.php',
     'Symfony\\Component\\Mailer\\DataCollector\\MessageDataCollector' => $vendorDir . '/symfony/mailer/DataCollector/MessageDataCollector.php',
     'Symfony\\Component\\Mailer\\DelayedEnvelope' => $vendorDir . '/symfony/mailer/DelayedEnvelope.php',
     'Symfony\\Component\\Mailer\\Envelope' => $vendorDir . '/symfony/mailer/Envelope.php',

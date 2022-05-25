@@ -11,8 +11,8 @@ use Doctrine\Persistence\ManagerRegistry;
 use App\Entity\Posts;
 use App\Entity\User;
 
-class ProfileController extends AbstractController{
-
+class ProfileController extends AbstractController
+{
     #[Route('/profile', name: 'profile404_fursbook')]
     public function profile404(): Response
     {

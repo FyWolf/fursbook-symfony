@@ -1,22 +1,22 @@
 <?php return array(
     'root' => array(
-        'pretty_version' => 'dev-main',
-        'version' => 'dev-main',
+        'pretty_version' => 'dev-master',
+        'version' => 'dev-master',
         'type' => 'project',
         'install_path' => __DIR__ . '/../../',
         'aliases' => array(),
-        'reference' => 'ac3dbdb58bd1d0a8641a403769ce166b9c1bac10',
+        'reference' => '63c3eff79c67b83a5dd19905cd6c6d73e7120175',
         'name' => '__root__',
         'dev' => true,
     ),
     'versions' => array(
         '__root__' => array(
-            'pretty_version' => 'dev-main',
-            'version' => 'dev-main',
+            'pretty_version' => 'dev-master',
+            'version' => 'dev-master',
             'type' => 'project',
             'install_path' => __DIR__ . '/../../',
             'aliases' => array(),
-            'reference' => 'ac3dbdb58bd1d0a8641a403769ce166b9c1bac10',
+            'reference' => '63c3eff79c67b83a5dd19905cd6c6d73e7120175',
             'dev_requirement' => false,
         ),
         'doctrine/annotations' => array(
@@ -771,6 +771,15 @@
             'install_path' => __DIR__ . '/../symfony/polyfill-php81',
             'aliases' => array(),
             'reference' => '5de4ba2d41b15f9bd0e19b2ab9674135813ec98f',
+            'dev_requirement' => false,
+        ),
+        'symfony/postmark-mailer' => array(
+            'pretty_version' => 'v6.0.7',
+            'version' => '6.0.7.0',
+            'type' => 'symfony-mailer-bridge',
+            'install_path' => __DIR__ . '/../symfony/postmark-mailer',
+            'aliases' => array(),
+            'reference' => '8405569233efb0140e55eb6236c9e55693f058ff',
             'dev_requirement' => false,
         ),
         'symfony/process' => array(

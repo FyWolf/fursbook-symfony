@@ -19,10 +19,9 @@
     <body>
         {% include "fursbook/nav.html.twig" %}
         {% block body %}{% endblock %}
-
         {% block stylesheets %}
             {{ encore_entry_link_tags('app') }}
         {% endblock %}
-            <link rel="stylesheet" href="{{ asset('css/main.css') }}">
+        <link rel="stylesheet" href="{{ asset('css/main.css') }}">
     </body>
 </html>

@@ -29,6 +29,6 @@ class LoginController extends AbstractController
             'error'         => $error,
             'loggedUserUsername' => $userUsername,
             'loggedUserProfilePicture' => $userProfilePicture,
-              ]);
-          }
-      }
+        ]);
+    }
+}

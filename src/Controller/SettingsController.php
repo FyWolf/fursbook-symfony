@@ -31,14 +31,14 @@ class SettingsController extends AbstractController
         $profileForm = $this->createForm(ProfileSettingsType::class);
         $profileForm->handleRequest($request);
         if ($profileForm->isSubmitted()){
-            if (null !== $form->get('username')->getData()){
+            if (null !== $profileForm->get('username')->getData()){
                 $user->setUsername( $form->get('username')->getData());
             }
-            if (null !== $form->get('bio')->getData()){
-                $user->setBio( $form->get('bio')->getData());
+            if (null !== $profileForm->get('bio')->getData()){
+                $user->setBio( $profileForm->get('bio')->getData());
             }
-            if (null !== $form->get('profilePicture')->getData()){
-                $uploadedFile = $form->get('profilePicture')->getData();
+            if (null !== $profileForm->get('profilePicture')->getData()){
+                $uploadedFile = $profileForm->get('profilePicture')->getData();
                 $destination = $this->getParameter('kernel.project_dir').'/public/userRessources/'.$user->getId().'/profilePictures';
                 $originalFilename = pathinfo($uploadedFile->getClientOriginalName(), PATHINFO_FILENAME);
                 $newFilename = $user->getUsername().'-'.uniqid().'.'.$uploadedFile->guessExtension();
@@ -50,8 +50,8 @@ class SettingsController extends AbstractController
                 $userProfilePicture = '/userRessources/'.$user->getId().'/profilePictures/'.$newFilename;
                 $user->setProfilePicture($userProfilePicture);
             }
-            if (null !== $form->get('profileBanner')->getData()){
-                $uploadedFile = $form->get('profileBanner')->getData();
+            if (null !== $profileForm->get('profileBanner')->getData()){
+                $uploadedFile = $profileForm->get('profileBanner')->getData();
                 $destination = $this->getParameter('kernel.project_dir').'/public/userRessources/'.$user->getId().'/profileBanner';
                 $originalFilename = pathinfo($uploadedFile->getClientOriginalName(), PATHINFO_FILENAME);
                 $newFilename = $user->getUsername().'-'.uniqid().'.'.$uploadedFile->guessExtension();

@@ -32,7 +32,7 @@ class SettingsController extends AbstractController
         $profileForm->handleRequest($request);
         if ($profileForm->isSubmitted()){
             if (null !== $profileForm->get('username')->getData()){
-                $user->setUsername( $form->get('username')->getData());
+                $user->setUsername( $profileForm->get('username')->getData());
             }
             if (null !== $profileForm->get('bio')->getData()){
                 $user->setBio( $profileForm->get('bio')->getData());

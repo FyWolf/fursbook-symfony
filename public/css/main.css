@@ -189,7 +189,9 @@ body::-webkit-scrollbar {
 .posts .contentdiv .bottom button {
     background: none;
     border: none;
+    cursor: pointer;
 }
+
 .posts .contentdiv .bottom button p {
     margin: 0;
     color: white;
@@ -197,6 +199,7 @@ body::-webkit-scrollbar {
 
 .posts .contentdiv .bottom button img {
     width: 2.5vh;
+    filter: invert(77%) sepia(37%) saturate(12%) hue-rotate(46deg) brightness(95%) contrast(94%);
 }
 
 .posts .contentdiv .bottom button .liked {

@@ -190,9 +190,17 @@ body::-webkit-scrollbar {
     background: none;
     border: none;
 }
+.posts .contentdiv .bottom button p {
+    margin: 0;
+    color: white;
+}
 
 .posts .contentdiv .bottom button img {
     width: 2.5vh;
+}
+
+.posts .contentdiv .bottom button .liked {
+    filter: invert(22%) sepia(92%) saturate(4906%) hue-rotate(346deg) brightness(108%) contrast(92%);
 }
 
 /***

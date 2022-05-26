@@ -75,4 +75,39 @@ class LikesRepository extends ServiceEntityRepository
         ;
     }
     */
+
+    public function checkIfLiked($postId, $userId): ?Likes
+    {
+        return $this->createQueryBuilder('l')
+        ->andWhere('l.post_id = :postId')
+        ->andWhere('l.user_id = :userId')
+        ->setParameter('postId', $postId)
+        ->setParameter('userId', $userId)
+        ->getQuery()
+        ->getOneOrNullResult()
+        ;
+    }
+
+    public function countLikes($postId)
+    {
+        return $this->createQueryBuilder('l')
+        ->andWhere('l.post_id = :postId')
+        ->select('count(l.id)')
+        ->setParameter('postId', $postId)
+        ->getQuery()
+        ->getSingleScalarResult()
+        ;
+    }
+
+    public function deleteLike($postId, $userId)
+    {
+        return $this->createQueryBuilder('l')
+        ->delete('likes', 'likes')
+        ->where('l.post_id = :postId')
+        ->andWhere('l.user_id = :userId')
+        ->setParameter('postId', $postId)
+        ->setParameter('userId', $userId)
+        ->execute()
+        ;
+    }
 }

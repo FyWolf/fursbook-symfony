@@ -29,8 +29,8 @@
             {% endblock %}
         </div>
         <div class="bottom">
-            <button class="commentBtn"><img class="svg" src="{{ asset('ressources/svg/comment.svg') }}"></button>
-            <button class="likeBtn"><img class="svg" src="{{ asset('ressources/svg/like.svg') }}"></button>
+            <button class="commentBtn"><div><img class="svg" src="{{ asset('ressources/svg/comment.svg') }}"><p>0</p></div></button>
+            <button class="likeBtn" onClick="likeButton({{post.postId}})"><div><img class="svg {% if post.isLiked %} liked {% endif %}" id="{{post.postId}}" src="{{asset('ressources/svg/like.svg')}}"><p id="like{{post.postId}}">{{post.nbLikes}}</p></div></button>
         </div>
     </div>
 </article>

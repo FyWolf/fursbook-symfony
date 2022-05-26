@@ -4,23 +4,51 @@ let endContent = false;
 const postsDiv = document.getElementById('postsDiv');
 const el = document.querySelector(".endScroll")
 
-// $(window).scroll(function () {
-//    if($(window).scrollTop() + $(window).height()>= $(document).height()){
+function likeButton(id) {
+  const svg = document.getElementById(id);
+  const likeCounter = document.getElementById('like'+id);
+  if(svg.classList.contains('liked')) {
+    $.post(
+      window.location.pathname,
+      {
+        'id': id,
+        'action': 'unlike',
+      },
+      function (response) {
+        if(response.liked){
+          svg.classList.remove("liked")
+          likeCounter.innerText = response.likes;
+        }
+      },
+    );
 
-//      if(!window.__isFetching) {
-//         getmoredata();
-//         postsDiv.classList.add("spinner");
-//         window.__offset += 5;
-//      }
-//    }
+  }
+  else {
+    $.post(
+      window.location.pathname,
+      {
+        'id': id,
+        'action': 'like',
+      },
+      function (response) {
+        if(response.liked){
+          svg.classList.add("liked")
+          likeCounter.innerText = response.likes;
+        }
+      },
+    );
+  }
 
-// })
+}
 
 function getmoredata() {
   window.__isFetching = true;
   $.post(
     window.location.pathname,
-    { 'offset': window.__offset },
+    {
+      'offset': window.__offset,
+      'action': 'scroll',
+    },
     function (response) {
       if(response.postsList){
         $('#postsDiv').append(response.postsList);

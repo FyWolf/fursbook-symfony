@@ -103,6 +103,13 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
         return $this;
     }
 
+    public function setDateCreated(string $date): self
+    {
+        $this->creationDate = $date;
+
+        return $this;
+    }
+
     public function setBio(string $bio): self
     {
         $this->bio = $bio;

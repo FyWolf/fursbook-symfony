@@ -2,10 +2,10 @@
 
 {% block content %}
             <div class="postPictures pic4">
-                <img class="picture1" src="{{ asset(post.picture1) }}">
-                <img class="picture2" src="{{ asset(post.picture2) }}">
-                <img class="picture3" src="{{ asset(post.picture3) }}">
-                <img class="picture4" src="{{ asset(post.picture4) }}">
+                <img class="picture1" src="{{ asset(post.picture1) }}" alt="Post Picture">
+                <img class="picture2" src="{{ asset(post.picture2) }}" alt="Post Picture">
+                <img class="picture3" src="{{ asset(post.picture3) }}" alt="Post Picture">
+                <img class="picture4" src="{{ asset(post.picture4) }}" alt="Post Picture">
             </div>
             <p>{{ post.content }}</p>
 {% endblock %}

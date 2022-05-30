@@ -2,8 +2,8 @@
 
 {% block content %}
             <div class="postPictures pic2">
-                <img class="picture1" src="{{ asset(post.picture1) }}">
-                <img class="picture2" src="{{ asset(post.picture2) }}">
+                <img class="picture1" src="{{ asset(post.picture1) }}" alt="Post Picture">
+                <img class="picture2" src="{{ asset(post.picture2) }}" alt="Post Picture">
             </div>
             <p>{{ post.content }}</p>
 {% endblock %}

@@ -1,5 +1,6 @@
 User-agent: *
 Allow: /
-Disallow: /login/
-Disallow: /settings/
-Disallow: /profile/
+Disallow: /login
+Disallow: /settings
+Disallow: /profile
+Disallow: /newpost

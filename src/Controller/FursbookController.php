@@ -31,88 +31,14 @@ class FursbookController extends AbstractController
         }
 
         $postRepo = $doctrine->getRepository(Posts::class);
-        $foundPosts = $postRepo->findAllPosts(0);
-        $resultPosts = [];
-
-        foreach ($foundPosts as $result) {
-            $userRepo = $doctrine->getRepository(User::class);
-            $likeRepos = $doctrine->getRepository(Likes::class);
-            $user = $userRepo->findOneBy(['id' => $result->getOwner()]);
-            if($this->getUser()){
-                $foundLike = $likeRepos->checkIfLiked($result->getId(), $this->getUser()->getId());
-                if($foundLike) {
-                    $liked = true;
-                }
-                else {
-                    $liked = false;
-                }
-            }
-            else {
-                $liked = false;
-            }
-            $countLike = $likeRepos->countLikes($result->getId());
-
-            $constructedResult = (object) [
-                'ownerProfilePicture' => $user->getProfilePicture(),
-                'ownerUsername' => $user->getUsername(),
-                'postId' => $result->getId(),
-                'isLiked' => $liked,
-                'nbLikes' => $countLike,
-                'content' => $result->getContent(),
-                'nbPictures' => $result->getNbPictures(),
-                'picture1' => $result->getPicture1(),
-                'picture2' => $result->getPicture2(),
-                'picture3' => $result->getPicture3(),
-                'picture4' => $result->getPicture4(),
-                'date' => date('h:i d M Y', intval($result->getDatePosted())),
-            ];
-
-            array_push($resultPosts, $constructedResult);
-        }
+        $resultPosts = $postRepo->getAllPosts($doctrine, 0, $this->getUser());
 
         if($request->isXmlHttpRequest())
         {
             if($_POST['action'] == 'scroll') {
                 $start= $_POST['offset'];
                 $postRepo = $doctrine->getRepository(Posts::class);
-                $foundPosts = $postRepo->findAllPosts($start);
-                $resultPosts = [];
-
-                foreach ($foundPosts as $result) {
-                    $userRepo = $doctrine->getRepository(User::class);
-                    $likeRepos = $doctrine->getRepository(Likes::class);
-                    $user = $userRepo->findOneBy(['id' => $result->getOwner()]);
-                    if($this->getUser()){
-                        $foundLike = $likeRepos->checkIfLiked($result->getId(), $this->getUser()->getId());
-                        if($foundLike) {
-                            $liked = true;
-                        }
-                        else {
-                            $liked = false;
-                        }
-                    }
-                    else {
-                        $liked = false;
-                    }
-                    $countLike = $likeRepos->countLikes($result->getId());
-
-                    $constructedResult = (object) [
-                        'ownerProfilePicture' => $user->getProfilePicture(),
-                        'ownerUsername' => $user->getUsername(),
-                        'postId' => $result->getId(),
-                        'isLiked' => $liked,
-                        'nbLikes' => $countLike,
-                        'content' => $result->getContent(),
-                        'nbPictures' => $result->getNbPictures(),
-                        'picture1' => $result->getPicture1(),
-                        'picture2' => $result->getPicture2(),
-                        'picture3' => $result->getPicture3(),
-                        'picture4' => $result->getPicture4(),
-                        'date' => date('h:i d M Y', intval($result->getDatePosted())),
-                    ];
-
-                    array_push($resultPosts, $constructedResult);
-                }
+                $resultPosts = $postRepo->getAllPosts($doctrine, $start, $this->getUser());
 
                 $list = $this->renderView('fursbook/scrollPosts.html.twig', [
                     'loggedUserUsername' => $userUsername,

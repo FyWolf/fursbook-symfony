@@ -2,11 +2,13 @@
 
 namespace App\Repository;
 
-use App\Entity\Posts;
 use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository;
 use Doctrine\ORM\OptimisticLockException;
-use Doctrine\ORM\ORMException;
 use Doctrine\Persistence\ManagerRegistry;
+use Doctrine\ORM\ORMException;
+use App\Entity\Posts;
+use App\Entity\Likes;
+use App\Entity\User;
 
 /**
  * @extends ServiceEntityRepository<Posts>
@@ -99,4 +101,94 @@ class PostsRepository extends ServiceEntityRepository
         ;
     }
     */
+
+    public function getAllPosts($doctrine, $start, $loggedUser) {
+        $userRepo = $doctrine->getRepository(User::class);
+
+        $foundPosts = $this->findAllPosts($start);
+        $resultPosts = [];
+
+        foreach ($foundPosts as $result) {
+            $likeRepos = $doctrine->getRepository(Likes::class);
+            $user = $userRepo->findOneBy(['id' => $result->getOwner()]);
+
+            if($loggedUser){
+                $foundLike = $likeRepos->checkIfLiked($result->getId(), $loggedUser->getId());
+                if($foundLike) {
+                    $liked = true;
+                }
+                else {
+                    $liked = false;
+                }
+            }
+            else {
+                $liked = false;
+            }
+
+            $countLike = $likeRepos->countLikes($result->getId());
+            $constructedResult = (object) [
+                'ownerProfilePicture' => $user->getProfilePicture(),
+                'ownerUsername' => $user->getUsername(),
+                'postId' => $result->getId(),
+                'isLiked' => $liked,
+                'nbLikes' => $countLike,
+                'content' => $result->getContent(),
+                'nbPictures' => $result->getNbPictures(),
+                'picture1' => $result->getPicture1(),
+                'picture2' => $result->getPicture2(),
+                'picture3' => $result->getPicture3(),
+                'picture4' => $result->getPicture4(),
+                'date' => date('h:i d M Y', intval($result->getDatePosted())),
+            ];
+
+            array_push($resultPosts, $constructedResult);
+        }
+
+        return($resultPosts);
+    }
+
+    public function getUserPosts($doctrine, $showedUser, $start, $loggedUser) {
+        $userRepo = $doctrine->getRepository(User::class);
+
+        $foundPosts = $this->findAllPostsById($showedUser->getId(), $start);
+        $resultPosts = [];
+
+        foreach ($foundPosts as $result) {
+            $likeRepos = $doctrine->getRepository(Likes::class);
+            $user = $userRepo->findOneBy(['id' => $result->getOwner()]);
+
+            if($loggedUser){
+                $foundLike = $likeRepos->checkIfLiked($result->getId(), $loggedUser->getId());
+                if($foundLike) {
+                    $liked = true;
+                }
+                else {
+                    $liked = false;
+                }
+            }
+            else {
+                $liked = false;
+            }
+
+            $countLike = $likeRepos->countLikes($result->getId());
+            $constructedResult = (object) [
+                'ownerProfilePicture' => $user->getProfilePicture(),
+                'ownerUsername' => $user->getUsername(),
+                'postId' => $result->getId(),
+                'isLiked' => $liked,
+                'nbLikes' => $countLike,
+                'content' => $result->getContent(),
+                'nbPictures' => $result->getNbPictures(),
+                'picture1' => $result->getPicture1(),
+                'picture2' => $result->getPicture2(),
+                'picture3' => $result->getPicture3(),
+                'picture4' => $result->getPicture4(),
+                'date' => date('h:i d M Y', intval($result->getDatePosted())),
+            ];
+
+            array_push($resultPosts, $constructedResult);
+        }
+
+        return($resultPosts);
+    }
 }

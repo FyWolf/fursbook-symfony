@@ -1,2 +1,5 @@
 User-agent: *
 Allow: /
+Disallow: /login/
+Disallow: /settings/
+Disallow: /profile/

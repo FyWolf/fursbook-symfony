@@ -103,8 +103,75 @@ body::-webkit-scrollbar {
     border: none;
 }
 
-.posts .contentdiv .top button img {
+.posts .contentdiv .top .dropdown button img {
     width: 2vh;
+}
+
+.posts .contentdiv .top .dropdown {
+    position: relative;
+}
+
+.posts .contentdiv .top .dropdown button {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 3vh;
+    width: 3vh;
+    border-radius: 50%;
+    -webkit-border-radius: 50%;
+    -moz-border-radius: 50%;
+    -ms-border-radius: 50%;
+    -o-border-radius: 50%;
+    transition: all 0.2s ease-in-out;
+    -webkit-transition: all 0.2s ease-in-out;
+    -moz-transition: all 0.2s ease-in-out;
+    -ms-transition: all 0.2s ease-in-out;
+    -o-transition: all 0.2s ease-in-out;
+}
+.posts .contentdiv .top .dropdown button:hover {
+    background-color: rgba(255, 255, 255, 0.337);
+}
+.posts .contentdiv .top .dropdown .hidden {
+    display: none;
+}
+
+.posts .contentdiv .top .dropdown .menu {
+    position: absolute;
+    width: 45vw;
+    max-width: 250px;
+    text-align: center;
+    right: 0;
+    border: 1px solid black;
+    pointer-events: none;
+    background-color: var(--altBgColor);
+    z-index: 3;
+    padding: 1vh;
+    list-style: none;
+    border-radius: 5px;
+    -webkit-border-radius: 5px;
+    -moz-border-radius: 5px;
+    -ms-border-radius: 5px;
+    -o-border-radius: 5px;
+    transition: all 0.2s ease-in-out;
+    -webkit-transition: all 0.2s ease-in-out;
+    -moz-transition: all 0.2s ease-in-out;
+    -ms-transition: all 0.2s ease-in-out;
+    -o-transition: all 0.2s ease-in-out;
+}
+
+.posts .contentdiv .top .dropdown .menu a {
+    text-decoration: none;
+    color: white;
+    pointer-events: auto;
+}
+
+.posts .contentdiv .top .dropdown .menu:hover {
+    background-color: var(--scndAltBgColor);
+    border-color: white;
+}
+
+.posts .contentdiv .top .dropdown .menu p {
+    margin: 0;
 }
 
 .posts .contentdiv .middle div {
@@ -214,6 +281,10 @@ body::-webkit-scrollbar {
 
 body nav {
     margin-bottom: 2vh;
+    position: sticky;
+    top: 0;
+    z-index: 3;
+    background-color: var(--mainBgColor);
 }
 
 body nav .topNav {
@@ -227,7 +298,6 @@ body nav .topNav {
     align-items: center;
     border-bottom: 1px #fff solid;
     box-shadow: 0px 0px 20px -1px #a795c0;
-    z-index: 3;
     background-color: var(--mainBgColor);
 }
 
@@ -267,14 +337,42 @@ body nav .topNav a h1 img {
 }
 
 body nav .alertDiv {
-    width: 100vw;
     background-color: rgba(255, 238, 0, 0.397);
     text-align: center;
+    position: sticky;
+    top: 5vh;
+    left: 0;
+    right: 0;
     padding: 0.5vh 0;
     border-top: 1px solid;
     border-bottom: 1px solid;
     border-color: rgba(255, 238, 0, 0.712);
 }
+
+body nav .alertDiv button {
+    border-radius: 7px;
+    background: none;
+    border: 2px solid red;
+    color: white;
+    padding: 0.5vh;
+    font-weight: 500;
+    font-size: 1.1rem;
+    cursor: pointer;
+    transition: all 0.1s ease-in-out;
+    -webkit-transition: all 0.1s ease-in-out;
+    -moz-transition: all 0.1s ease-in-out;
+    -ms-transition: all 0.1s ease-in-out;
+    -o-transition: all 0.1s ease-in-out;
+    -webkit-border-radius: 7px;
+    -moz-border-radius: 7px;
+    -ms-border-radius: 7px;
+    -o-border-radius: 7px;
+}
+
+body nav .alertDiv button:hover {
+    background-color: rgba(255, 255, 255, 0.268);
+}
+
 
 .js-sidebar {
     position: fixed;
@@ -758,6 +856,15 @@ body nav .alertDiv {
 
 .settings section fieldset form div {
     width: 100%;
+    display: flex;
+}
+
+.settings section fieldset form div div {
+    display: flex;
+    flex-direction: column;
+    margin: 0 5px;
+    text-align: center;
+    justify-content: space-between;
 }
 
 .settings section fieldset form div input,

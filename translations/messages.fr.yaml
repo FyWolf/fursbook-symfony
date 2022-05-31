@@ -1,6 +1,7 @@
 connectedWelcomeMainMessage: Bienvenue
 connectedWelcomeSubMessage: Qu'as tu envie d'écrire aujourd'hui ?
 profileNothingAvailable: Rien disponnible sur ce profil
+postNothingAvailable: Rien disponnible pour ce post
 welcomeMainMessage: Bienvenue !
 profileParameters: Paramètres de profil
 welcomeSubMessage: Vous pouvez vous connecter ici
@@ -8,16 +9,19 @@ passwordForgot: Mot de passe oublié
 profilePicture: Image de profil
 unverifiedMail: Votre compte dispose d'un accès restreint tant que vous n'avez pas vérifié votre mail.
 userParameters: Paramètres d'utilisateur
+reTypePassword: Re-tapez votre mot de passe
 profileBanner: Banière de profil
 profileNoUser: Aucun utilisateur as été trouvé avec ce nom d'utilisateur
 profileNoBio: Cet utilisateur n'as pas de description, quelle personne mystérieuse :O
 description: Description
+newPassword: Nouveau mot de passe
 userVerify: Vérifier le compte
 newAccount: Créer un compte
 password: Mot de passe
 settings: Paramètres
 sendPost: Envoyer
 username: Nom d'utilisateur
+sendMail: Vérifier l'email
 profile: Profil
 connect: Se connecter
 newpost: Nouveau post

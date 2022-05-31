@@ -8,21 +8,20 @@
     </div>
     <div class="contentdiv">
         <div class="top">
-            {# <div class="dropdown">
-                <input class="dropdown__check" type="checkbox" id="dropdown[1]">
-                <label class="dropdown__toggle" for="dropdown[1]"><img class="svg" src="{{ asset('ressources/svg/ellipsis.svg') }}"></label>
-                <ul class="dropdown__menu">
+            <div class="dropdown">
+                <button onMouseDown="dropDownToggle({{post.postId}})"><img class="svg" id="ddButton{{post.postId}}" src="{{ asset('ressources/svg/ellipsis.svg') }}"></button>
+                <ul class="menu hidden" id="ddMenu{{post.postId}}">
                     {% if loggedUserUsername == post.ownerUsername %}
                         <li>
-                            <a href="/settings">Paramètres de profil</a>
+                            <a href="/settings">{% trans %}profileParameters{% endtrans %}</a>
                         </li>
                     {% else %}
                         <li>
-                            <p>Rien disponnible sur ce post</p>
+                            <p>{% trans %}postNothingAvailable{% endtrans %}</p>
                         </li>
                     {% endif %}
                 </ul>
-            </div> #}
+            </div>
         </div>
         <div class="middle">
             {% block content %}
@@ -30,7 +29,7 @@
         </div>
         <div class="bottom">
             <button class="commentBtn"><div><img class="svg" src="{{ asset('ressources/svg/comment.svg') }}" alt="comments"><p>0</p></div></button>
-            <button class="likeBtn" onClick="likeButton({{post.postId}})"><div><img class="svg {% if post.isLiked %} liked {% endif %}" id="{{post.postId}}" src="{{asset('ressources/svg/like.svg')}}" alt="likes"><p id="like{{post.postId}}">{{post.nbLikes}}</p></div></button>
+            <button class="likeBtn" onMouseDown="likeButton({{post.postId}})"><div><img class="svg {% if post.isLiked %} liked {% endif %}" id="{{post.postId}}" src="{{asset('ressources/svg/like.svg')}}" alt="likes"><p id="like{{post.postId}}">{{post.nbLikes}}</p></div></button>
         </div>
     </div>
 </article>

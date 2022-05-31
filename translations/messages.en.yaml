@@ -1,15 +1,18 @@
 connectedWelcomeMainMessage: Welcome
 connectedWelcomeSubMessage: What do you want to write today ?
 profileNothingAvailable: Nothing available for that profile
+postNothingAvailable: Nothing available for that post
 welcomeMainMessage: Welcome !
 welcomeSubMessage: You can connect here
 profileParameters: Profile settings
 passwordForgot: Password forgotten
 profilePicture: Profile Picture
 unverifiedMail: Your account has restricted access to the website until you verify your email.
+reTypePassword: Retype password
 profileBanner: Profile banner
 profileNoUser: No user has been found with that username
 profileNoBio: This user doesn't have a desctiption, what a mysterious person :O
+newPassword: New password
 description: Description
 newAccount: Create an account
 userVerify: Verify account
@@ -17,6 +20,7 @@ password: Password
 settings: Settings
 sendPost: Send post
 username: Username
+sendMail: Verify mail
 profile: Profile
 connect: Login
 newpost: New post

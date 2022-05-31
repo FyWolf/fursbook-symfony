@@ -3,6 +3,7 @@ window.__offset = 5;
 let endContent = false;
 const postsDiv = document.getElementById('postsDiv');
 const el = document.querySelector(".endScroll")
+let oppenedDD = ''
 
 function likeButton(id) {
   const svg = document.getElementById(id);
@@ -38,7 +39,6 @@ function likeButton(id) {
       },
     );
   }
-
 }
 
 function getmoredata() {
@@ -64,18 +64,18 @@ function getmoredata() {
   );
  }
 
- function isElementInViewport (el) {
-let rect = el.getBoundingClientRect();
+function isElementInViewport (el) {
+  let rect = el.getBoundingClientRect();
   return (
     rect.top >= 0 &&
     rect.left >= 0 &&
-    rect.bottom <= (window.innerHeight || document.documentElement.clientHeight) && /* or $(window).height() */
-    rect.right <= (window.innerWidth || document.documentElement.clientWidth) /* or $(window).width() */
+    rect.bottom <= (window.innerHeight || document.documentElement.clientHeight) &&
+    rect.right <= (window.innerWidth || document.documentElement.clientWidth)
   );
 }
 
 function onVisibilityChange(el, callback) {
-let old_visible;
+  let old_visible;
   return function () {
     let visible = isElementInViewport(el);
     if (visible != old_visible) {
@@ -86,6 +86,7 @@ let old_visible;
     }
   }
 }
+
 let handler = onVisibilityChange(el, function() {
   if(!window.__isFetching && !endContent) {
     getmoredata();
@@ -94,6 +95,25 @@ let handler = onVisibilityChange(el, function() {
   }
 });
 
+function dropDownToggle(id) {
+  const DD = document.getElementById("ddMenu" + id);
+  if(oppenedDD && oppenedDD !== id) {
+    const oppened = document.getElementById("ddMenu" + oppenedDD);
+    oppened.classList.add("hidden");
+    DD.classList.remove("hidden");
+    oppenedDD = id;
+  }
+  else {
+    if(DD.classList.contains("hidden")) {
+      DD.classList.remove("hidden");
+      oppenedDD = id;
+    }
+    else {
+      DD.classList.add("hidden");
+      oppenedDD = "";
+    }
+  }
+}
 
 // jQuery
 $(window).on('DOMContentLoaded load resize scroll', handler);

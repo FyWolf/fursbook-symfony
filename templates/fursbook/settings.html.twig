@@ -25,11 +25,28 @@
         <section class="UserSettings">
                 <fieldset>
                     <legend>{% trans %}userParameters{% endtrans %}</legend>
-                    {% if not app.user.isVerified %}
-                        {{ form_start(userForm) }}
-                            <button type="submit" class="btn">{% trans %}sendMail{% endtrans %}</button>
-                        {{ form_end(userForm) }}
-                    {% endif %}
+                    {{ form_start(userForm) }}
+                        {{ form_label(userForm.email, 'Email') }}
+                        <div>
+                            {{ form_row(userForm.email, {label: false}) }}
+                            {% if not app.user.isVerified %}
+                                <button type="submit" class="btn">{% trans %}sendMail{% endtrans %}</button>
+                            {% endif %}
+                        </div>
+                        {{ form_label(userForm.oldPassword, 'password') }}
+                        {{ form_row(userForm.oldPassword, {label: false}) }}
+                        <div>
+                            <div>
+                                {{ form_label(userForm.newPassword1, 'newPassword') }}
+                                {{ form_row(userForm.newPassword1, {label: false}) }}
+                            </div>
+                            <div>
+                                {{ form_label(userForm.newPassword2, 'reTypePassword') }}
+                                {{ form_row(userForm.newPassword2, {label: false}) }}
+                            </div>
+                        </div>
+                    <button type="submit" class="btn">{% trans %}save{% endtrans %}</button>
+                    {{ form_end(userForm) }}
                 </fieldset>
         </section>
     </main>

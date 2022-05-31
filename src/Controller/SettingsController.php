@@ -17,6 +17,7 @@ use App\Repository\UserRepository;
 use Symfony\Component\Mime\Email;
 use Gedmo\Sluggable\Util\Urlizer;
 use App\Form\ProfileSettingsType;
+use App\Form\UserSettingsType;
 use App\Entity\Posts;
 use App\Entity\User;
 
@@ -71,9 +72,9 @@ class SettingsController extends AbstractController
             $entityManager->flush();
         }
 
-        $userForm = $this->createForm(MailValidationSettingsType::class);
-        $userForm->handleRequest($request);
-        if ($userForm->isSubmitted()){
+        $mailVerifForm = $this->createForm(MailValidationSettingsType::class);
+        $mailVerifForm->handleRequest($request);
+        if ($mailVerifForm->isSubmitted()){
             $signatureComponents = $verifyEmailHelper->generateSignature(
                 'app_mail_verify',
                 $this->getUser()->getId(),
@@ -99,10 +100,17 @@ class SettingsController extends AbstractController
 
             $mailer->send($email);
         }
+
+        $userForm = $this->createForm(UserSettingsType::class);
+        $userForm->handleRequest($request);
+        if ($userForm->isSubmitted()){
+        }
+
         return $this->render('fursbook/settings.html.twig', [
             'loggedUserUsername' => $userUsername,
             'loggedUserProfilePicture' => $userProfilePicture,
             'profileForm' => $profileForm->createView(),
+            'mailVerifForm' => $mailVerifForm->createView(),
             'userForm' => $userForm->createView()
         ],);
     }

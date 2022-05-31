@@ -5,15 +5,16 @@
 {% endblock %}
 
 {% block body %}
+    {% include "fursbook/settings.js.twig" %}
     <main class="settings">
         <section class="profileSettings">
                 <fieldset>
                     <legend>{% trans %}profileParameters{% endtrans %}</legend>
                     {{ form_start(profileForm) }}
                         {{ form_label(profileForm.username, 'username') }}
-                        {{ form_row(profileForm.username, {label: false}) }}
+                        {{ form_row(profileForm.username, {label: false, 'attr': {'placeholder': app.user.username }}) }}
                         {{ form_label(profileForm.bio, 'description') }}
-                        {{ form_row(profileForm.bio,  {label: false, 'attr': {'class': 'textArea', 'maxlength': '180'}}) }}
+                        {{ form_row(profileForm.bio,  {label: false, 'attr': {'class': 'textArea', 'maxlength': '180', 'placeholder': app.user.bio }}) }}
                         {{ form_label(profileForm.profilePicture, "profilePicture") }}
                         {{ form_row(profileForm.profilePicture, {label: false, 'attr': {'accept': 'image/png, image/jpg, image/jpeg, images/gif', 'multiple': false}}) }}
                         {{ form_label(profileForm.profileBanner, "profileBanner") }}
@@ -25,12 +26,12 @@
         <section class="UserSettings">
                 <fieldset>
                     <legend>{% trans %}userParameters{% endtrans %}</legend>
-                    {{ form_start(userForm) }}
+                    {{ form_start(userForm, {'attr': {'id': "userForm", 'onSubmit': "return userFormSubmit()"}}) }}
                         {{ form_label(userForm.email, 'Email') }}
                         <div>
-                            {{ form_row(userForm.email, {label: false}) }}
+                            {{ form_row(userForm.email, {label: false, required: false, 'attr': {'placeholder': app.user.email}}) }}
                             {% if not app.user.isVerified %}
-                                <button type="submit" class="btn">{% trans %}sendMail{% endtrans %}</button>
+                                <button type="button" class="btn" onClick="sendVerifMail()">{% trans %}sendMail{% endtrans %}</button>
                             {% endif %}
                         </div>
                         {{ form_label(userForm.oldPassword, 'password') }}
@@ -38,11 +39,11 @@
                         <div>
                             <div>
                                 {{ form_label(userForm.newPassword1, 'newPassword') }}
-                                {{ form_row(userForm.newPassword1, {label: false}) }}
+                                {{ form_row(userForm.newPassword1, {label: false, 'attr': {'id': "password1", 'autocomplete': 'off'}, required: false}) }}
                             </div>
                             <div>
                                 {{ form_label(userForm.newPassword2, 'reTypePassword') }}
-                                {{ form_row(userForm.newPassword2, {label: false}) }}
+                                {{ form_row(userForm.newPassword2, {label: false, 'attr': {'id': "password2", 'autocomplete': 'off'}, required: false}) }}
                             </div>
                         </div>
                     <button type="submit" class="btn">{% trans %}save{% endtrans %}</button>
@@ -50,4 +51,10 @@
                 </fieldset>
         </section>
     </main>
+
+{% endblock %}
+
+{% block javascripts %}
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js" defer></script>
+    <script src="/js/settings.js" defer></script>
 {% endblock %}

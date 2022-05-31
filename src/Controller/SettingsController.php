@@ -2,6 +2,7 @@
 
 namespace App\Controller;
 
+use Symfony\Component\PasswordHasher\Hasher\UserPasswordHasherInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use SymfonyCasts\Bundle\VerifyEmail\VerifyEmailHelperInterface;
 use Symfony\Component\HttpFoundation\JsonResponse;
@@ -15,7 +16,6 @@ use Symfony\Component\Mailer\Transport;
 use Symfony\Component\Mailer\Mailer;
 use App\Repository\UserRepository;
 use Symfony\Component\Mime\Email;
-use Gedmo\Sluggable\Util\Urlizer;
 use App\Form\ProfileSettingsType;
 use App\Form\UserSettingsType;
 use App\Entity\Posts;
@@ -24,7 +24,7 @@ use App\Entity\User;
 class SettingsController extends AbstractController
 {
     #[Route('/settings', name: 'settings_fursbook')]
-    public function settings(Request $request, EntityManagerInterface $entityManager, VerifyEmailHelperInterface $verifyEmailHelper): Response
+    public function settings(Request $request, EntityManagerInterface $entityManager, UserPasswordHasherInterface $userPasswordHasher, VerifyEmailHelperInterface $verifyEmailHelper): Response
     {
         $user = $this->getUser();
         $userUsername = $this->getUser()->getUsername();
@@ -72,45 +72,59 @@ class SettingsController extends AbstractController
             $entityManager->flush();
         }
 
-        $mailVerifForm = $this->createForm(MailValidationSettingsType::class);
-        $mailVerifForm->handleRequest($request);
-        if ($mailVerifForm->isSubmitted()){
-            $signatureComponents = $verifyEmailHelper->generateSignature(
-                'app_mail_verify',
-                $this->getUser()->getId(),
-                $this->getUser()->getEmail(),
-                ['id' => $this->getUser()->getId()]
-            );
+        if($request->isXmlHttpRequest()) {
+            if ($_POST['action'] == 'mailVerify'){
+                $signatureComponents = $verifyEmailHelper->generateSignature(
+                    'app_mail_verify',
+                    $this->getUser()->getId(),
+                    $this->getUser()->getEmail(),
+                    ['id' => $this->getUser()->getId()]
+                );
 
-            $dsn = $this->getParameter('dsn');
+                $dsn = $this->getParameter('dsn');
 
-            $transport = Transport::fromDsn($dsn);
+                $transport = Transport::fromDsn($dsn);
 
-            $mailer = new Mailer($transport);
+                $mailer = new Mailer($transport);
 
-            $email = (new Email())
-                ->from('no-reply@fursbook.org')
-                ->to($this->getUser()->getEmail())
-                ->subject('Email confirmation')
-                ->html('
-                <p>Welcome to Fursbook '.$this->getUser()->getUsername().' !</p>
-                <p>To verify your account, please open the link:</p>
-                <a href="'.$signatureComponents->getSignedUrl().'">Verify my account</a>
-                ');
+                $email = (new Email())
+                    ->from('no-reply@fursbook.org')
+                    ->to($this->getUser()->getEmail())
+                    ->subject('Email confirmation')
+                    ->html('
+                    <p>Welcome to Fursbook '.$this->getUser()->getUsername().' !</p>
+                    <p>To verify your account, please open the link:</p>
+                    <a href="'.$signatureComponents->getSignedUrl().'">Verify my account</a>
+                    ');
 
-            $mailer->send($email);
+                // $mailer->send($email);
+
+                $response = new JsonResponse();
+                $response->setData(array(
+                    'done' => true,
+                    )
+                );
+                return $response;
+            }
+
+            if ($_POST['action'] == 'setNewPassword'){
+                if ($userPasswordHasher->isPasswordValid($this->getUser(), $_POST['oldPwd'])) {
+                    $response = new JsonResponse();
+                    $response->setData(array(
+                            'done' => true,
+                        )
+                    );
+                    return $response;
+                };
+            }
         }
-
         $userForm = $this->createForm(UserSettingsType::class);
         $userForm->handleRequest($request);
-        if ($userForm->isSubmitted()){
-        }
 
         return $this->render('fursbook/settings.html.twig', [
             'loggedUserUsername' => $userUsername,
             'loggedUserProfilePicture' => $userProfilePicture,
             'profileForm' => $profileForm->createView(),
-            'mailVerifForm' => $mailVerifForm->createView(),
             'userForm' => $userForm->createView()
         ],);
     }

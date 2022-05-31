@@ -10,7 +10,6 @@ use Symfony\Component\HttpFoundation\Request;
 use Doctrine\Persistence\ManagerRegistry;
 use Doctrine\ORM\EntityManagerInterface;
 use App\Repository\UserRepository;
-use Gedmo\Sluggable\Util\Urlizer;
 use App\Form\SettingsType;
 use App\Entity\Posts;
 use App\Entity\Likes;

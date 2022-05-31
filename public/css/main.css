@@ -35,6 +35,47 @@ body::-webkit-scrollbar {
     filter: brightness(0) invert(1);
 }
 
+.hidden {
+    display: none;
+}
+
+.infoDiv {
+    position: fixed;
+    top: 10vh;
+    left: 2vw;
+    max-width: 400px;
+    transition: all 0.3s ease-in-out;
+    -webkit-transition: all 0.3s ease-in-out;
+    -moz-transition: all 0.3s ease-in-out;
+    -ms-transition: all 0.3s ease-in-out;
+    -o-transition: all 0.3s ease-in-out;
+    border: 1px solid;
+    z-index: 4;
+    padding: 1vh;
+    border-radius: 10px;
+    -webkit-border-radius: 10px;
+    -moz-border-radius: 10px;
+    -ms-border-radius: 10px;
+    -o-border-radius: 10px;
+}
+
+.infoDiv p {
+    margin: 0;
+}
+.infoDivHidden {
+    left: -450px;
+}
+
+.informative {
+    background-color: rgba(0, 106, 255, 0.713);
+    border-color: rgb(0, 106, 255);
+}
+
+.error {
+    background-color: rgba(255, 0, 0, 0.303);
+    border-color: rgba(255, 0, 0, 0.765);
+}
+
 /* Global posts CSS */
 
 .posts {
@@ -130,9 +171,6 @@ body::-webkit-scrollbar {
 }
 .posts .contentdiv .top .dropdown button:hover {
     background-color: rgba(255, 255, 255, 0.337);
-}
-.posts .contentdiv .top .dropdown .hidden {
-    display: none;
 }
 
 .posts .contentdiv .top .dropdown .menu {
@@ -352,9 +390,9 @@ body nav .alertDiv {
 body nav .alertDiv button {
     border-radius: 7px;
     background: none;
-    border: 2px solid red;
+    border: 2px solid #ff3c00;
     color: white;
-    padding: 0.5vh;
+    padding: 0 0.5vh;
     font-weight: 500;
     font-size: 1.1rem;
     cursor: pointer;
@@ -857,6 +895,7 @@ body nav .alertDiv button:hover {
 .settings section fieldset form div {
     width: 100%;
     display: flex;
+    align-items: center;
 }
 
 .settings section fieldset form div div {
@@ -893,6 +932,7 @@ body nav .alertDiv button:hover {
     border-radius: 10px;
     font-size: 1.1rem;
     cursor: pointer;
+    white-space: nowrap;
     transition: all 0.2s ease-in-out;
 }
 

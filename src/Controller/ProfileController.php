@@ -28,10 +28,17 @@ class ProfileController extends AbstractController
         if ($this->getUser()) {
             $userUsername = $this->getUser()->getUsername();
             $userProfilePicture = $this->getUser()->getProfilePicture();
+            setlocale(LC_TIME, $this->getUser()->getLocale());
         }
         else {
             $userUsername = "";
             $userProfilePicture = "";
+            if(isset($_COOKIE['lang'])) {
+                setlocale(LC_TIME, $_COOKIE['lang']);
+            }
+            else {
+                setlocale(LC_TIME, 'en');
+            }
         }
         $repository = $doctrine->getRepository(User::class);
         $postRepo = $doctrine->getRepository(Posts::class);

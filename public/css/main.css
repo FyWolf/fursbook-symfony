@@ -35,10 +35,6 @@ body::-webkit-scrollbar {
     filter: brightness(0) invert(1);
 }
 
-.hidden {
-    display: none;
-}
-
 .infoDiv {
     position: fixed;
     top: 10vh;
@@ -66,15 +62,6 @@ body::-webkit-scrollbar {
     left: -450px;
 }
 
-.informative {
-    background-color: rgba(0, 106, 255, 0.713);
-    border-color: rgb(0, 106, 255);
-}
-
-.error {
-    background-color: rgba(255, 0, 0, 0.303);
-    border-color: rgba(255, 0, 0, 0.765);
-}
 
 /* Global posts CSS */
 
@@ -501,6 +488,7 @@ body nav .alertDiv button:hover {
 }
 
 .navSideBottomDiv {
+    position: relative;
     justify-self: flex-end;
     padding: 3vh;
 }
@@ -509,6 +497,47 @@ body nav .alertDiv button:hover {
     width: 3vh;
 }
 
+.navSideBottomDiv button {
+    background: none;
+    border: none;
+}
+
+.navSideBottomDiv .langBtn {
+    width: 4vh;
+    padding: 0;
+    cursor: pointer;
+}
+
+.navSideBottomDiv .langDiv {
+    position: absolute;
+    bottom: 7vh;
+    display: flex;
+    flex-direction: column;
+    background-color: var(--altBgColor);
+    border-radius: 5px;
+    -webkit-border-radius: 5px;
+    -moz-border-radius: 5px;
+    -ms-border-radius: 5px;
+    -o-border-radius: 5px;
+    cursor: pointer;
+    border: 1px solid black;
+}
+
+.navSideBottomDiv .langDiv button {
+    color:white;
+    margin: 0.5vh 0;
+    font-size: 1rem;
+    border-radius: 5px;
+    -webkit-border-radius: 5px;
+    -moz-border-radius: 5px;
+    -ms-border-radius: 5px;
+    -o-border-radius: 5px;
+    padding: 0.5vh 1vh;
+}
+
+.navSideBottomDiv .langDiv button:hover {
+    background-color: var(--scndAltBgColor);
+}
 /***
     ####
         HOME PAGE CSS
@@ -562,7 +591,7 @@ body nav .alertDiv button:hover {
     align-items: center;
     background-color: var(--altBgColor);
     border: 1px solid black;
-    padding: 1% 3%;
+    padding: 0.5vh 1vh;
     width: fit-content;
     border-radius: 10px;
     font-size: 1rem;
@@ -1124,4 +1153,36 @@ body nav .alertDiv button:hover {
     .homePage .leftContentDiv {
         align-items: flex-end;
     }
+}
+
+
+/***
+    ####
+        GENERAL OVERDRIVE CSS
+    ####
+***/
+
+
+.hidden {
+    display: none !important
+}
+
+.informative {
+    background-color: rgba(0, 106, 255, 0.713) !important;
+    border-color: rgb(0, 106, 255) !important;
+}
+
+.error {
+    background-color: rgba(255, 0, 0, 0.303) !important;
+    border-color: rgba(255, 0, 0, 0.765) !important;
+}
+
+.success {
+    background-color: rgba(0, 255, 42, 0.303) !important;
+    border-color: rgba(43, 255, 0, 0.765) !important;
+}
+
+.warning {
+    background-color: rgba(255, 255, 0, 0.303) !important;
+    border-color: rgba(255, 255, 0, 0.765) !important;
 }

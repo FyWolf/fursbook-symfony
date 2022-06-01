@@ -42,6 +42,9 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
     #[ORM\Column(type: 'string')]
     private $profileBanner = "";
 
+    #[ORM\Column(type: 'string', length: 3)]
+    private $locale = "";
+
     #[ORM\Column(type: 'string', length: 255)]
     private $creationDate;
 
@@ -54,6 +57,12 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
     {
         return $this->email;
     }
+
+    public function getLocale(): ?string
+    {
+        return $this->locale;
+    }
+
 
     public function getBio(): ?string
     {
@@ -102,6 +111,14 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
 
         return $this;
     }
+
+    public function setLocale(string $locale): self
+    {
+        $this->locale = $locale;
+
+        return $this;
+    }
+
 
     public function setDateCreated(string $date): self
     {

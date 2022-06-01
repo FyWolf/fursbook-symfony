@@ -3,8 +3,8 @@ connectedWelcomeSubMessage: Qu'as tu envie d'écrire aujourd'hui ?
 profileNothingAvailable: Rien disponnible sur ce profil
 postNothingAvailable: Rien disponnible pour ce post
 welcomeMainMessage: Bienvenue !
-profileParameters: Paramètres de profil
 welcomeSubMessage: Vous pouvez vous connecter ici
+profileParameters: Paramètres de profil
 passwordForgot: Mot de passe oublié
 profilePicture: Image de profil
 unverifiedMail: Votre compte dispose d'un accès restreint tant que vous n'avez pas vérifié votre mail.
@@ -19,14 +19,18 @@ description: Description
 newPassword: Nouveau mot de passe
 userVerify: Vérifier le compte
 newAccount: Créer un compte
+infoSaved: Les informations ont bien été sauvegardé
 password: Mot de passe
 settings: Paramètres
 sendPost: Envoyer
 username: Nom d'utilisateur
 sendMail: Vérifier l'email
+mailSent: Mail de vérification envoyé
+pwdWrong: Mot de passe érroné
 profile: Profil
 connect: Se connecter
 newpost: Nouveau post
+pwdSame: Le nouveau mot de passe ne peut être le même que l'ancien
 search: Rechercher
 home: Acceuil
 save: Sauvegarder

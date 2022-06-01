@@ -10,7 +10,6 @@ use Symfony\Component\Routing\Annotation\Route;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\HttpFoundation\Request;
 use Doctrine\Persistence\ManagerRegistry;
-use App\Form\MailValidationSettingsType;
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Component\Mailer\Transport;
 use Symfony\Component\Mailer\Mailer;
@@ -31,6 +30,7 @@ class SettingsController extends AbstractController
         $userProfilePicture = $this->getUser()->getProfilePicture();
         $profileForm = $this->createForm(ProfileSettingsType::class);
         $profileForm->handleRequest($request);
+
         if ($profileForm->isSubmitted()){
             if (null !== $profileForm->get('username')->getData()){
                 $user->setUsername( $profileForm->get('username')->getData());
@@ -64,7 +64,6 @@ class SettingsController extends AbstractController
                 $userProfileBanner = '/userRessources/'.$user->getId().'/profileBanner/'.$newFilename;
                 $user->setProfileBanner($userProfileBanner);
             }
-            $message = 'Modifications enregistrées';
             $userUsername = $this->getUser()->getUsername();
             $userProfilePicture = $this->getUser()->getProfilePicture();
 
@@ -97,7 +96,7 @@ class SettingsController extends AbstractController
                     <a href="'.$signatureComponents->getSignedUrl().'">Verify my account</a>
                     ');
 
-                // $mailer->send($email);
+                $mailer->send($email);
 
                 $response = new JsonResponse();
                 $response->setData(array(
@@ -107,8 +106,14 @@ class SettingsController extends AbstractController
                 return $response;
             }
 
-            if ($_POST['action'] == 'setNewPassword'){
+            elseif ($_POST['action'] == 'setNewPassword'){
                 if ($userPasswordHasher->isPasswordValid($this->getUser(), $_POST['oldPwd'])) {
+                    $user = $this->getUser();
+                    $user->setPassword($userPasswordHasher->hashPassword($user, $_POST['newPwd']));
+
+                    $entityManager->persist($user);
+                    $entityManager->flush();
+
                     $response = new JsonResponse();
                     $response->setData(array(
                             'done' => true,
@@ -117,7 +122,46 @@ class SettingsController extends AbstractController
                     return $response;
                 };
             }
+
+            elseif ($_POST['action'] == 'setNewMail'){
+                dump('coucou1');
+                if ($userPasswordHasher->isPasswordValid($this->getUser(), $_POST['oldPwd'])) {
+                    $dsn = $this->getParameter('dsn');
+                    $transport = Transport::fromDsn($dsn);
+                    $mailer = new Mailer($transport);
+                    $user = $this->getUser();
+
+                    $email = (new Email())
+                        ->from('no-reply@fursbook.org')
+                        ->to($this->getUser()->getEmail())
+                        ->subject('Email changed')
+                        ->html('
+                        <p>Hello '.$this->getUser()->getUsername().'</p>
+                        <p>Your email has been changed to that adress:</p>
+                        <p>'.$_POST['newMail'].'</p>
+                        ');
+
+                    $mailer->send($email);
+
+                    $user->setEmail($_POST['newMail']);
+                    $user->setPassword($userPasswordHasher->hashPassword($user, $_POST['oldPwd']));
+                    $user->setIsVerified(false);
+
+                    $entityManager->persist($user);
+                    $entityManager->flush();
+
+                    $response = new JsonResponse();
+                    $response->setData(array(
+                            'done' => true,
+                        )
+                    );
+                    return $response;
+
+                    dump('coucou');
+                }
+            }
         }
+
         $userForm = $this->createForm(UserSettingsType::class);
         $userForm->handleRequest($request);
 

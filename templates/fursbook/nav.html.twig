@@ -16,13 +16,11 @@
                 </div>
             </div>
             <div class="navSideBottomDiv">
-                {# <form method="POST" action="/lang">
-                    <select name="lang" onchange="this.form.submit()">
-                        <option value="en">English</option>
-                        <option value="fr">Français</option>
-                    </select>
-                    <input type="hidden" name="refer" value="{{ app.request.attributes.get('_route') }}" />
-                </form> #}
+                <button class="langBtn" id="langButton"><img class="svg" src="{{ asset('ressources/svg/language.svg') }}"></button>
+                <div class="langDiv hidden" id="langDiv">
+                    <button onClick="setLocale('fr')">Français</button>
+                    <button onClick="setLocale('en')">English</button>
+                </div>
                 {% if not app.user %}
                     <a href="/login"><img class="svg" src="{{ asset('ressources/svg/signInLogo.svg') }}" alt="sign in"></a>
                 {% endif %}

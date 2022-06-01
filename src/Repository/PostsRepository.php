@@ -138,9 +138,8 @@ class PostsRepository extends ServiceEntityRepository
                 'picture2' => $result->getPicture2(),
                 'picture3' => $result->getPicture3(),
                 'picture4' => $result->getPicture4(),
-                'date' => date('h:i d M Y', intval($result->getDatePosted())),
+                'date' => strftime('%R %d %b %Y', intval($result->getDatePosted())),
             ];
-
             array_push($resultPosts, $constructedResult);
         }
 
@@ -183,7 +182,7 @@ class PostsRepository extends ServiceEntityRepository
                 'picture2' => $result->getPicture2(),
                 'picture3' => $result->getPicture3(),
                 'picture4' => $result->getPicture4(),
-                'date' => date('h:i d M Y', intval($result->getDatePosted())),
+                'date' => strftime('%R %d %b %Y', intval($result->getDatePosted())),
             ];
 
             array_push($resultPosts, $constructedResult);

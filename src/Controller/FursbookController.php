@@ -2,6 +2,7 @@
 
 namespace App\Controller;
 
+use Symfony\Component\PasswordHasher\Hasher\UserPasswordHasherInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\Routing\Annotation\Route;
@@ -18,15 +19,22 @@ use App\Entity\User;
 class FursbookController extends AbstractController
 {
     #[Route('/', name: 'home_fursbook')]
-    public function home(ManagerRegistry $doctrine, Request $request, EntityManagerInterface $entityManager): Response
+    public function home(ManagerRegistry $doctrine, Request $request, EntityManagerInterface $entityManager, UserPasswordHasherInterface $userPasswordHasher): Response
     {
         if ($this->getUser()) {
             $userUsername = $this->getUser()->getUsername();
             $userProfilePicture = $this->getUser()->getProfilePicture();
+            setlocale(LC_TIME, $this->getUser()->getLocale());
         }
         else {
             $userUsername = "";
             $userProfilePicture = "";
+            if(isset($_COOKIE['lang'])) {
+                setlocale(LC_TIME, $_COOKIE['lang']);
+            }
+            else {
+                setlocale(LC_TIME, 'en');
+            }
         }
 
         $postRepo = $doctrine->getRepository(Posts::class);

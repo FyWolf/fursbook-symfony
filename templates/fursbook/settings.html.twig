@@ -16,9 +16,9 @@
                         {{ form_label(profileForm.bio, 'description') }}
                         {{ form_row(profileForm.bio,  {label: false, 'attr': {'class': 'textArea', 'maxlength': '180', 'placeholder': app.user.bio }}) }}
                         {{ form_label(profileForm.profilePicture, "profilePicture") }}
-                        {{ form_row(profileForm.profilePicture, {label: false, 'attr': {'accept': 'image/png, image/jpg, image/jpeg, images/gif', 'multiple': false}}) }}
+                        {{ form_row(profileForm.profilePicture, {label: false, 'attr': {'accept': 'image/png, image/jpg, image/jpeg, image/gif', 'multiple': false}}) }}
                         {{ form_label(profileForm.profileBanner, "profileBanner") }}
-                        {{ form_row(profileForm.profileBanner, {label: false, 'attr': {'accept': 'image/png, image/jpg, image/jpeg, images/gif', 'multiple': false}}) }}
+                        {{ form_row(profileForm.profileBanner, {label: false, 'attr': {'accept': 'image/png, image/jpg, image/jpeg, image/gif', 'multiple': false}}) }}
                         <button type="submit" class="btn">{% trans %}save{% endtrans %}</button>
                         {{ form_end(profileForm) }}
                 </fieldset>

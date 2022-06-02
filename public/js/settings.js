@@ -26,7 +26,6 @@ function userFormSubmit() {
         else {
             sendAlert(trans.pwdSame, 'warning');
         }
-        console.log('I did that...')
     }
 
     else if(email.value !== email.placeholder) {

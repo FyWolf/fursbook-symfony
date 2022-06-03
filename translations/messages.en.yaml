@@ -32,5 +32,9 @@ connect: Login
 newpost: New post
 pwdSame: New password cannot be the same as the old one
 search: Search
+alpha1: This website is in Alpha state!
+alpha2: Everything is subject to change in the future
+alpha3: And anything you see does not reflect the final product
+admin: Admin pannel
 home: Home
 save: Save

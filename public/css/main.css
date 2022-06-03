@@ -58,10 +58,23 @@ body::-webkit-scrollbar {
 .infoDiv p {
     margin: 0;
 }
+
 .infoDivHidden {
     left: -450px;
 }
 
+.alphaWarning {
+    position: fixed;
+    bottom: 30px;
+    right: 30px;
+    font-weight: 100;
+    text-align: right;
+    font-size: 1.1rem;
+}
+
+.alphaWarning p {
+    margin: 0;
+}
 
 /* Global posts CSS */
 

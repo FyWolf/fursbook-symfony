@@ -32,5 +32,9 @@ connect: Se connecter
 newpost: Nouveau post
 pwdSame: Le nouveau mot de passe ne peut être le même que l'ancien
 search: Rechercher
+alpha1: Ce site est en Alpha!
+alpha2: Tout est sujet à changer dans le futur
+alpha3: Et tout ce que vous verrez de reflête pas le produit final
+admin: Panneau administrateur
 home: Acceuil
 save: Sauvegarder

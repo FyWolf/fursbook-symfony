@@ -27,6 +27,11 @@
         {% block stylesheets %}
             {{ encore_entry_link_tags('app') }}
         {% endblock %}
+        <div class="alphaWarning">
+            <p>{% trans %}alpha1{% endtrans %}</p>
+            <p>{% trans %}alpha2{% endtrans %}</p>
+            <p>{% trans %}alpha3{% endtrans %}</p>
+        </div>
         <link rel="stylesheet" href="{{ asset('css/main.css') }}">
     </body>
 </html>

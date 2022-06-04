@@ -1,0 +1,28 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}
+    Fursbook | Admin pannel
+{% endblock %}
+
+{% block body %}
+    <main class="adminHome">
+        <div class="admNav">
+            <button class="accordion">Users</button>
+            <div class="panel">
+                <button class="navButton" onClick="selectPannel('userList')">Users list</button>
+                <button class="navButton" onClick="selectPannel('usersReported')">Reported profiles</button>
+            </div>
+        <button class="accordion">Posts</button>
+        <div class="panel">
+            <button class="navButton" onClick="selectPannel('postsList')">Posts list</button>
+            <button class="navButton" onClick="selectPannel('postsReported')">Reported posts</button>
+        </div>
+        </div>
+        <div class="content" id="mainContent">
+        </div>
+    </main>
+{% endblock %}
+
+{% block javascripts %}
+    <script src="/js/admin.js" defer></script>
+{% endblock %}

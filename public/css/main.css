@@ -1114,6 +1114,36 @@ body nav .alertDiv button:hover {
     transition: all 0.2s ease-in-out;
 }
 
+
+/***
+    ####
+        ADMIN HOME PAGE CSS
+    ####
+***/
+
+.adminHome {
+    display: grid;
+    grid-template-columns: 1fr 4fr;
+    grid-template-areas:
+    "admNavDiv contentDiv"
+    ;
+    height: 85vh;
+    gap: 10px;
+    margin: 10px;
+}
+
+.adminHome .admNav {
+    grid-area: admNavDiv;
+    background-color: var(--altBgColor);
+    height: 100%;
+}
+
+.adminHome .content {
+    grid-area: contentDiv;
+    background-color: var(--scndAltBgColor);
+    height: 100%;
+}
+
 /*
     Media query DESKTOP
 */

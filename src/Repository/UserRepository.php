@@ -2,14 +2,15 @@
 
 namespace App\Repository;
 
-use App\Entity\User;
-use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository;
-use Doctrine\ORM\OptimisticLockException;
-use Doctrine\ORM\ORMException;
-use Doctrine\Persistence\ManagerRegistry;
-use Symfony\Component\Security\Core\Exception\UnsupportedUserException;
 use Symfony\Component\Security\Core\User\PasswordAuthenticatedUserInterface;
+use Symfony\Component\Security\Core\Exception\UnsupportedUserException;
+use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository;
 use Symfony\Component\Security\Core\User\PasswordUpgraderInterface;
+use Doctrine\Persistence\ManagerRegistry;
+use Doctrine\ORM\OptimisticLockException;
+use Doctrine\DBAL\ParameterType;
+use Doctrine\ORM\ORMException;
+use App\Entity\User;
 
 /**
  * @extends ServiceEntityRepository<User>
@@ -100,5 +101,15 @@ class UserRepository extends ServiceEntityRepository implements PasswordUpgrader
             ->getQuery()
             ->getOneOrNullResult()
         ;
+    }
+
+    public function adminGetUsers($offset)
+    {
+        $conn = $this->getEntityManager()->getConnection();
+        $sql = 'SELECT user.* FROM user LIMIT 5 OFFSET :offset';
+        $stmt = $conn->prepare($sql);
+        $stmt->bindParam('offset', $offset, ParameterType::INTEGER);
+        $resultSet = $stmt->execute();
+        return $resultSet->fetchAll();
     }
 }

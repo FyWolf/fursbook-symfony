@@ -106,7 +106,7 @@ class UserRepository extends ServiceEntityRepository implements PasswordUpgrader
     public function adminGetUsers($offset)
     {
         $conn = $this->getEntityManager()->getConnection();
-        $sql = 'SELECT user.* FROM user LIMIT 5 OFFSET :offset';
+        $sql = 'SELECT user.* FROM user LIMIT 15 OFFSET :offset';
         $stmt = $conn->prepare($sql);
         $stmt->bindParam('offset', $offset, ParameterType::INTEGER);
         $resultSet = $stmt->execute();

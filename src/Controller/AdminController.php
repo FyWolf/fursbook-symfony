@@ -29,10 +29,10 @@ class AdminController extends AbstractController
                     $list = $userRepos->adminGetUsers(0);
                     $response = new JsonResponse();
                     $response->setData(array(
-                      'page' => $this->renderView('fursbook/admin/pannel/usersList.html.twig', [
-                          'list' => $list,
-                      ]),
-                      )
+                        'page' => $this->renderView('fursbook/admin/pannel/usersList.html.twig', [
+                            'list' => $list,
+                        ]),
+                        )
                     );
                     return $response;
                 }

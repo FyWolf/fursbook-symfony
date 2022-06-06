@@ -35,6 +35,10 @@ body::-webkit-scrollbar {
     filter: brightness(0) invert(1);
 }
 
+button {
+    font-family: "Inter", sans-serif;
+}
+
 .infoDiv {
     position: fixed;
     top: 10vh;
@@ -1117,7 +1121,7 @@ body nav .alertDiv button:hover {
 
 /***
     ####
-        ADMIN HOME PAGE CSS
+        ADMIN MAIN PAGE CSS
     ####
 ***/
 
@@ -1136,12 +1140,136 @@ body nav .alertDiv button:hover {
     grid-area: admNavDiv;
     background-color: var(--altBgColor);
     height: 100%;
+    display: flex;
+    flex-direction: column;
+}
+
+.adminHome .admNav .accordion {
+    background: none;
+    border: none;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background-color: var(--scndAltBgColor);
+    color: white;
+    cursor: pointer;
+    border-radius: 5px;
+    padding: 0.5vh;
+    margin: 0.5vh;
+    transition: all 0.2s ease-in-out;
+
+}
+
+.adminHome .admNav .panel button {
+    background: none;
+    border: none;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: rgb(179, 179, 179);
+    cursor: pointer;
+    border-radius: 5px;
+    padding: 0.5vh;
+    margin: 0.5vh;
+    transition: all 0.2s ease-in-out;
+}
+
+.adminHome .admNav .panel button:hover {
+    color: white;
+}
+
+.adminHome .admNav .panel button img{
+    padding-bottom: 5px;
+    width: 2vh;
+    margin-right: 5px;
+    filter: invert(85%) sepia(3%) saturate(10%) hue-rotate(28deg) brightness(87%) contrast(83%);
 }
 
 .adminHome .content {
     grid-area: contentDiv;
     background-color: var(--scndAltBgColor);
     height: 100%;
+    padding: 1vh;
+    overflow: auto;
+}
+
+/*
+####
+    ADMIN USER LIST PANNEL CSS
+####
+*/
+
+.adminHome .userList table {
+    width: 100%;
+    text-align: center;
+    border-spacing: -1px;
+    border-collapse: collapse;
+
+}
+
+.adminHome .userList table th {
+    border-left: 1px solid #000;
+    border-right: 1px solid #000;
+    border-bottom: 1px solid #000;
+}
+
+.adminHome .userList table th:first-child {
+    border-left: none;
+}
+
+.adminHome .userList table th:last-child {
+    border-right: none;
+}
+
+.adminHome .userList table td {
+    border-left: 1px solid #000;
+    border-right: 1px solid #000;
+}
+
+.adminHome .userList table td:first-child {
+    border-left: none;
+}
+
+.adminHome .userList table td:last-child {
+    border-right: none;
+}
+
+.adminHome .userList table tbody tr:nth-child(odd) {
+    background-color: var(--altBgColor);
+}
+
+.adminHome .userList table tbody tr {
+    height: 4vh;
+}
+
+.adminHome .userList table tbody tr td div {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.adminHome .userList table tbody tr td button {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background: none;
+    border: none;
+    color: white;
+    padding: 0.3vh;
+    cursor: pointer;
+    border-radius: 5px;
+    -webkit-border-radius: 5px;
+    -moz-border-radius: 5px;
+    -ms-border-radius: 5px;
+    -o-border-radius: 5px;
+}
+
+.adminHome .userList table tbody tr td button:hover {
+    border: 1px solid white;
+}
+
+.adminHome .userList table tbody tr td button img {
+    width: 1vh;
 }
 
 /*

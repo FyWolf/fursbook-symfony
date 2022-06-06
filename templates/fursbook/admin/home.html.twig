@@ -9,14 +9,14 @@
         <div class="admNav">
             <button class="accordion">Users</button>
             <div class="panel">
-                <button class="navButton" onClick="selectPannel('userList')">Users list</button>
-                <button class="navButton" onClick="selectPannel('usersReported')">Reported profiles</button>
+                <button class="navButton" onClick="selectPannel('userList')"><img class="svg" src="{{ asset('ressources/svg/catLink.svg') }}" alt=""> Users list</button>
+                <button class="navButton" onClick="selectPannel('usersReported')"><img class="svg" src="{{ asset('ressources/svg/catLink.svg') }}" alt=""> Reported profiles</button>
             </div>
-        <button class="accordion">Posts</button>
-        <div class="panel">
-            <button class="navButton" onClick="selectPannel('postsList')">Posts list</button>
-            <button class="navButton" onClick="selectPannel('postsReported')">Reported posts</button>
-        </div>
+            <button class="accordion">Posts</button>
+            <div class="panel">
+                <button class="navButton" onClick="selectPannel('postsList')"><img class="svg" src="{{ asset('ressources/svg/catLink.svg') }}" alt=""> Posts list</button>
+                <button class="navButton" onClick="selectPannel('postsReported')"><img class="svg" src="{{ asset('ressources/svg/catLink.svg') }}" alt=""> Reported posts</button>
+            </div>
         </div>
         <div class="content" id="mainContent">
         </div>

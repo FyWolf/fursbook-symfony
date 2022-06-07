@@ -1,1 +1,35 @@
-<p>user Profile</p>
+<div class="userEdit">
+    <div class="userPictures">
+        <p>Profile Banner:</p>
+        <img class="bannerImg" src="{{ asset(user.profile_banner) }}">
+        <p>Profile Picture:</p>
+        <img class="pfp" src="{{ asset(user.profile_picture) }}">
+    </div>
+    <div class="userInformations">
+        <p>Username: {{ user.username }}</p>
+        <p>Bio: {{ user.bio }}</p>
+        <p>Email: {{ user.email }}</p>
+        <p>User roles:
+            {% if 'ADMIN' in  user.roles %}Admin,{% endif %}
+            {% if 'USER' in  user.roles %}User{% endif %}
+            {% if '[]' in  user.roles %}User{% endif %}
+        </p>
+        {% if user.is_verified %}
+            <p>This user is verified !</p>
+        {% else %}
+            <p>This user isn't verified !</p>
+        {% endif %}
+        <p>Date of creation: {{ user.creation_date | date('H:i d/m/y') }}</p>
+    </div>
+    <div class="userActions">
+        <button onClick="openEmailPrompt({{ user.id }})">Change Email</button>
+        <button onClick="editUsername({{ user.id }})">Change Username</button>
+        <button onClick="editBio({{ user.id }})">Change Bio</button>
+        <button onClick="editPfp({{ user.id }})">Change Profile picture</button>
+        <button onClick="editBanner({{ user.id }})">Change Banner picture</button>
+    </div>
+    <div class="userModif hidden" id="modif">
+    </div>
+</div>
+
+

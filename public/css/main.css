@@ -1142,6 +1142,7 @@ body nav .alertDiv button:hover {
     height: 100%;
     display: flex;
     flex-direction: column;
+    padding: 1vh;
 }
 
 .adminHome .admNav .accordion {
@@ -1199,25 +1200,36 @@ body nav .alertDiv button:hover {
 ####
 */
 
-.adminHome .userList table {
+.adminHome .userList {
+    display: flex;
+    height: 100%;
+    flex-direction: column;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.adminHome .userList div {
+    width: 100%;
+}
+
+.adminHome .userList div table {
     width: 100%;
     text-align: center;
     border-spacing: -1px;
     border-collapse: collapse;
-
 }
 
-.adminHome .userList table th {
+.adminHome .userList div table th {
     border-left: 1px solid #000;
     border-right: 1px solid #000;
     border-bottom: 1px solid #000;
 }
 
-.adminHome .userList table th:first-child {
+.adminHome .userList div table th:first-child {
     border-left: none;
 }
 
-.adminHome .userList table th:last-child {
+.adminHome .userList div table th:last-child {
     border-right: none;
 }
 
@@ -1226,29 +1238,62 @@ body nav .alertDiv button:hover {
     border-right: 1px solid #000;
 }
 
-.adminHome .userList table td:first-child {
+.adminHome .userList div table td:first-child {
     border-left: none;
 }
 
-.adminHome .userList table td:last-child {
+.adminHome .userList div table td:last-child {
     border-right: none;
 }
 
-.adminHome .userList table tbody tr:nth-child(odd) {
+.adminHome .userList div table tbody tr:nth-child(odd) {
     background-color: var(--altBgColor);
 }
 
-.adminHome .userList table tbody tr {
+.adminHome .userList div table tbody tr {
     height: 4vh;
 }
 
-.adminHome .userList table tbody tr td div {
+.adminHome .userList div table tbody tr td a {
+    color: white;
+    text-decoration: none;
+}
+
+.adminHome .userList div table tbody tr td a:hover {
+    text-decoration: underline;
+}
+
+.adminHome .userList div table tbody tr td div {
     display: flex;
     align-items: center;
     justify-content: center;
+    position: relative;
 }
 
-.adminHome .userList table tbody tr td button {
+.adminHome .userList div table tbody tr td div .dropDownDiv {
+    position: absolute;
+    display: flex;
+    flex-direction: column;
+    background-color: var(--mainBgColor);
+    border-radius: 5px;
+    border: 1px solid black;
+    top: 25px;
+    z-index: 4;
+    -webkit-border-radius: 5px;
+    -moz-border-radius: 5px;
+    -ms-border-radius: 5px;
+    -o-border-radius: 5px;
+}
+
+.adminHome .userList div table tbody tr td div .dropDownDiv button {
+    border: 1px solid rgba(0, 0, 0, 0);
+}
+
+
+.adminHome .userList div table tbody tr td div .dropDownDiv button:hover {
+    border-color: white;
+}
+.adminHome .userList div table tbody tr td button {
     display: flex;
     align-items: center;
     justify-content: center;
@@ -1264,14 +1309,72 @@ body nav .alertDiv button:hover {
     -o-border-radius: 5px;
 }
 
-.adminHome .userList table tbody tr td button:hover {
+.adminHome .userList div table tbody tr td button:hover {
     border: 1px solid white;
 }
 
-.adminHome .userList table tbody tr td button img {
+.adminHome .userList div table tbody tr td button img {
     width: 1vh;
 }
 
+.adminHome .userList .pageNav {
+    display: flex;
+    justify-content: center;
+    height: 2vh;
+}
+
+.adminHome .userList .pageNav button {
+    background-color: var(--mainBgColor);
+    color: white;
+    border: 1px solid black;
+    cursor: pointer;
+}
+
+.adminHome .userList .pageNav button:hover {
+    border-color: white;
+}
+
+.adminHome .userList .pageNav .prev {
+    border-top-left-radius: 5px;
+    border-bottom-left-radius: 5px;
+}
+
+.adminHome .userList .pageNav .next {
+    border-top-right-radius: 5px;
+    border-bottom-right-radius: 5px;
+}
+
+.adminHome .userList .pageNav p {
+    background-color: var(--mainBgColor);
+    margin: 0;
+    padding: 0 5px;
+    border-top: 1px solid black;
+    border-bottom: 1px solid black;
+}
+
+/*
+####
+    ADMIN USER EDIT PANNEL CSS
+####
+*/
+
+.adminHome .userEdit {
+    display: flex;
+    flex-direction: column;
+}
+
+.adminHome .userEdit .userModif {
+    position: absolute;
+    bottom: 0;
+    left: 35%;
+    right: 35%;
+    display: flex;
+    justify-content: center;
+}
+
+.adminHome .userEdit .userPictures img {
+    width: 100%;
+}
 /*
     Media query DESKTOP
 */

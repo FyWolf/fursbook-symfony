@@ -2,6 +2,7 @@
 
 namespace App\Controller;
 
+use Symfony\Component\PasswordHasher\Hasher\UserPasswordHasherInterface;
 use Symfony\Component\Security\Http\Authentication\AuthenticationUtils;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\JsonResponse;
@@ -14,7 +15,7 @@ use App\Entity\User;
 class AdminController extends AbstractController
 {
     #[Route('/admin', name: 'admin')]
-    public function index(ManagerRegistry $doctrine, Request $request): Response
+    public function index(ManagerRegistry $doctrine, Request $request, UserPasswordHasherInterface $userPasswordHasher): Response
     {
         $userUsername = $this->getUser()->getUsername();
         $userProfilePicture = $this->getUser()->getProfilePicture();
@@ -22,25 +23,72 @@ class AdminController extends AbstractController
 
         if($request->isXmlHttpRequest())
         {
+            $userRepos = $doctrine->getRepository(User::class);
             if($_POST['action'] == 'switch') {
                 if($_POST['pageName'] == 'userList') {
-
-                    $userRepos = $doctrine->getRepository(User::class);
                     $list = $userRepos->adminGetUsers(0);
+                    $users = $userRepos->countUsers();
                     $response = new JsonResponse();
                     $response->setData(array(
                         'page' => $this->renderView('fursbook/admin/pannel/usersList.html.twig', [
                             'list' => $list,
+                        ]),
+                        'userCount' => $users['COUNT(*)'],
+                        )
+                    );
+                    return $response;
+                }
+
+                elseif($_POST['pageName'] == 'editProfile') {
+                    $user = $userRepos->selectUserViaID($_POST['id']);
+                    $response = new JsonResponse();
+                    $response->setData(array(
+                        'page' => $this->renderView('fursbook/admin/pannel/userProfile.html.twig', [
+                            'user' => $user,
                         ]),
                         )
                     );
                     return $response;
                 }
             }
+
+            elseif($_POST['action'] == 'usrListSwitch') {
+                $list = $userRepos->adminGetUsers($_POST['offset']);
+                $response = new JsonResponse();
+                $response->setData(array(
+                    'template' => $this->renderView('fursbook/admin/pannel/template/userList.html.twig', [
+                        'list' => $list,
+                    ]),
+                )
+                );
+                return $response;
+            }
+
+            elseif($_POST['action'] == 'setEmail') {
+                $alphabet = 'abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ1234567890';
+                $pass = array();
+                $alphaLength = strlen($alphabet) - 1;
+                for ($i = 0; $i < 16; $i++) {
+                    $n = rand(0, $alphaLength);
+                    $pass[] = $alphabet[$n];
+                }
+                $randomPassword = implode($pass);
+
+                $user = new User;
+                $user->setEmail($_POST['email']);
+                $hashedPassword = $userPasswordHasher->hashPassword($user, $randomPassword);
+
+                $userRepos->setEmailViaID($_POST['id'], $_POST['email'], $hashedPassword);
+
+                $response = new JsonResponse();
+                $response->setData(array(
+                    'newPassword' => $randomPassword,
+                )
+                );
+                return $response;
+            }
         }
 
-        // TODO: When support need to swap mail of a user, the password need to be re-hashed to be valid,
-        // TODO: and so on, a new temporary password needs to be used for the hash and to be given to the user.
         return $this->render('fursbook/admin/home.html.twig', [
             'loggedUserUsername' => $userUsername,
             'loggedUserProfilePicture' => $userProfilePicture,

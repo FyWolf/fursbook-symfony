@@ -1,0 +1,35 @@
+<table>
+    <thead>
+        <tr>
+            <th>User</th>
+            <th>Roles</th>
+            <th>Email</th>
+            <th>Creation Date</th>
+            <th>Actions</th>
+        </tr>
+    </thead>
+    <tbody>
+        {% for user in list %}
+            <tr>
+                <td><a href="/profile/{{ user.username }}">{{ user.username }}</a></td>
+                <td>
+                    {% if 'ADMIN' in  user.roles %}Admin,{% endif %}
+                    {% if 'USER' in  user.roles %}User{% endif %}
+                    {% if '[]' in  user.roles %}User{% endif %}
+                </td>
+                <td>{{ user.email }}</td>
+                <td>{{ user.creation_date | date('H:i d/m/y') }}</td>
+                <td>
+                    <div>
+                        <button onClick="actionDropDown({{ user.id }})" id="dropBtn{{ user.id }}">Action <img class="svg" src="{{ asset('ressources/svg/arrowLeft.svg') }}" alt=""></button>
+                        <div class="dropDownDiv hidden" id="drop{{ user.id }}">
+                            <button onClick="editUser({{ user.id }})">Manage user</button>
+                            <button onClick="deleteUser({{ user.id }})">Delete user</button>
+                            <button onClick="banUser({{ user.id }})">Ban user</button>
+                        </div>
+                    </div>
+                </td>
+            </tr>
+        {% endfor %}
+    </tbody>
+</table>

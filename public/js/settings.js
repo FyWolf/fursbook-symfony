@@ -27,7 +27,6 @@ function userFormSubmit() {
             sendAlert(trans.pwdSame, 'warning');
         }
     }
-
     else if(email.value !== email.placeholder) {
         setNewEmail(passwdOld.value, email.value)
     }
@@ -38,7 +37,7 @@ function sendVerifMail() {
     $.post(
         window.location.pathname,
         {
-          'action': 'mailVerify',
+            'action': 'mailVerify',
         },
         function (response) {
             if(response.done) {
@@ -56,9 +55,9 @@ function setNewPassword(oldPwd, newPwd) {
     $.post(
         window.location.pathname,
         {
-          'action': 'setNewPassword',
-          'oldPwd': oldPwd,
-          'newPwd': newPwd,
+            'action': 'setNewPassword',
+            'oldPwd': oldPwd,
+            'newPwd': newPwd,
         },
         function (response) {
             if(response.done) {
@@ -76,9 +75,9 @@ function setNewEmail(oldPwd, newMail) {
     $.post(
         window.location.pathname,
         {
-          'action': 'setNewMail',
-          'oldPwd': oldPwd,
-          'newMail': newMail,
+            'action': 'setNewMail',
+            'oldPwd': oldPwd,
+            'newMail': newMail,
         },
         function (response) {
             if(response.done) {

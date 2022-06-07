@@ -1,31 +1,10 @@
 <div class="userList">
-    <table>
-        <thead>
-            <tr>
-                <th>User</th>
-                <th>Roles</th>
-                <th>Email</th>
-                <th>Creation Date</th>
-                <th>Actions</th>
-            </tr>
-        </thead>
-        <tbody>
-            {% for user in list %}
-                <tr>
-                    <td>{{ user.username }}</td>
-                    <td>
-                        {% if 'ADMIN' in  user.roles %}Admin,{% endif %}
-                        {% if 'USER' in  user.roles %}User{% endif %}
-                        {% if '[]' in  user.roles %}User{% endif %}
-                    </td>
-                    <td>{{ user.email }}</td>
-                    <td>{{ user.creation_date | date('H:i d/m/y') }}</td>
-                    <td><div><button>Action <img class="svg" src="{{ asset('ressources/svg/arrowLeft.svg') }}" alt=""></button></div></td>
-                </tr>
-            {% endfor %}
-        </tbody>
-    </table>
-    <div>
-        <button>a button</button>
+    <div id="usrListDiv">
+        {% include "/fursbook/admin/pannel/template/userList.html.twig" %}
+    </div>
+    <div class="pageNav">
+        <button class="prev" onClick="usrListPgSwitch(false)">Prev</button>
+        <p id="usrlistPgCount">0</p>
+        <button class="next" onClick="usrListPgSwitch(true)">Next</button>
     </div>
 </div>

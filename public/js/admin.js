@@ -100,6 +100,35 @@ function editUser(id){
   );
 }
 
+function deleteUserPrompt(id){
+  const div = document.getElementById('modif');
+  div.innerHTML = `
+    <button onClick="deleteUser(${id})">confirm</button>
+    <button onClick="cancel()">cancel</button>
+  `
+  div.classList.remove('hidden')
+}
+
+function deleteUser(id) {
+  $.post(
+    window.location.pathname,
+    {
+      'action': 'deleteUser',
+      'id': id,
+    },
+    function (response) {
+      selectPannel('userList');
+      cancel();
+    },
+  );
+}
+
+function cancel() {
+  const div = document.getElementById('modif');
+  div.innerHTML = "";
+  div.classList.add('hidden');
+}
+
 document.addEventListener('click', function(e){
   if(oppenedDD){
     let ignore1 = document.getElementById("drop" + oppenedDD);
@@ -115,7 +144,17 @@ function openEmailPrompt(id) {
   const div = document.getElementById('modif');
   div.innerHTML = `
   <form onSubmit="return sendEmail(${id})">
-    <input name="email" type="email" id="emailInput">
+    <input placeholder="Email" name="email" type="email" id="emailInput" maxlength="180">
+    <button type="submit">Save</button>
+  </form>`
+  div.classList.remove('hidden')
+}
+
+function openUsernamePrompt(id) {
+  const div = document.getElementById('modif');
+  div.innerHTML = `
+  <form onSubmit="return sendUsername(${id})">
+    <input placeholder="Usename" name="text" type="text" id="usernameInput" maxlength="25">
     <button type="submit">Save</button>
   </form>`
   div.classList.remove('hidden')
@@ -131,7 +170,25 @@ function sendEmail(id) {
       'email': mail,
     },
     function (response) {
-      console.log(response.newPassword);
+      editUser(id);
+      cancel();
+    },
+  );
+  return false;
+}
+
+function sendUsername(id) {
+  let username = document.getElementById("usernameInput").value
+  $.post(
+    window.location.pathname,
+    {
+      'action': 'setUsername',
+      'id': id,
+      'username': username,
+    },
+    function (response) {
+      editUser(id);
+      cancel();
     },
   );
   return false;

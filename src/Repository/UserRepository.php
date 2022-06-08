@@ -142,4 +142,24 @@ class UserRepository extends ServiceEntityRepository implements PasswordUpgrader
         $stmt->bindParam('pass', $pass, ParameterType::STRING);
         $resultSet = $stmt->execute();
     }
+
+    public function setUsernameViaID($id, $username)
+    {
+        $conn = $this->getEntityManager()->getConnection();
+        $sql = 'UPDATE user SET username = :username WHERE user.id = :id';
+        $stmt = $conn->prepare($sql);
+        $stmt->bindParam('id', $id, ParameterType::INTEGER);
+        $stmt->bindParam('username', $username, ParameterType::STRING);
+        $resultSet = $stmt->execute();
+    }
+
+    public function deleteUserViaID($id)
+    {
+        $conn = $this->getEntityManager()->getConnection();
+        $sql = 'DELETE FROM user WHERE id = :id';
+        $stmt = $conn->prepare($sql);
+        $stmt->bindParam('id', $id, ParameterType::INTEGER);
+        $resultSet = $stmt->execute();
+    }
 }
+

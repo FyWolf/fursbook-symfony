@@ -52,6 +52,15 @@ class AdminController extends AbstractController
                 }
             }
 
+            elseif($_POST['action'] == 'deleteUser') {
+                $list = $userRepos->deleteUserViaID($_POST['id']);
+                $response = new JsonResponse();
+                $response->setData(array(
+                )
+                );
+                return $response;
+            }
+
             elseif($_POST['action'] == 'usrListSwitch') {
                 $list = $userRepos->adminGetUsers($_POST['offset']);
                 $response = new JsonResponse();
@@ -80,10 +89,21 @@ class AdminController extends AbstractController
 
                 $userRepos->setEmailViaID($_POST['id'], $_POST['email'], $hashedPassword);
 
+                $user = $userRepos->selectUserViaID($_POST['id']);
                 $response = new JsonResponse();
                 $response->setData(array(
-                    'newPassword' => $randomPassword,
-                )
+                    )
+                );
+                return $response;
+            }
+
+            elseif($_POST['action'] == 'setUsername') {
+                $userRepos->setUsernameViaID($_POST['id'], $_POST['username']);
+
+                $user = $userRepos->selectUserViaID($_POST['id']);
+                $response = new JsonResponse();
+                $response->setData(array(
+                    )
                 );
                 return $response;
             }

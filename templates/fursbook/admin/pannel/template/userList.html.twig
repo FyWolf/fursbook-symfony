@@ -24,8 +24,8 @@
                         <button onClick="actionDropDown({{ user.id }})" id="dropBtn{{ user.id }}">Action <img class="svg" src="{{ asset('ressources/svg/arrowLeft.svg') }}" alt=""></button>
                         <div class="dropDownDiv hidden" id="drop{{ user.id }}">
                             <button onClick="editUser({{ user.id }})">Manage user</button>
-                            <button onClick="deleteUser({{ user.id }})">Delete user</button>
-                            <button onClick="banUser({{ user.id }})">Ban user</button>
+                            <button onClick="deleteUserPrompt({{ user.id }})">Delete user</button>
+                            <button onClick="banUser({{ user.id }})" disabled>Ban user</button>
                         </div>
                     </div>
                 </td>

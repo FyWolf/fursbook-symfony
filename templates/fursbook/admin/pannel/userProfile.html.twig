@@ -23,12 +23,10 @@
     </div>
     <div class="userActions">
         <button onClick="openEmailPrompt({{ user.id }})">Change Email</button>
-        <button onClick="editUsername({{ user.id }})">Change Username</button>
-        <button onClick="editBio({{ user.id }})">Change Bio</button>
-        <button onClick="editPfp({{ user.id }})">Change Profile picture</button>
-        <button onClick="editBanner({{ user.id }})">Change Banner picture</button>
-    </div>
-    <div class="userModif hidden" id="modif">
+        <button onClick="openUsernamePrompt({{ user.id }})">Change Username</button>
+        <button onClick="editBio({{ user.id }})" disabled>Change Bio</button>
+        <button onClick="editPfp({{ user.id }})" disabled>Change Profile picture</button>
+        <button onClick="editBanner({{ user.id }})" disabled>Change Banner picture</button>
     </div>
 </div>
 

@@ -30,7 +30,7 @@ function selectPannel(name) {
     function (response) {
       if(response.page){
         document.getElementById("mainContent").innerHTML = response.page;
-        if(response.page == "userList") {
+        if(name == "userList") {
           offset = 0;
           page = 1;
           userCount = response.userCount;

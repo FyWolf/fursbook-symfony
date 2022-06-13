@@ -233,6 +233,13 @@ function createUser() {
         'bio': bioValue,
       },
       function (response) {
+        if(response){
+          sendAlert("User has successfully been created", 'success');
+          mail.value = "";
+          username.value = "";
+          password.value = "";
+          bio.value = "";
+        }
       },
     );
     return false;

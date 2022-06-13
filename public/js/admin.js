@@ -211,19 +211,12 @@ function createUser() {
     const bio = document.getElementById("bio");
     let bannerValue = "";
     let pfpValue = "/ressources/images/default/profilePicture.png";
-    let roles = [];
     let bioValue = "";
     if(banner.value) {
       bannerValue = banner.value;
     }
     if(pfp.value) {
       pfpValue = pfp.value;
-    }
-    if(admin.checked) {
-      roles.push("ROLE_ADMIN");
-    }
-    if(user.checked) {
-      roles.push("ROLE_USER");
     }
     if(bio.value) {
       bioValue = bio.value;

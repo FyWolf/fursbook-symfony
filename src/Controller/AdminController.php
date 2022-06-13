@@ -113,6 +113,7 @@ class AdminController extends AbstractController
                 $user = $userRepos->selectUserViaID($_POST['id']);
                 $response = new JsonResponse();
                 $response->setData(array(
+                    "newPass" => $randomPassword,
                     )
                 );
                 return $response;

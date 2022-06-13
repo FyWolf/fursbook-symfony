@@ -183,6 +183,7 @@ function sendEmail(id) {
       'email': mail,
     },
     function (response) {
+      alert(response.newPass);
       editUser(id);
       cancel();
     },

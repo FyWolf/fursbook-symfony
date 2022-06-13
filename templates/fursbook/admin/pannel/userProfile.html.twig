@@ -1,9 +1,13 @@
 <div class="userEdit">
     <div class="userPictures">
-        <p>Profile Banner:</p>
-        <img class="bannerImg" src="{{ asset(user.profile_banner) }}">
-        <p>Profile Picture:</p>
-        <img class="pfp" src="{{ asset(user.profile_picture) }}">
+        <div>
+            <p>Profile Banner:</p>
+            <img class="bannerImg" src="{{ asset(user.profile_banner) }}">
+        </div>
+        <div>
+            <p>Profile Picture:</p>
+            <img class="pfp" src="{{ asset(user.profile_picture) }}">
+        </div>
     </div>
     <div class="userInformations">
         <p>Username: {{ user.username }}</p>

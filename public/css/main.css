@@ -1137,6 +1137,60 @@ body nav .alertDiv button:hover {
     margin: 10px;
 }
 
+.modif {
+    position: fixed;
+    left: 20vw;
+    right: 20vw;
+    bottom: 5vh;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    background-color: var(--altBgColor);
+    border: 1px solid var(--mainBgColor);
+    z-index: 4;
+    min-height: 5vh;
+    border-radius: 5px;
+    -webkit-border-radius: 5px;
+    -moz-border-radius: 5px;
+    -ms-border-radius: 5px;
+    -o-border-radius: 5px;
+    padding: 1vh;
+    gap: 1vh
+}
+
+.modif form {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 1vh;
+}
+
+.modif form input {
+    color: white;
+    background-color: var(--scndAltBgColor);
+    border: 1px solid white;
+    border-radius: 5px;
+    -webkit-border-radius: 5px;
+    -moz-border-radius: 5px;
+    -ms-border-radius: 5px;
+    -o-border-radius: 5px;
+    padding: 1vh;
+}
+
+.modif button {
+    font-family: "Inter", sans-serif;
+    background-color: var(--scndAltBgColor);
+    color: white;
+    border-radius: 5px;
+    padding: 1vh;
+    border: 5px;
+    -webkit-border-radius: 5px;
+    -moz-border-radius: 5px;
+    -ms-border-radius: 5px;
+    -o-border-radius: 5px;
+}
+
 .adminHome .admNav {
     grid-area: admNavDiv;
     background-color: var(--altBgColor);
@@ -1364,6 +1418,24 @@ body nav .alertDiv button:hover {
     flex-direction: column;
 }
 
+.adminHome .userEdit button {
+    font-family: "Inter", sans-serif;
+    background-color: var(--altBgColor);
+    color: white;
+    border: 1px solid var(--scndAltBgColor);
+    border-radius: 5px;
+    padding: 1vh;
+    border: 5px;
+    -webkit-border-radius: 5px;
+    -moz-border-radius: 5px;
+    -ms-border-radius: 5px;
+    -o-border-radius: 5px;
+}
+
+.adminHome .userEdit button:hover {
+    border: 1px solid white;
+}
+
 .adminHome .userEdit .userModif {
     position: absolute;
     bottom: 0;
@@ -1373,10 +1445,59 @@ body nav .alertDiv button:hover {
     justify-content: center;
 }
 
-.adminHome .userEdit .userPictures img {
-    width: 10vh;
+.adminHome .userEdit .userPictures {
+    display: flex;
+    flex-direction: column;
 }
 
+.adminHome .userEdit .userPictures div img {
+    width: 35vw;
+}
+
+/*
+####
+    ADMIN USER CREATION PANNEL CSS
+####
+*/
+
+.userCreation form {
+    margin: auto;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 1vh;
+    width: 50vw;
+    max-width: 500px;
+}
+
+.userCreation form input, .userCreation form textarea {
+    color: white;
+    background-color: var(--scndAltBgColor);
+    border: 1px solid var(--mainBgColor);
+    border-radius: 5px;
+    -webkit-border-radius: 5px;
+    -moz-border-radius: 5px;
+    -ms-border-radius: 5px;
+    -o-border-radius: 5px;
+    padding: 1vh;
+}
+.userCreation form button {
+    font-family: "Inter", sans-serif;
+    background-color: var(--altBgColor);
+    color: white;
+    border: 1px solid var(--scndAltBgColor);
+    border-radius: 5px;
+    padding: 1vh;
+    border: 5px;
+    -webkit-border-radius: 5px;
+    -moz-border-radius: 5px;
+    -ms-border-radius: 5px;
+    -o-border-radius: 5px;
+}
+
+.userCreation form button:hover {
+    border: 1px solid white;
+}
 
 /*
     Media query DESKTOP
@@ -1429,6 +1550,27 @@ body nav .alertDiv button:hover {
 
     .homePage .leftContentDiv {
         align-items: flex-end;
+    }
+
+    /***
+        ####
+            ADMIN MAIN PAGE CSS
+        ####
+    ***/
+
+    .modif {
+        left: 43vw;
+        right: 43vw;
+    }
+
+    /*
+    ####
+        ADMIN USER EDIT PANNEL CSS
+    ####
+    */
+
+    .adminHome .userEdit .userPictures {
+        flex-direction: row;
     }
 }
 

@@ -108,8 +108,10 @@ function editUser(id){
 function deleteUserPrompt(id){
   const div = document.getElementById('modif');
   div.innerHTML = `
-    <button onClick="deleteUser(${id})">confirm</button>
-    <button onClick="cancel()">cancel</button>
+    <div>
+      <button class="error" onClick="deleteUser(${id})">confirm</button>
+      <button onClick="cancel()">cancel</button>
+    </div>
   `
   div.classList.remove('hidden')
 }
@@ -150,8 +152,10 @@ function openEmailPrompt(id) {
   div.innerHTML = `
   <form onSubmit="return sendEmail(${id})">
     <input placeholder="Email" name="email" type="email" oninput="mailCheck()" id="emailInput" maxlength="180">
-    <button type="submit">Save</button>
-    <button onClick="cancel()">cancel</button>
+    <div>
+      <button type="submit">Save</button>
+      <button onClick="cancel()">cancel</button>
+    </div>
   </form>`
   div.classList.remove('hidden')
 }
@@ -160,9 +164,11 @@ function openUsernamePrompt(id) {
   const div = document.getElementById('modif');
   div.innerHTML = `
   <form onSubmit="return sendUsername(${id})">
-    <input placeholder="Usename" name="text" type="text" oninput="usernameCheck()" id="usernameInput" maxlength="25">
-    <button type="submit">Save</button>
-    <button onClick="cancel()">cancel</button>
+    <input placeholder="Usename" name="text" pattern="[a-zA-Z0-9]" type="text" oninput="usernameCheck()" id="usernameInput" maxlength="25">
+    <div>
+      <button type="submit">Save</button>
+      <button onClick="cancel()">cancel</button>
+    </div>
   </form>`
   div.classList.remove('hidden')
 }

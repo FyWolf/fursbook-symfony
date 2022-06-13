@@ -161,5 +161,41 @@ class UserRepository extends ServiceEntityRepository implements PasswordUpgrader
         $stmt->bindParam('id', $id, ParameterType::INTEGER);
         $resultSet = $stmt->execute();
     }
+
+    public function adminCreateUser($email, $password, $username, $pfp, $bio, $banner)
+    {
+        $conn = $this->getEntityManager()->getConnection();
+        $sql = 'INSERT INTO user (email, password, username, profile_picture, bio, profile_banner, is_verified, creation_date) VALUES (:email, :password, :username, :pfp, :bio, :banner, 0, :date)';
+        $stmt = $conn->prepare($sql);
+        $stmt->bindParam('email', $email, ParameterType::STRING);
+        $stmt->bindParam('password', $password, ParameterType::STRING);
+        $stmt->bindParam('username', $username, ParameterType::STRING);
+        $stmt->bindParam('pfp', $pfp, ParameterType::STRING);
+        $stmt->bindParam('bio', $bio, ParameterType::STRING);
+        $stmt->bindParam('banner', $banner, ParameterType::STRING);
+        $time = time();
+        $stmt->bindParam('date', $time, ParameterType::INTEGER);
+        $resultSet = $stmt->execute();
+    }
+
+    public function checkUsername($username)
+    {
+        $conn = $this->getEntityManager()->getConnection();
+        $sql = 'SELECT user.* FROM user WHERE username = :username';
+        $stmt = $conn->prepare($sql);
+        $stmt->bindParam('username', $username, ParameterType::STRING);
+        $resultSet = $stmt->execute();
+        return $resultSet->fetch();
+    }
+
+    public function checkEmail($mail)
+    {
+        $conn = $this->getEntityManager()->getConnection();
+        $sql = 'SELECT user.* FROM user WHERE email = :mail';
+        $stmt = $conn->prepare($sql);
+        $stmt->bindParam('mail', $mail, ParameterType::STRING);
+        $resultSet = $stmt->execute();
+        return $resultSet->fetch();
+    }
 }
 

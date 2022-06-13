@@ -50,6 +50,27 @@ class AdminController extends AbstractController
                     );
                     return $response;
                 }
+
+                elseif($_POST['pageName'] == 'createUser') {
+                    $response = new JsonResponse();
+                    $response->setData(array(
+                        'page' => $this->renderView('fursbook/admin/pannel/createUser.html.twig'),
+                        )
+                    );
+                    return $response;
+                }
+            }
+
+            elseif($_POST['action'] == 'createUser') {
+                $user = new User;
+                $user->setEmail($_POST['email']);
+                $hashedPassword = $userPasswordHasher->hashPassword($user, $_POST['password']);
+                $userRepos->adminCreateUser($_POST['email'], $hashedPassword, $_POST['username'], $_POST['pfp'], $_POST['bio'], $_POST['banner']);
+                $response = new JsonResponse();
+                $response->setData(array(
+                    )
+                );
+                return $response;
             }
 
             elseif($_POST['action'] == 'deleteUser') {
@@ -106,6 +127,44 @@ class AdminController extends AbstractController
                     )
                 );
                 return $response;
+            }
+
+            elseif($_POST['action'] == 'checkUsername') {
+                $match = $userRepos->checkUsername($_POST['username']);
+                $response = new JsonResponse();
+                if($match) {
+                    $response->setData(array(
+                        'match' => true,
+                        )
+                    );
+                    return $response;
+                }
+                else {
+                    $response->setData(array(
+                        'match' => false,
+                        )
+                    );
+                    return $response;
+                }
+            }
+
+            elseif($_POST['action'] == 'checkEmail') {
+                $match = $userRepos->checkEmail($_POST['mail']);
+                $response = new JsonResponse();
+                if($match) {
+                    $response->setData(array(
+                        'match' => true,
+                        )
+                    );
+                    return $response;
+                }
+                else {
+                    $response->setData(array(
+                        'match' => false,
+                        )
+                    );
+                    return $response;
+                }
             }
         }
 

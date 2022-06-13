@@ -11,11 +11,17 @@
             <div class="panel">
                 <button class="navButton" onClick="selectPannel('userList')"><img class="svg" src="{{ asset('ressources/svg/catLink.svg') }}" alt=""> Users list</button>
                 <button class="navButton" onClick="selectPannel('usersReported')"><img class="svg" src="{{ asset('ressources/svg/catLink.svg') }}" alt=""> Reported profiles</button>
+                <button class="navButton" onClick="selectPannel('createUser')"><img class="svg" src="{{ asset('ressources/svg/catLink.svg') }}" alt=""> Create profile</button>
             </div>
             <button class="accordion">Posts</button>
             <div class="panel">
                 <button class="navButton" onClick="selectPannel('postsList')"><img class="svg" src="{{ asset('ressources/svg/catLink.svg') }}" alt=""> Posts list</button>
                 <button class="navButton" onClick="selectPannel('postsReported')"><img class="svg" src="{{ asset('ressources/svg/catLink.svg') }}" alt=""> Reported posts</button>
+            </div>
+            <button class="accordion">Newslester</button>
+            <div class="panel">
+                <button class="navButton" onClick="selectPannel('newNews')"><img class="svg" src="{{ asset('ressources/svg/catLink.svg') }}" alt=""> New News</button>
+                <button class="navButton" onClick="selectPannel('newsList')"><img class="svg" src="{{ asset('ressources/svg/catLink.svg') }}" alt=""> News list</button>
             </div>
         </div>
         <div class="content" id="mainContent">

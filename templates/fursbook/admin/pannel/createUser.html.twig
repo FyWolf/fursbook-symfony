@@ -1,0 +1,11 @@
+<div class="UserCreation">
+    <form onSubmit="return createUser()" autocomplete="off">
+    <input placeholder="Email" name="email" type="email" id="emailInput" maxlength="180" oninput="mailCheck()" autocomplete="new-password" required>
+    <input placeholder="Username" name="text" type="text" id="usernameInput" maxlength="25" oninput="usernameCheck()" autocomplete="new-password" required>
+    <input placeholder="Password" name="password" type="password" id="passwordInput" autocomplete="new-password" required>
+<textarea placeholder="Bio" maxlength="180" id="bio"></textarea>
+    <input type="file" name="banner" id="banner">
+    <input type="file" name="profilePicture" id="pfp">
+    <button type="submit">create user</button>
+    </form>
+</div>

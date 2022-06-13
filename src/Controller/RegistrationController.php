@@ -37,7 +37,7 @@ class RegistrationController extends AbstractController
             );
             $user->setUsername($form->get('username')->getData());
             $user->setEmail($form->get('email')->getData());
-            $user->setProfilePicture("ressources/images/default/profilePicture.png");
+            $user->setProfilePicture("/ressources/images/default/profilePicture.png");
             $user->setDateCreated(time());
             $entityManager->persist($user);
             $entityManager->flush();

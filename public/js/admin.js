@@ -3,6 +3,9 @@ let offset = 0;
 let page = 1;
 let userCount = 0;
 let oppenedDD = "";
+let queryRunning = false;
+let usernameTaken = false;
+let mailTaken = false;
 
 for (let i = 0; i < acc.length; i++) {
     acc[i].addEventListener("click", function() {
@@ -26,11 +29,13 @@ function selectPannel(name) {
     },
     function (response) {
       if(response.page){
-        offset = 0;
-        page = 1;
-        userCount = response.userCount;
         document.getElementById("mainContent").innerHTML = response.page;
-        document.getElementById("usrlistPgCount").innerText = page;
+        if(response.page == "userList") {
+          offset = 0;
+          page = 1;
+          userCount = response.userCount;
+          document.getElementById("usrlistPgCount").innerText = page;
+        }
       }
     },
   );
@@ -144,8 +149,9 @@ function openEmailPrompt(id) {
   const div = document.getElementById('modif');
   div.innerHTML = `
   <form onSubmit="return sendEmail(${id})">
-    <input placeholder="Email" name="email" type="email" id="emailInput" maxlength="180">
+    <input placeholder="Email" name="email" type="email" oninput="mailCheck()" id="emailInput" maxlength="180">
     <button type="submit">Save</button>
+    <button onClick="cancel()">cancel</button>
   </form>`
   div.classList.remove('hidden')
 }
@@ -154,8 +160,9 @@ function openUsernamePrompt(id) {
   const div = document.getElementById('modif');
   div.innerHTML = `
   <form onSubmit="return sendUsername(${id})">
-    <input placeholder="Usename" name="text" type="text" id="usernameInput" maxlength="25">
+    <input placeholder="Usename" name="text" type="text" oninput="usernameCheck()" id="usernameInput" maxlength="25">
     <button type="submit">Save</button>
+    <button onClick="cancel()">cancel</button>
   </form>`
   div.classList.remove('hidden')
 }
@@ -192,4 +199,109 @@ function sendUsername(id) {
     },
   );
   return false;
+}
+
+function createUser() {
+  if(!usernameTaken && !mailTaken) {
+    const mail = document.getElementById("emailInput");
+    const username = document.getElementById("usernameInput");
+    const password = document.getElementById("passwordInput");
+    const banner = document.getElementById("banner");
+    const pfp = document.getElementById("pfp");
+    const bio = document.getElementById("bio");
+    let bannerValue = "";
+    let pfpValue = "/ressources/images/default/profilePicture.png";
+    let roles = [];
+    let bioValue = "";
+    if(banner.value) {
+      bannerValue = banner.value;
+    }
+    if(pfp.value) {
+      pfpValue = pfp.value;
+    }
+    if(admin.checked) {
+      roles.push("ROLE_ADMIN");
+    }
+    if(user.checked) {
+      roles.push("ROLE_USER");
+    }
+    if(bio.value) {
+      bioValue = bio.value;
+    }
+    $.post(
+      window.location.pathname,
+      {
+        'action': 'createUser',
+        'username': username.value,
+        'email': mail.value,
+        'password': password.value,
+        'banner': bannerValue,
+        'pfp': pfpValue,
+        'bio': bioValue,
+      },
+      function (response) {
+      },
+    );
+    return false;
+  }
+}
+
+function usernameCheck() {
+  let timer = "";
+  clearTimeout(timer);
+  timer = setTimeout(() => {
+    const username = document.getElementById("usernameInput");
+    if(!queryRunning) {
+      queryRunning = true;
+      $.post(
+        window.location.pathname,
+        {
+          'action': 'checkUsername',
+          'username': username.value,
+        },
+        function (response) {
+          if(response.match) {
+            username.classList.add("error");
+            usernameTaken = true;
+            sendAlert("this username has already been taken", "error");
+          }
+          else {
+            username.classList.remove("error");
+            usernameTaken = false;
+          }
+          queryRunning = false;
+        },
+      );
+    }
+  }, 1000);
+}
+
+function mailCheck() {
+  let timer = "";
+  clearTimeout(timer);
+  timer = setTimeout(() => {
+    const mail = document.getElementById("emailInput");
+    if(!queryRunning) {
+      queryRunning = true;
+      $.post(
+        window.location.pathname,
+        {
+          'action': 'checkEmail',
+          'mail': mail.value,
+        },
+        function (response) {
+          if(response.match) {
+            mail.classList.add("error");
+            mailTaken = true;
+            sendAlert("this mail has already been taken", "error");
+          }
+          else {
+            mail.classList.remove("error");
+            mailTaken = false;
+          }
+          queryRunning = false;
+        },
+      );
+    }
+  }, 1000);
 }

@@ -6,6 +6,7 @@ use App\Repository\PostsReportsRepository;
 use Doctrine\ORM\Mapping as ORM;
 use App\Entity\ReportReasons;
 use App\Entity\Posts;
+use App\Entity\User;
 
 #[ORM\Entity(repositoryClass: PostsReportsRepository::class)]
 class PostsReports
@@ -15,20 +16,23 @@ class PostsReports
     #[ORM\Column(type: 'integer')]
     private $id;
 
-    #[ORM\ManyToOne(targetEntity: Posts::class, inversedBy: "id")]
-    private $postId;
+    #[ORM\ManyToOne(targetEntity: Posts::class, inversedBy: 'id')]
+    #[ORM\Column(type: 'integer')]
+    private $post;
 
     #[ORM\Column(type: 'string', length: 255, nullable: true)]
-    private $desctription;
+    private $description;
 
-    #[ORM\ManyToOne(targetEntity: User::class, inversedBy: "id")]
-    private $userId;
+    #[ORM\ManyToOne(targetEntity: User::class, inversedBy: 'id')]
+    #[ORM\Column(type: 'integer')]
+    private $user;
 
     #[ORM\Column(type: 'string', length: 255)]
     private $date;
 
-    #[ORM\ManyToOne(targetEntity: ReportReasons::class, inversedBy: "id")]
-    private $reasonId;
+    #[ORM\ManyToOne(targetEntity: ReportReasons::class, inversedBy: 'id')]
+    #[ORM\Column(type: 'integer')]
+    private $reason;
 
     public function getId(): ?int
     {
@@ -37,36 +41,36 @@ class PostsReports
 
     public function getPostId(): ?int
     {
-        return $this->postId;
+        return $this->post;
     }
 
-    public function setPostId(int $postId): self
+    public function setPostId($post): self
     {
-        $this->postId = $postId;
+        $this->post = $post;
 
         return $this;
     }
 
-    public function getDesctription(): ?string
+    public function getDescription(): ?string
     {
-        return $this->desctription;
+        return $this->description;
     }
 
-    public function setDesctription(?string $desctription): self
+    public function setDescription(?string $description): self
     {
-        $this->desctription = $desctription;
+        $this->description = $description;
 
         return $this;
     }
 
     public function getUserId(): ?int
     {
-        return $this->userId;
+        return $this->user;
     }
 
-    public function setUserId(int $userId): self
+    public function setUserId($user): self
     {
-        $this->userId = $userId;
+        $this->user = $user;
 
         return $this;
     }
@@ -85,12 +89,12 @@ class PostsReports
 
     public function getReasonId(): ?int
     {
-        return $this->reasonId;
+        return $this->reason;
     }
 
-    public function setReasonId(int $reasonId): self
+    public function setReasonId($reason): self
     {
-        $this->reasonId = $reasonId;
+        $this->reason = $reason;
 
         return $this;
     }

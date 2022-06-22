@@ -10,6 +10,9 @@ use Symfony\Component\Routing\Annotation\Route;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\HttpFoundation\Request;
 use Doctrine\Persistence\ManagerRegistry;
+use App\Entity\ProfileReports;
+use App\Entity\PostsReports;
+use App\Entity\Posts;
 use App\Entity\User;
 
 class AdminController extends AbstractController
@@ -39,12 +42,57 @@ class AdminController extends AbstractController
                     return $response;
                 }
 
+                if($_POST['pageName'] == 'usersReported') {
+                    $RepUserRepos = $doctrine->getRepository(ProfileReports::class);
+                    $list = $RepUserRepos->adminGetReportedUsers(0);
+                    $users = $RepUserRepos->countReportedUsers();
+                    dump($list);
+                    $response = new JsonResponse();
+                    $response->setData(array(
+                        'page' => $this->renderView('fursbook/admin/pannel/usersReported.html.twig', [
+                            'list' => $list,
+                        ]),
+                        'userCount' => $users['COUNT(*)'],
+                        )
+                    );
+                    return $response;
+                }
+
+                if($_POST['pageName'] == 'postsReported') {
+                    $RepPostRepos = $doctrine->getRepository(PostsReports::class);
+                    $list = $RepPostRepos->adminGetReportedPosts(0);
+                    $posts = $RepPostRepos->countReportedPosts();
+                    dump($list);
+                    $response = new JsonResponse();
+                    $response->setData(array(
+                        'page' => $this->renderView('fursbook/admin/pannel/postsReported.html.twig', [
+                            'list' => $list,
+                        ]),
+                        'userCount' => $posts['COUNT(*)'],
+                        )
+                    );
+                    return $response;
+                }
+
                 elseif($_POST['pageName'] == 'editProfile') {
                     $user = $userRepos->selectUserViaID($_POST['id']);
                     $response = new JsonResponse();
                     $response->setData(array(
                         'page' => $this->renderView('fursbook/admin/pannel/userProfile.html.twig', [
                             'user' => $user,
+                        ]),
+                        )
+                    );
+                    return $response;
+                }
+
+                elseif($_POST['pageName'] == 'managePostReport') {
+                    $RepPostRepos = $doctrine->getRepository(PostsReports::class);
+                    $report = $RepPostRepos->selectReportById($_POST['id']);
+                    $response = new JsonResponse();
+                    $response->setData(array(
+                        'page' => $this->renderView('fursbook/admin/pannel/managePostReport.html.twig', [
+                            'report' => $report,
                         ]),
                         )
                     );

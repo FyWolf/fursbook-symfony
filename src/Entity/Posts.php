@@ -48,6 +48,14 @@ class Posts
         return $this->Owner;
     }
 
+    public function setId(int $id): self
+    {
+        $this->id = $id;
+
+        return $this;
+    }
+
+
     public function setOwner(string $Owner): self
     {
         $this->Owner = $Owner;

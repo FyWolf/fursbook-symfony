@@ -115,5 +115,55 @@ function dropDownToggle(id) {
   }
 }
 
+function openReportedPost(id) {
+  const hidder = document.getElementById("modalBackground");
+  const modal = document.getElementById("modalDiv");
+  const modalContent = document.getElementById("modalContent");
+  let content = `
+    <form onSubmit="return sendReport(${id})">
+      <select name="reason" id="modalSelect">
+      </select>
+      <textarea id="modalDesc"></textarea>
+      <button type="submit">Send</button>
+    </form>
+    <button onClick="closeModal()">cancel</button>
+  `;
+  modalContent.innerHTML = content;
+  const select = document.getElementById("modalSelect");
+  $.post(
+    window.location.pathname,
+    {
+      'action': "getReportReason",
+    },
+    function (response) {
+      response.reasonList.forEach(element => {
+        let content = `
+          <option value="${element.id}">${element.name}</option>
+        `
+        select.innerHTML += content;
+      });
+    },
+  );
+  hidder.classList.remove("hidden");
+  modal.classList.remove("hidden");
+}
+
+function sendReport(id) {
+  const select = document.getElementById("modalSelect");
+  const desc = document.getElementById("modalDesc");
+  $.post(
+    window.location.pathname,
+    {
+      'action': "sendPostsReport",
+      'postId': id,
+      'reasonId': select.value,
+      'description': desc.value,
+    },
+    function (response) {
+    },
+  );
+  return false;
+}
+
 // jQuery
 $(window).on('DOMContentLoaded load resize scroll', handler);

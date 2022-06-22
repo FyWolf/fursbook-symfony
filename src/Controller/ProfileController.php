@@ -9,6 +9,9 @@ use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\HttpFoundation\Request;
 use Doctrine\Persistence\ManagerRegistry;
 use Doctrine\ORM\EntityManagerInterface;
+use App\Entity\ReportReasons;
+use App\Entity\PostsReports;
+use App\Entity\ProfileReports;
 use App\Entity\Posts;
 use App\Entity\Likes;
 use App\Entity\User;
@@ -59,8 +62,8 @@ class ProfileController extends AbstractController
 
                 $response = new JsonResponse();
                 $response->setData(array(
-                  'postsList' => $list
-                  )
+                    'postsList' => $list
+                    )
                 );
                 return $response;
             }
@@ -102,6 +105,49 @@ class ProfileController extends AbstractController
                     return $response;
                 }
             }
+
+            if($_POST['action'] == 'getReportReason') {
+                    $reportsListRepos = $doctrine->getRepository(ReportReasons::class);
+                    $list = $reportsListRepos->fetchAllReasons();
+                    $response = new JsonResponse();
+                    $response->setData(array(
+                        "reasonList" => $list,
+                        )
+                    );
+                    return $response;
+            }
+
+            if($_POST['action'] == 'sendPostsReport') {
+                    $report = new PostsReports;
+                    $report->SetPostId($_POST['postId']);
+                    $report->SetReasonId($_POST['reasonId']);
+                    $report->setUserId($this->getUser()->getId());
+                    $report->setDescription($_POST['description']);
+                    $report->setDate(time());
+                    $entityManager->persist($report);
+                    $entityManager->flush();
+                    $response = new JsonResponse();
+                    $response->setData(array(
+                        )
+                    );
+                    return $response;
+            }
+
+            if($_POST['action'] == 'sendUserReport') {
+                    $report = new ProfileReports;
+                    $report->setProfileId($_POST['targetId']);
+                    $report->setReasonId($_POST['reasonId']);
+                    $report->setUserId($this->getUser()->getId());
+                    $report->setDescription($_POST['description']);
+                    $report->setDate(time());
+                    $entityManager->persist($report);
+                    $entityManager->flush();
+                    $response = new JsonResponse();
+                    $response->setData(array(
+                        )
+                    );
+                    return $response;
+            }
         }
 
 
@@ -112,10 +158,7 @@ class ProfileController extends AbstractController
             $isUserValid = true;
             return $this->render('fursbook/profile.html.twig', [
                 'loggedUserUsername' => $userUsername,
-                'showedUserUsername' => $showedUser->getusername(),
-                'showedUserProfilePicture' => $showedUser->getProfilePicture(),
-                'showedUserProfileBanner' => $showedUser->getProfileBanner(),
-                'showedUserBio' => $showedUser->getBio(),
+                'showedUser' => $showedUser,
                 'isUserValid' => $isUserValid,
                 'loggedUserProfilePicture' => $userProfilePicture,
                 'posts' => $resultPosts,

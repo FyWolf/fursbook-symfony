@@ -33,6 +33,15 @@
             <p>{% trans %}alpha2{% endtrans %}</p>
             <p>{% trans %}alpha3{% endtrans %}</p>
         </div>
+        <div class="hidder hidden" id="modalBackground">
+        </div>
+        <div class="modal hidden" id="modalDiv">
+            <div class="top">
+                <button onClick="closeModal()"><img class="svg" src="{{ asset('ressources/svg/xMark.svg') }}" alt="comments"></button>
+            </div>
+            <div class="content" id="modalContent">
+            </div>
+        </div>
         <link rel="stylesheet" href="{{ asset('css/main.css') }}">
     </body>
 </html>

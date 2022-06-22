@@ -312,3 +312,19 @@ function mailCheck() {
     }
   }, 1000);
 }
+
+function editPostReport(id) {
+  $.post(
+    window.location.pathname,
+    {
+      'action': 'switch',
+      'pageName': 'managePostReport',
+      'id': id,
+    },
+    function (response) {
+      if(response.page){
+        document.getElementById("mainContent").innerHTML = response.page;
+      }
+    },
+  );
+}

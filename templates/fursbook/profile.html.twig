@@ -9,32 +9,37 @@
     {% if isUserValid == true %}
     <div class="userProfileDiv">
         <div class="banner">
-            <img class="bannerImg" src="{{ asset(showedUserProfileBanner) }}">
-            <img class="pfp"  src="{{ asset(showedUserProfilePicture) }}">
+            <img class="bannerImg" src="{{ asset(showedUser.profileBanner) }}">
+            <img class="pfp"  src="{{ asset(showedUser.profilePicture) }}">
             <div class="dropdown">
                 <input class="dropdown__check" type="checkbox" id="dropdown[1]">
                 <label class="dropdown__toggle" for="dropdown[1]"><img class="svg" src="{{ asset('ressources/svg/ellipsis.svg') }}"></label>
                 <ul class="dropdown__menu">
-                    {% if loggedUserUsername == showedUserUsername %}
+                    {% if app.user %}
+                        {% if loggedUserUsername == showedUser.username %}
+                            <li>
+                                <a href="/settings">{% trans %}profileParameters{% endtrans %}</a>
+                            </li>
+                        {% endif %}
                         <li>
-                            <a href="/settings">{% trans %}profileParameters{% endtrans %}</a>
+                            <button onClick="openReportedUser({{showedUser.id}})">Report posts</button>
                         </li>
-                    {% else %}
+                        {% else %}
                         <li>
-                            <p>{% trans %}profileNothingAvailable{% endtrans %}</p>
+                            <p>{% trans %}postNothingAvailable{% endtrans %}</p>
                         </li>
                     {% endif %}
                 </ul>
             </div>
         </div>
         <div class="infos">
-            <p class="username">{{showedUserUsername}}</p>
+            <p class="username">{{showedUser.username}}</p>
             <p class="bio">
-                {% if showedUserBio == "" %}
+                {% if showedUser.bio == "" %}
                     {% trans %}profileNoBio{% endtrans %}
                 {% endif %}
-                {% if not showedUserBio == "" %}
-                    {{ showedUserBio }}
+                {% if not showedUser.bio == "" %}
+                    {{ showedUser.bio }}
                 {% endif %}
         </p>
         </div>
@@ -69,4 +74,5 @@
 
 {% block javascripts %}
     <script src="/js/postMain.js" defer></script>
+    <script src="/js/profile.js" defer></script>
 {% endblock %}

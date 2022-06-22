@@ -11,6 +11,8 @@ use Symfony\Component\HttpFoundation\Request;
 use Doctrine\Persistence\ManagerRegistry;
 use Doctrine\ORM\EntityManagerInterface;
 use App\Repository\UserRepository;
+use App\Entity\ReportReasons;
+use App\Entity\PostsReports;
 use App\Form\SettingsType;
 use App\Entity\Posts;
 use App\Entity\Likes;
@@ -55,8 +57,8 @@ class FursbookController extends AbstractController
 
                 $response = new JsonResponse();
                 $response->setData(array(
-                  'postsList' => $list
-                  )
+                    'postsList' => $list
+                    )
                 );
                 return $response;
             }
@@ -68,10 +70,8 @@ class FursbookController extends AbstractController
                     $like->setUserId($this->getUser()->getId());
                     $entityManager->persist($like);
                     $entityManager->flush();
-
                     $likeRepos = $doctrine->getRepository(Likes::class);
                     $countLikes = $likeRepos->countLikes($_POST['id']);
-
                     $response = new JsonResponse();
                     $response->setData(array(
                         'likes' => $countLikes,
@@ -97,6 +97,33 @@ class FursbookController extends AbstractController
                     );
                     return $response;
                 }
+            }
+
+            if($_POST['action'] == 'getReportReason') {
+                    $reportsListRepos = $doctrine->getRepository(ReportReasons::class);
+                    $list = $reportsListRepos->fetchAllReasons();
+                    $response = new JsonResponse();
+                    $response->setData(array(
+                        "reasonList" => $list,
+                        )
+                    );
+                    return $response;
+            }
+
+            if($_POST['action'] == 'sendPostsReport') {
+                    $report = new PostsReports;
+                    $report->SetPostId($_POST['postId']);
+                    $report->SetReasonId($_POST['reasonId']);
+                    $report->setUserId($this->getUser()->getId());
+                    $report->setDescription($_POST['description']);
+                    $report->setDate(time());
+                    $entityManager->persist($report);
+                    $entityManager->flush();
+                    $response = new JsonResponse();
+                    $response->setData(array(
+                        )
+                    );
+                    return $response;
             }
         }
         return $this->render('fursbook/home.html.twig', [

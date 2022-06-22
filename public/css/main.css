@@ -81,6 +81,49 @@ button {
     margin: 0;
 }
 
+.modal {
+    z-index: 15;
+    position: fixed;
+    top: 45%;
+    left: 10vw;
+    right: 10vw;
+    padding: 0.5vh 1vh;
+    max-width: 500px;
+    margin: auto;
+    background-color: var(--scndAltBgColor);
+    border: 1px solid white;
+    border-radius: 10px;
+    -webkit-border-radius: 10px;
+    -moz-border-radius: 10px;
+    -ms-border-radius: 10px;
+    -o-border-radius: 10px;
+}
+
+.modal .top {
+    display: flex;
+    justify-content: flex-end;
+}
+
+.modal .top button {
+    background: none;
+    cursor: pointer;
+    border: none;
+}
+
+.modal .top button img {
+    width: 2vh;
+}
+
+.hidder {
+    z-index: 14;
+    position: fixed;
+    top: 0;
+    right: 0;
+    bottom: 0;
+    left: 0;
+    background-color: rgba(0, 0, 0, 0.53);
+}
+
 /* Global posts CSS */
 
 .posts {
@@ -105,7 +148,7 @@ button {
 .posts .userDiv div {
     display: flex;
     align-items: center;
-    padding: 0.5vh 1vh 1vh 1vh ;
+    padding: 0.5vh 1vh 1vh 1vh;
 }
 
 .posts .userDiv div img {
@@ -144,12 +187,7 @@ button {
     justify-content: flex-end;
 }
 
-.posts .contentdiv .top button {
-    background: none;
-    border: none;
-}
-
-.posts .contentdiv .top .dropdown button img {
+.posts .contentdiv .top .dropdown>button img {
     width: 2vh;
 }
 
@@ -157,10 +195,13 @@ button {
     position: relative;
 }
 
-.posts .contentdiv .top .dropdown button {
+.posts .contentdiv .top .dropdown>button {
+    background: none;
+    border: none;
     display: flex;
     justify-content: center;
     align-items: center;
+    cursor: pointer;
     height: 3vh;
     width: 3vh;
     border-radius: 50%;
@@ -174,8 +215,10 @@ button {
     -ms-transition: all 0.2s ease-in-out;
     -o-transition: all 0.2s ease-in-out;
 }
-.posts .contentdiv .top .dropdown button:hover {
-    background-color: rgba(255, 255, 255, 0.337);
+
+.posts .contentdiv .top .dropdown .menu button:hover {
+    background-color: var(--scndAltBgColor);
+    border-color: white;
 }
 
 .posts .contentdiv .top .dropdown .menu {
@@ -188,7 +231,7 @@ button {
     pointer-events: none;
     background-color: var(--altBgColor);
     z-index: 3;
-    padding: 1vh;
+    padding: 0.5vh 1vh;
     list-style: none;
     border-radius: 5px;
     -webkit-border-radius: 5px;
@@ -202,13 +245,32 @@ button {
     -o-transition: all 0.2s ease-in-out;
 }
 
-.posts .contentdiv .top .dropdown .menu a {
+.posts .contentdiv .top .dropdown .menu a,
+.posts .contentdiv .top .dropdown .menu button {
     text-decoration: none;
-    color: white;
+    display: block;
     pointer-events: auto;
+    cursor: pointer;
+    color: white;
+    border: 1px solid var(--scndAltBgColor);
+    background-color: var(--altBgColor);
+    padding: 0.5vh 0;
+    margin: 0.5vh 0;
+    font-size: 1rem;
+    width: 100%;
+    border-radius: 5px;
+    -webkit-border-radius: 5px;
+    -moz-border-radius: 5px;
+    -ms-border-radius: 5px;
+    -o-border-radius: 5px;
+    transition: all 0.2s ease-in-out;
+    -webkit-transition: all 0.2s ease-in-out;
+    -moz-transition: all 0.2s ease-in-out;
+    -ms-transition: all 0.2s ease-in-out;
+    -o-transition: all 0.2s ease-in-out;
 }
 
-.posts .contentdiv .top .dropdown .menu:hover {
+.posts .contentdiv .top .dropdown .menu a:hover {
     background-color: var(--scndAltBgColor);
     border-color: white;
 }
@@ -226,6 +288,7 @@ button {
     -o-border-radius: 10px;
     overflow: hidden;
 }
+
 .posts .contentdiv .middle p {
     overflow-wrap: break-word;
 }
@@ -242,26 +305,26 @@ button {
 
 .pic1 {
     grid-template-areas:
-    "pic1 pic1"
-    "pic1 pic1";
+        "pic1 pic1"
+        "pic1 pic1";
 }
 
 .pic2 {
     grid-template-areas:
-    "pic1 pic2"
-    "pic1 pic2";
+        "pic1 pic2"
+        "pic1 pic2";
 }
 
 .pic3 {
     grid-template-areas:
-    "pic1 pic2"
-    "pic1 pic3";
+        "pic1 pic2"
+        "pic1 pic3";
 }
 
 .pic4 {
     grid-template-areas:
-    "pic1 pic2"
-    "pic3 pic4";
+        "pic1 pic2"
+        "pic3 pic4";
 }
 
 
@@ -344,13 +407,15 @@ body nav .topNav {
     background-color: var(--mainBgColor);
 }
 
-body nav .topNav button, body nav .topNav a {
+body nav .topNav button,
+body nav .topNav a {
     width: 10%;
     background: none;
     border: none;
 }
 
-body nav .topNav button img, body nav .topNav a img {
+body nav .topNav button img,
+body nav .topNav a img {
     width: 2.5vh;
 }
 
@@ -365,14 +430,17 @@ body nav .topNav a {
     text-decoration: none;
     color: white;
 }
+
 body nav .topNav a:visited {
     text-decoration: none;
 }
+
 body nav .topNav a h1 img {
     width: 4vh;
 }
 
-.js-sidebar, .js-sidebar--background {
+.js-sidebar,
+.js-sidebar--background {
     top: 0;
     left: 0;
     width: 100%;
@@ -478,7 +546,7 @@ body nav .alertDiv button:hover {
     font-size: 1.2rem;
 }
 
-.navSideTopDiv > button {
+.navSideTopDiv>button {
     width: 100%;
     border-bottom: 1px solid black;
     color: white;
@@ -511,7 +579,7 @@ body nav .alertDiv button:hover {
     padding: 3vh;
 }
 
-.navSideBottomDiv a img{
+.navSideBottomDiv a img {
     width: 3vh;
 }
 
@@ -542,7 +610,7 @@ body nav .alertDiv button:hover {
 }
 
 .navSideBottomDiv .langDiv button {
-    color:white;
+    color: white;
     margin: 0.5vh 0;
     font-size: 1rem;
     border-radius: 5px;
@@ -556,6 +624,7 @@ body nav .alertDiv button:hover {
 .navSideBottomDiv .langDiv button:hover {
     background-color: var(--scndAltBgColor);
 }
+
 /***
     ####
         HOME PAGE CSS
@@ -566,9 +635,9 @@ body nav .alertDiv button:hover {
     display: grid;
     grid-template-columns: 1fr;
     grid-template-areas:
-    "leftContent"
-    "contentPage"
-    "endScroll"
+        "leftContent"
+        "contentPage"
+        "endScroll"
     ;
 }
 
@@ -629,7 +698,9 @@ body nav .alertDiv button:hover {
 }
 
 @keyframes spinner {
-    to {transform: rotate(360deg);}
+    to {
+        transform: rotate(360deg);
+    }
 }
 
 .spinner:after {
@@ -656,7 +727,7 @@ body nav .alertDiv button:hover {
     ####
 ***/
 
-.loginPage > div {
+.loginPage>div {
     border: 1px solid var(--scndAltBgColor);
     border-radius: 10px;
     display: flex;
@@ -667,7 +738,7 @@ body nav .alertDiv button:hover {
     padding: 1vh 2vh;
 }
 
-.loginPage > div > a {
+.loginPage>div>a {
     background-color: var(--altBgColor);
     color: white;
     border: 1px solid black;
@@ -680,11 +751,11 @@ body nav .alertDiv button:hover {
     text-decoration: none;
 }
 
-.loginPage div > a:hover{
+.loginPage div>a:hover {
     border-color: white;
 }
 
-.loginPage form{
+.loginPage form {
     width: 80vw;
     max-width: 400px;
     display: flex;
@@ -746,9 +817,9 @@ body nav .alertDiv button:hover {
     display: grid;
     grid-template-columns: 1fr;
     grid-template-areas:
-    "userPage"
-    "contentPage"
-    "endScroll"
+        "userPage"
+        "contentPage"
+        "endScroll"
     ;
 }
 
@@ -805,46 +876,47 @@ body nav .alertDiv button:hover {
     border: none;
 }
 
-.userProfile .userProfileDiv .banner *:before, .userProfile .userProfileDiv .banner *:after {
-  box-sizing: border-box;
+.userProfile .userProfileDiv .banner *:before,
+.userProfile .userProfileDiv .banner *:after {
+    box-sizing: border-box;
 }
 
 .userProfile .userProfileDiv .banner .dropdown {
-  position: absolute;
-  bottom: -45px;
-  right: 8px;
+    position: absolute;
+    bottom: -45px;
+    right: 8px;
 }
 
 .userProfile .userProfileDiv .banner .dropdown__check {
-  position: absolute;
-  clip: rect(0, 0, 0, 0);
-  opacity: 0;
+    position: absolute;
+    clip: rect(0, 0, 0, 0);
+    opacity: 0;
 }
 
-.userProfile .userProfileDiv .banner .dropdown__check:checked ~ .dropdown__toggle {
-  background: var(--mainBgColor);
+.userProfile .userProfileDiv .banner .dropdown__check:checked~.dropdown__toggle {
+    background: var(--mainBgColor);
 }
 
-.userProfile .userProfileDiv .banner .dropdown__check:checked ~ .dropdown__menu {
-  clip: auto;
-  opacity: 1;
-  transform: none;
+.userProfile .userProfileDiv .banner .dropdown__check:checked~.dropdown__menu {
+    clip: auto;
+    opacity: 1;
+    transform: none;
 }
 
 .userProfile .userProfileDiv .banner .dropdown__toggle {
-  position: relative;
-  display: inline-block;
-  padding: 8px;
-  cursor: pointer;
-  border-radius: 50%;
-  color: white;
-  background: var(--scndAltBgColor);
-  text-transform: uppercase;
-  font-size: 0.75em;
-  z-index: 10;
-  display: flex;
-  align-items: center;
-  justify-content: center;
+    position: relative;
+    display: inline-block;
+    padding: 8px;
+    cursor: pointer;
+    border-radius: 50%;
+    color: white;
+    background: var(--scndAltBgColor);
+    text-transform: uppercase;
+    font-size: 0.75em;
+    z-index: 10;
+    display: flex;
+    align-items: center;
+    justify-content: center;
 }
 
 .userProfile .userProfileDiv .banner .dropdown__toggle img {
@@ -852,33 +924,33 @@ body nav .alertDiv button:hover {
 }
 
 .userProfile .userProfileDiv .banner .dropdown__menu {
-  position: absolute;
-  top: 100%;
-  right: 0;
-  clip: rect(0, 0, 0, 0);
-  margin: 0;
-  padding: 0;
-  overflow: hidden;
-  border-radius: 4px;
-  opacity: 0;
-  transform: translate(0, -12px);
-  transition: transform 150ms, opacity 150ms, box-shadow 150ms;
-  z-index: 20;
-  border: 1px solid black;
+    position: absolute;
+    top: 100%;
+    right: 0;
+    clip: rect(0, 0, 0, 0);
+    margin: 0;
+    padding: 0;
+    overflow: hidden;
+    border-radius: 4px;
+    opacity: 0;
+    transform: translate(0, -12px);
+    transition: transform 150ms, opacity 150ms, box-shadow 150ms;
+    z-index: 20;
+    border: 1px solid black;
 }
 
-.userProfile .userProfileDiv .banner .dropdown__menu > li {
-  list-style: none;
-  width: 200px;
-  padding: 3px;
+.userProfile .userProfileDiv .banner .dropdown__menu>li {
+    list-style: none;
+    width: 200px;
+    padding: 3px;
 }
 
-.userProfile .userProfileDiv .banner .dropdown__menu > li > a {
-  display: block;
-  text-decoration: none;
-  padding: 8px 12px;
-  color: white;
-  background: var(--scndAltBgColor);
+.userProfile .userProfileDiv .banner .dropdown__menu>li>a {
+    display: block;
+    text-decoration: none;
+    padding: 8px 12px;
+    color: white;
+    background: var(--scndAltBgColor);
 }
 
 .userProfile .userProfileDiv .infos {
@@ -1046,7 +1118,7 @@ body nav .alertDiv button:hover {
 .searchPage .contentDiv .userDiv div {
     display: flex;
     align-items: center;
-    padding: 0.5vh 1vh 1vh 1vh ;
+    padding: 0.5vh 1vh 1vh 1vh;
 }
 
 .searchPage .contentDiv .userDiv div img {
@@ -1103,6 +1175,7 @@ body nav .alertDiv button:hover {
     width: 100%;
     height: 160px;
 }
+
 .newPost fieldset form input {
     align-self: flex-start;
     margin: 1vh 0;
@@ -1130,7 +1203,7 @@ body nav .alertDiv button:hover {
     display: grid;
     grid-template-columns: 1fr 4fr;
     grid-template-areas:
-    "admNavDiv contentDiv"
+        "admNavDiv contentDiv"
     ;
     height: 85vh;
     gap: 10px;
@@ -1234,7 +1307,7 @@ body nav .alertDiv button:hover {
     color: white;
 }
 
-.adminHome .admNav .panel button img{
+.adminHome .admNav .panel button img {
     padding-bottom: 5px;
     width: 2vh;
     margin-right: 5px;
@@ -1348,6 +1421,7 @@ body nav .alertDiv button:hover {
 .adminHome .userList div table tbody tr td div .dropDownDiv button:hover {
     border-color: white;
 }
+
 .adminHome .userList div table tbody tr td button {
     display: flex;
     align-items: center;
@@ -1470,7 +1544,8 @@ body nav .alertDiv button:hover {
     max-width: 500px;
 }
 
-.userCreation form input, .userCreation form textarea {
+.userCreation form input,
+.userCreation form textarea {
     color: white;
     background-color: var(--scndAltBgColor);
     border: 1px solid var(--mainBgColor);
@@ -1481,6 +1556,7 @@ body nav .alertDiv button:hover {
     -o-border-radius: 5px;
     padding: 1vh;
 }
+
 .userCreation form button {
     font-family: "Inter", sans-serif;
     background-color: var(--altBgColor);
@@ -1503,7 +1579,7 @@ body nav .alertDiv button:hover {
     Media query DESKTOP
 */
 
-@media screen and (min-width:1200px){
+@media screen and (min-width:1200px) {
 
     /***
         ####
@@ -1515,8 +1591,8 @@ body nav .alertDiv button:hover {
         grid-template-columns: 1fr 1fr 1fr;
         grid-template-rows: auto;
         grid-template-areas:
-        "userPage contentPage"
-        "userPage endScroll"
+            "userPage contentPage"
+            "userPage endScroll"
         ;
         justify-content: start;
     }
@@ -1538,12 +1614,13 @@ body nav .alertDiv button:hover {
     .homePage {
         grid-template-columns: 1fr 1fr 1fr;
         grid-template-areas:
-        "leftContent contentDiv contentDiv"
-        "leftContent endScroll endScroll"
+            "leftContent contentDiv contentDiv"
+            "leftContent endScroll endScroll"
         ;
     }
 
-    .homePage .leftContentDiv .welcome, .homePage .leftContentDiv .subWelcome {
+    .homePage .leftContentDiv .welcome,
+    .homePage .leftContentDiv .subWelcome {
         text-align: right;
         margin-right: 2vh;
     }

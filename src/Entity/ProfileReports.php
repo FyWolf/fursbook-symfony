@@ -16,19 +16,22 @@ class ProfileReports
     private $id;
 
     #[ORM\ManyToOne(targetEntity: User::class, inversedBy: "id")]
-    private $profileId;
+    #[ORM\Column(type: 'integer')]
+    private $profile;
 
     #[ORM\Column(type: 'string', length: 255, nullable: true)]
     private $description;
 
     #[ORM\ManyToOne(targetEntity: User::class, inversedBy: "id")]
-    private $userId;
+    #[ORM\Column(type: 'integer')]
+    private $user;
 
     #[ORM\Column(type: 'string', length: 255)]
     private $date;
 
     #[ORM\ManyToOne(targetEntity: ReportReasons::class, inversedBy: "id")]
-    private $reasonId;
+    #[ORM\Column(type: 'integer')]
+    private $reason;
 
     public function getId(): ?int
     {
@@ -37,12 +40,12 @@ class ProfileReports
 
     public function getProfileId(): ?int
     {
-        return $this->profileId;
+        return $this->profile;
     }
 
-    public function setProfileId(int $profileId): self
+    public function setProfileId(int $profile): self
     {
-        $this->profileId = $profileId;
+        $this->profile = $profile;
 
         return $this;
     }
@@ -61,12 +64,12 @@ class ProfileReports
 
     public function getUserId(): ?int
     {
-        return $this->userId;
+        return $this->user;
     }
 
-    public function setUserId(int $userId): self
+    public function setUserId(int $user): self
     {
-        $this->userId = $userId;
+        $this->user = $user;
 
         return $this;
     }
@@ -85,12 +88,12 @@ class ProfileReports
 
     public function getReasonId(): ?int
     {
-        return $this->reasonId;
+        return $this->reason;
     }
 
-    public function setReasonId(int $reasonId): self
+    public function setReasonId(int $reason): self
     {
-        $this->reasonId = $reasonId;
+        $this->reason = $reason;
 
         return $this;
     }

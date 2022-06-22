@@ -1,0 +1,27 @@
+<table>
+    <thead>
+        <tr>
+            <th>Author</th>
+            <th>Concerned profile id</th>
+            <th>Count</th>
+            <th>Actions</th>
+        </tr>
+    </thead>
+    <tbody>
+        {% for report in list %}
+            <tr>
+                <td><a href="/profile/{{ report.author }}">{{ report.author }}</a></td>
+                <td>Profile id: <a href="/profile/{{ report.target }}">{{ report.profile }} ({{ report.target }})</a></td>
+                <td>{{ report.count }}</td>
+                <td>
+                    <div>
+                        <button onClick="actionDropDown({{ report.id }})" id="dropBtn{{ report.id }}">Action <img class="svg" src="{{ asset('ressources/svg/arrowLeft.svg') }}" alt=""></button>
+                        <div class="dropDownDiv hidden" id="drop{{ report.id }}">
+                            <button onClick="editReport({{ report.id }})">Manage report</button>
+                        </div>
+                    </div>
+                </td>
+            </tr>
+        {% endfor %}
+    </tbody>
+</table>

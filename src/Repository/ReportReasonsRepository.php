@@ -63,4 +63,12 @@ class ReportReasonsRepository extends ServiceEntityRepository
 //            ->getOneOrNullResult()
 //        ;
 //    }
+
+    public function fetchAllReasons()
+    {
+        return $this->createQueryBuilder('r')
+            ->getQuery()
+            ->getArrayResult()
+        ;
+    }
 }

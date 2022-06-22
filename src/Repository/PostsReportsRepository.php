@@ -2,9 +2,10 @@
 
 namespace App\Repository;
 
-use App\Entity\PostsReports;
 use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository;
 use Doctrine\Persistence\ManagerRegistry;
+use Doctrine\DBAL\ParameterType;
+use App\Entity\PostsReports;
 
 /**
  * @extends ServiceEntityRepository<PostsReports>
@@ -63,4 +64,48 @@ class PostsReportsRepository extends ServiceEntityRepository
 //            ->getOneOrNullResult()
 //        ;
 //    }
+
+    public function adminGetReportedPosts($offset)
+    {
+        $conn = $this->getEntityManager()->getConnection();
+        $sql = 'SELECT posts_reports.*, author.username AS author, target.username AS target, COUNT(*) AS count
+                FROM posts_reports
+                INNER JOIN user AS author
+                ON posts_reports.user = author.id
+                INNER JOIN posts AS post
+                ON posts_reports.post = post.id
+                INNER JOIN user AS target
+                ON post.owner = target.id
+                GROUP BY posts_reports.post
+                LIMIT 15 OFFSET :offset';
+        $stmt = $conn->prepare($sql);
+        $stmt->bindParam('offset', $offset, ParameterType::INTEGER);
+        $resultSet = $stmt->execute();
+        return $resultSet->fetchAll();
+    }
+
+    public function countReportedPosts()
+    {
+        $conn = $this->getEntityManager()->getConnection();
+        $sql = 'SELECT COUNT(*) FROM posts_reports';
+        $stmt = $conn->prepare($sql);
+        $resultSet = $stmt->execute();
+        return $resultSet->fetch();
+    }
+
+    public function selectReportById($id)
+    {
+        $conn = $this->getEntityManager()->getConnection();
+        $sql = 'SELECT *
+                FROM posts_reports
+                INNER JOIN posts AS post
+                ON posts_reports.post = post.id
+                INNER JOIN user AS target
+                ON post.owner = target.id
+                WHERE posts_reports.post = :id';
+        $stmt = $conn->prepare($sql);
+        $stmt->bindParam('id', $id, ParameterType::INTEGER);
+        $resultSet = $stmt->execute();
+        return $resultSet->fetchAll();
+    }
 }

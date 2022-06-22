@@ -2,9 +2,10 @@
 
 namespace App\Repository;
 
-use App\Entity\ProfileReports;
 use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository;
 use Doctrine\Persistence\ManagerRegistry;
+use Doctrine\DBAL\ParameterType;
+use App\Entity\ProfileReports;
 
 /**
  * @extends ServiceEntityRepository<ProfileReports>
@@ -63,4 +64,30 @@ class ProfileReportsRepository extends ServiceEntityRepository
 //            ->getOneOrNullResult()
 //        ;
 //    }
+
+    public function adminGetReportedUsers($offset)
+    {
+        $conn = $this->getEntityManager()->getConnection();
+        $sql = 'SELECT profile_reports.id, profile_reports.user, profile_reports.profile, author.username AS author, target.username AS target, COUNT(*) AS count
+                FROM profile_reports
+                INNER JOIN user AS author
+                ON profile_reports.user = author.id
+                INNER JOIN user AS target
+                ON profile_reports.profile = target.id
+                GROUP BY profile_reports.profile
+                LIMIT 15 OFFSET :offset';
+        $stmt = $conn->prepare($sql);
+        $stmt->bindParam('offset', $offset, ParameterType::INTEGER);
+        $resultSet = $stmt->execute();
+        return $resultSet->fetchAll();
+    }
+
+    public function countReportedUsers()
+    {
+        $conn = $this->getEntityManager()->getConnection();
+        $sql = 'SELECT COUNT(*) FROM profile_reports';
+        $stmt = $conn->prepare($sql);
+        $resultSet = $stmt->execute();
+        return $resultSet->fetch();
+    }
 }

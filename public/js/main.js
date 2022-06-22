@@ -38,3 +38,12 @@ document.addEventListener('click', function(e){
       contextMenu.classList.add("hidden");
     }
 });
+
+function closeModal() {
+  const hidder = document.getElementById("modalBackground");
+  const modal = document.getElementById("modalDiv");
+  const modalContent = document.getElementById("modalContent");
+  modalContent.innerHTML = "";
+  hidder.classList.add("hidden");
+  modal.classList.add("hidden");
+}

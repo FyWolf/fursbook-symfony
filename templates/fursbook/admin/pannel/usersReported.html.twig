@@ -1,1 +1,10 @@
-<p>users reported</p>
+<div class="userList">
+    <div id="usrListDiv">
+        {% include "/fursbook/admin/pannel/template/reportUserList.html.twig" %}
+    </div>
+    <div class="pageNav">
+        <button class="prev" onClick="usrListPgSwitch(false)">Prev</button>
+        <p id="usrlistPgCount">0</p>
+        <button class="next" onClick="usrListPgSwitch(true)">Next</button>
+    </div>
+</div>

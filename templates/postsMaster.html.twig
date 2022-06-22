@@ -11,11 +11,16 @@
             <div class="dropdown">
                 <button onMouseDown="dropDownToggle({{post.postId}})"><img class="svg" id="ddButton{{post.postId}}" src="{{ asset('ressources/svg/ellipsis.svg') }}"></button>
                 <ul class="menu hidden" id="ddMenu{{post.postId}}">
-                    {% if loggedUserUsername == post.ownerUsername %}
+                    {% if app.user %}
+                        {% if loggedUserUsername == post.ownerUsername %}
+                            <li>
+                                <a href="/settings">{% trans %}profileParameters{% endtrans %}</a>
+                            </li>
+                        {% endif %}
                         <li>
-                            <a href="/settings">{% trans %}profileParameters{% endtrans %}</a>
+                            <button onClick="openReportedPost({{post.postId}})">Report posts</button>
                         </li>
-                    {% else %}
+                        {% else %}
                         <li>
                             <p>{% trans %}postNothingAvailable{% endtrans %}</p>
                         </li>

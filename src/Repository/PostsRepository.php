@@ -103,6 +103,47 @@ class PostsRepository extends ServiceEntityRepository
     }
     */
 
+    public function getPostById($doctrine, $loggedUser, $id) {
+        $userRepo = $doctrine->getRepository(User::class);
+
+        $result = $this->findOneBy(['id' => $id])
+        ;
+
+        $likeRepos = $doctrine->getRepository(Likes::class);
+        $user = $userRepo->findOneBy(['id' => $result->getOwner()]);
+
+        if($loggedUser){
+            $foundLike = $likeRepos->checkIfLiked($result->getId(), $loggedUser->getId());
+            if($foundLike) {
+                $liked = true;
+            }
+            else {
+                $liked = false;
+            }
+        }
+        else {
+            $liked = false;
+        }
+
+        $countLike = $likeRepos->countLikes($result->getId());
+        $constructedResult = (object) [
+            'ownerProfilePicture' => $user->getProfilePicture(),
+            'ownerUsername' => $user->getUsername(),
+            'postId' => $result->getId(),
+            'isLiked' => $liked,
+            'nbLikes' => $countLike,
+            'content' => $result->getContent(),
+            'nbPictures' => $result->getNbPictures(),
+            'picture1' => $result->getPicture1(),
+            'picture2' => $result->getPicture2(),
+            'picture3' => $result->getPicture3(),
+            'picture4' => $result->getPicture4(),
+            'date' => strftime('%R %d %b %Y', intval($result->getDatePosted())),
+        ];
+
+        return($constructedResult);
+    }
+
     public function getAllPosts($doctrine, $start, $loggedUser) {
         $userRepo = $doctrine->getRepository(User::class);
 

@@ -87,12 +87,18 @@ class AdminController extends AbstractController
                 }
 
                 elseif($_POST['pageName'] == 'managePostReport') {
+                    dump($_POST['id']);
+                    $postRepo = $doctrine->getRepository(Posts::class);
+                    $resultPosts = $postRepo->getPostById($doctrine, $this->getUser(), $_POST['id']);
                     $RepPostRepos = $doctrine->getRepository(PostsReports::class);
-                    $report = $RepPostRepos->selectReportById($_POST['id']);
+                    $report = $RepPostRepos->selectAllReportById($_POST['id']);
+                    $mainReport = $RepPostRepos->selectReportById($_POST['id']);
                     $response = new JsonResponse();
                     $response->setData(array(
                         'page' => $this->renderView('fursbook/admin/pannel/managePostReport.html.twig', [
                             'report' => $report,
+                            'mainReport' => $mainReport,
+                            'post' => $resultPosts,
                         ]),
                         )
                     );

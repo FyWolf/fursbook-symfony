@@ -2,10 +2,10 @@
 
 namespace App\Entity;
 
-use App\Entity\User;
-use App\Entity\Posts;
 use App\Repository\LikesRepository;
 use Doctrine\ORM\Mapping as ORM;
+use App\Entity\Posts;
+use App\Entity\User;
 
 #[ORM\Entity(repositoryClass: LikesRepository::class)]
 class Likes

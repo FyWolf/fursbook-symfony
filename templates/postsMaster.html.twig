@@ -12,7 +12,7 @@
                 <button onMouseDown="dropDownToggle({{post.postId}})"><img class="svg" id="ddButton{{post.postId}}" src="{{ asset('ressources/svg/ellipsis.svg') }}"></button>
                 <ul class="menu hidden" id="ddMenu{{post.postId}}">
                     {% if app.user %}
-                        {% if loggedUserUsername == post.ownerUsername %}
+                        {% if app.user.username == post.ownerUsername %}
                             <li>
                                 <a href="/settings">{% trans %}profileParameters{% endtrans %}</a>
                             </li>

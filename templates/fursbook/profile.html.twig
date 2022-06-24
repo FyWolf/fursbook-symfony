@@ -39,7 +39,7 @@
                     {% trans %}profileNoBio{% endtrans %}
                 {% endif %}
                 {% if not showedUser.bio == "" %}
-                    {{ showedUser.bio }}
+                    {{ showedUser.bio|nl2br }}
                 {% endif %}
         </p>
         </div>

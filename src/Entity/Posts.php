@@ -2,9 +2,9 @@
 
 namespace App\Entity;
 
-use App\Entity\User;
 use App\Repository\PostsRepository;
 use Doctrine\ORM\Mapping as ORM;
+use App\Entity\User;
 
 #[ORM\Entity(repositoryClass: PostsRepository::class)]
 class Posts

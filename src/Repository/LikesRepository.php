@@ -2,11 +2,11 @@
 
 namespace App\Repository;
 
-use App\Entity\Likes;
 use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository;
 use Doctrine\ORM\OptimisticLockException;
-use Doctrine\ORM\ORMException;
 use Doctrine\Persistence\ManagerRegistry;
+use Doctrine\ORM\ORMException;
+use App\Entity\Likes;
 
 /**
  * @extends ServiceEntityRepository<Likes>

@@ -2,9 +2,9 @@
 
 namespace App\Repository;
 
-use App\Entity\ReportReasons;
 use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository;
 use Doctrine\Persistence\ManagerRegistry;
+use App\Entity\ReportReasons;
 
 /**
  * @extends ServiceEntityRepository<ReportReasons>

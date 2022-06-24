@@ -93,19 +93,33 @@ class PostsReportsRepository extends ServiceEntityRepository
         return $resultSet->fetch();
     }
 
-    public function selectReportById($id)
+    public function selectAllReportById($id)
     {
         $conn = $this->getEntityManager()->getConnection();
         $sql = 'SELECT *
                 FROM posts_reports
-                INNER JOIN posts AS post
-                ON posts_reports.post = post.id
-                INNER JOIN user AS target
-                ON post.owner = target.id
                 WHERE posts_reports.post = :id';
         $stmt = $conn->prepare($sql);
         $stmt->bindParam('id', $id, ParameterType::INTEGER);
         $resultSet = $stmt->execute();
         return $resultSet->fetchAll();
+    }
+
+    public function selectReportById($id)
+    {
+        $conn = $this->getEntityManager()->getConnection();
+        $sql = 'SELECT target.username AS targetUsername, author.username AS authorUsername, posts_reports.*
+                FROM posts_reports
+                INNER JOIN posts AS post
+                ON posts_reports.post = post.id
+                INNER JOIN user AS target
+                ON post.owner = target.id
+                INNER JOIN user AS author
+                ON posts_reports.user = author.id
+                WHERE posts_reports.post = :id';
+        $stmt = $conn->prepare($sql);
+        $stmt->bindParam('id', $id, ParameterType::INTEGER);
+        $resultSet = $stmt->execute();
+        return $resultSet->fetch();
     }
 }

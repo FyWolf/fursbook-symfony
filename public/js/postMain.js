@@ -10,7 +10,7 @@ function likeButton(id) {
   const likeCounter = document.getElementById('like'+id);
   if(svg.classList.contains('liked')) {
     $.post(
-      window.location.pathname,
+      "/api",
       {
         'id': id,
         'action': 'unlike',
@@ -26,7 +26,7 @@ function likeButton(id) {
   }
   else {
     $.post(
-      window.location.pathname,
+      "/api",
       {
         'id': id,
         'action': 'like',

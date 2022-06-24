@@ -7,5 +7,5 @@
                 <img class="picture3" src="{{ asset(post.picture3) }}" alt="Post Picture">
                 <img class="picture4" src="{{ asset(post.picture4) }}" alt="Post Picture">
             </div>
-            <p>{{ post.content }}</p>
+            <p>{{ post.content|nl2br }}</p>
 {% endblock %}

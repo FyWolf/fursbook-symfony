@@ -9,13 +9,13 @@
                     </div>
                 {% endif %}
                 <div class="navLinks">
-                    <a href="/"><img class="svg" src="{{ asset('ressources/svg/navHome.svg') }}">{% trans %}home{% endtrans %}</a>
-                    <a href="/profile/{{ loggedUserUsername }}"><img class="svg" src="{{ asset('ressources/svg/sidePanelUser.svg') }}">{% trans %}profile{% endtrans %}</a>
-                    <a href="/settings"><img class="svg" src="{{ asset('ressources/svg/navSettings.svg') }}">{% trans %}settings{% endtrans %}</a>
-                    <a href="/newpost"><img class="svg" src="{{ asset('ressources/svg/write.svg') }}">{% trans %}newpost{% endtrans %}</a>
+                    <a href="/" title="home"><img class="svg" src="{{ asset('ressources/svg/navHome.svg') }}">{% trans %}home{% endtrans %}</a>
+                    <a href="/profile/{{ loggedUserUsername }}" title="user profile"><img class="svg" src="{{ asset('ressources/svg/sidePanelUser.svg') }}">{% trans %}profile{% endtrans %}</a>
+                    <a href="/settings" title="settings"><img class="svg" src="{{ asset('ressources/svg/navSettings.svg') }}">{% trans %}settings{% endtrans %}</a>
+                    <a href="/newpost" title="new post"><img class="svg" src="{{ asset('ressources/svg/write.svg') }}">{% trans %}newpost{% endtrans %}</a>
                     {% if app.user %}
                         {% if 'ROLE_ADMIN' in app.user.roles %}
-                            <a href="/admin"><img class="svg" src="{{ asset('ressources/svg/admin.svg') }}">{% trans %}admin{% endtrans %}</a>
+                            <a href="/admin" title="Admin pannel"><img class="svg" src="{{ asset('ressources/svg/admin.svg') }}">{% trans %}admin{% endtrans %}</a>
                         {% endif %}
                     {% endif %}
                 </div>

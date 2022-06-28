@@ -1,5 +1,10 @@
 @import"https://fonts.googleapis.com/css2?family=Inter:wght@100;200;300;400;500;600;700;800;900&display=swap";
 
+@font-face {
+    font-family: "dyslexia";
+    src: url('/fonts/dyslexia/OpenDyslexic3-Regular.ttf') format('truetype');
+}
+
 /***
     ####
         CSS VARIABLES DECLARATION
@@ -11,6 +16,7 @@
     --altBgColor: #311f3f;
     --scndAltBgColor: #3f2652;
     --postsTextColor: rgb(179, 179, 179);
+    font-size: 15px;
 }
 
 /***
@@ -31,12 +37,161 @@ body::-webkit-scrollbar {
     display: none;
 }
 
+.accessiblityTriggerButton {
+    display: none;
+}
+
+.accessiblityTriggerButton + label {
+    cursor: pointer;
+    position: fixed;
+    left: 1em;
+    bottom: 1em;
+    background-color: tomato;
+    height: 50px;
+    width: 50px;
+    border-radius: 50%;
+    z-index: 2;
+}
+
+.accessiblityTriggerButton + label:after {
+    position: fixed;
+    content: '';
+    background-image: url(/ressources/svg/accessibility.svg);
+    background-repeat: no-repeat;
+    background-position: center;
+    background-size: 2vh;
+    z-index: 3;
+    height: 50px;
+    width: 50px;
+    left: 1em;
+    bottom: 1em;
+    margin: auto;
+    border-radius: .5em;
+    transition: all .25s;
+}
+
+.accessiblityTriggerButton:checked + label:after {
+    transform: rotatez(-180deg);
+    -webkit-transform: rotatez(-180deg);
+    -moz-transform: rotatez(-180deg);
+    -ms-transform: rotatez(-180deg);
+    -o-transform: rotatez(-180deg);
+}
+
+.accessMenu {
+    cursor: pointer;
+    position: fixed;
+    left: 1em;
+    bottom: 1em;
+    padding: 1em;
+    height: 1em;
+    border-radius: 50px;
+    opacity: 0;
+    z-index: 1;
+    transform: rotateZ(90deg);
+    font-size: 1rem;
+    color: #fff;
+    transition-property: all;
+    transition-duration: .35s;
+    transition-timing-function: cubic-bezier(0.175, 0.885, 0.32, 1.275);
+    -webkit-border-radius: 50px;
+    -moz-border-radius: 50px;
+    -ms-border-radius: 50px;
+    -o-border-radius: 50px;
+}
+
+.accessMenu p {
+    margin: 0;
+    line-height: 100%;
+}
+
+.accessMenu button {
+    cursor: pointer;
+    background: none;
+    border: 1px solid white;
+    color: white;
+    border-radius: 5px;
+    -webkit-border-radius: 5px;
+    -moz-border-radius: 5px;
+    -ms-border-radius: 5px;
+    -o-border-radius: 5px;
+    margin: 0 2px;
+    font-size: 1rem;
+    font-weight: 600;
+    transition: all 0.3s ease-in-out;
+    -webkit-transition: all 0.3s ease-in-out;
+    -moz-transition: all 0.3s ease-in-out;
+    -ms-transition: all 0.3s ease-in-out;
+    -o-transition: all 0.3s ease-in-out;
+}
+
+.accessMenu button:hover {
+    background-color: white;
+    color: #000;
+}
+
+.accessiblityTriggerButton:checked ~ .accessiblityOne, .accessiblityTriggerButton:checked ~ .accessiblityTwo, .accessiblityTriggerButton:checked ~ .accessiblityThree {
+    opacity: 1;
+}
+
+.accessiblityOne p {
+    font-family: "dyslexia";
+}
+
+.accessiblityTwo {
+    background-color: #000;
+    border: 1px solid white;
+}
+
+.accessiblityTwo p {
+    color: yellow;
+}
+
+.accessiblityThree {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.accessiblityTriggerButton:checked ~ .accessiblityOne {
+    background-color: purple;
+    transform: translateX(5em);
+    transition-delay: .2s;
+    -webkit-transform: translateX(5em);
+    -moz-transform: translateX(5em);
+    -ms-transform: translateX(5em);
+    -o-transform: translateX(5em);
+}
+
+.accessiblityTriggerButton:checked ~ .accessiblityTwo {
+    transform: translateX(3.5em) translateY(-3.3em);
+    transition-delay: .1s;
+    -webkit-transform: translateX(3.5em) translateY(-3.3em);
+    -moz-transform: translateX(3.5em) translateY(-3.3em);
+    -ms-transform: translateX(3.5em) translateY(-3.3em);
+    -o-transform: translateX(3.5em) translateY(-3.3em);
+}
+
+.accessiblityTriggerButton:checked ~ .accessiblityThree {
+    cursor: default;
+    background-color: rgb(159, 45, 188);
+    transform: translateY(-5em) translateY(-1.8em);
+    -webkit-transform: translateY(-5em) translateY(-1.8em);
+    -moz-transform: translateY(-5em) translateY(-1.8em);
+    -ms-transform: translateY(-5em) translateY(-1.8em);
+    -o-transform: translateY(-5em) translateY(-1.8em);
+}
+
+.accessiblityTriggerButton:checked ~.accessiblityOne:hover, .accessiblityTriggerButton:checked ~ .accessiblityTwo:hover, .accessiblityTriggerButton:checked ~ .accessiblityThree:hover {
+    opacity: .9;
+}
+
 .svg {
     filter: brightness(0) invert(1);
 }
 
 button {
-    font-family: "Inter", sans-serif;
+    font-family: inherit;
 }
 
 .infoDiv {
@@ -114,6 +269,68 @@ button {
     width: 2vh;
 }
 
+.modal .content form {
+    display: flex;
+    gap: 5px;
+    align-items: center;
+    flex-direction: column;
+    width: 70%;
+    margin: auto;
+}
+
+.modal .content form select {
+    background-color: var(--altBgColor);
+    border: 1px solid white;
+    color: white;
+    width: 100%;
+    padding: 2px;
+    border-radius: 5px;
+    -webkit-border-radius: 5px;
+    -moz-border-radius: 5px;
+    -ms-border-radius: 5px;
+    -o-border-radius: 5px;
+}
+
+.modal .content form textarea {
+    width: 100%;
+    height: 10vh;
+    background-color: var(--altBgColor);
+    border: 1px solid white;
+    color: white;
+    border-radius: 5px;
+    -webkit-border-radius: 5px;
+    -moz-border-radius: 5px;
+    -ms-border-radius: 5px;
+    -o-border-radius: 5px;
+    resize: none;
+}
+
+.modal .content form button {
+    display: block;
+    pointer-events: auto;
+    cursor: pointer;
+    color: white;
+    border: 1px solid var(--scndAltBgColor);
+    background-color: var(--altBgColor);
+    padding: 0.5vh;
+    margin: 0.5vh 0;
+    font-size: 1rem;
+    border-radius: 5px;
+    -webkit-border-radius: 5px;
+    -moz-border-radius: 5px;
+    -ms-border-radius: 5px;
+    -o-border-radius: 5px;
+    transition: all 0.2s ease-in-out;
+    -webkit-transition: all 0.2s ease-in-out;
+    -moz-transition: all 0.2s ease-in-out;
+    -ms-transition: all 0.2s ease-in-out;
+    -o-transition: all 0.2s ease-in-out;
+}
+
+.modal .content form button:hover {
+    border-color: white;
+}
+
 .hidder {
     z-index: 14;
     position: fixed;
@@ -130,6 +347,14 @@ button {
     width: 80vw;
     max-width: 500px;
     margin: 5vh auto;
+}
+
+.darkPost .userDiv {
+    border: 2px solid white;
+}
+
+.darkPost .contentdiv {
+    border: 2px solid white;
 }
 
 .posts .userDiv {
@@ -843,6 +1068,10 @@ body nav .alertDiv button:hover {
     grid-area: userPage;
 }
 
+.userProfile .darkProfile {
+    border: 2px solid white;
+}
+
 .userProfile .userProfileDiv .banner {
     width: 100%;
     position: relative;
@@ -935,22 +1164,57 @@ body nav .alertDiv button:hover {
     opacity: 0;
     transform: translate(0, -12px);
     transition: transform 150ms, opacity 150ms, box-shadow 150ms;
-    z-index: 20;
+    z-index: 10;
+    text-align: center;
     border: 1px solid black;
+    pointer-events: none;
+    background-color: var(--altBgColor);
+    padding: 0.5vh 1vh;
+    list-style: none;
+    border-radius: 5px;
+    -webkit-border-radius: 5px;
+    -moz-border-radius: 5px;
+    -ms-border-radius: 5px;
+    -o-border-radius: 5px;
+}
+
+.userProfile .userProfileDiv .banner .dropdown__menu button, .userProfile .userProfileDiv .banner .dropdown__menu a {
+    text-decoration: none;
+    display: block;
+    pointer-events: auto;
+    cursor: pointer;
+    color: white;
+    border: 1px solid var(--scndAltBgColor);
+    background-color: var(--altBgColor);
+    padding: 0.5vh 0;
+    margin: 0.5vh 0;
+    font-size: 1rem;
+    width: 100%;
+    border-radius: 5px;
+    -webkit-border-radius: 5px;
+    -moz-border-radius: 5px;
+    -ms-border-radius: 5px;
+    -o-border-radius: 5px;
+    transition: all 0.2s ease-in-out;
+    -webkit-transition: all 0.2s ease-in-out;
+    -moz-transition: all 0.2s ease-in-out;
+    -ms-transition: all 0.2s ease-in-out;
+    -o-transition: all 0.2s ease-in-out;
+}
+
+.userProfile .userProfileDiv .banner .dropdown__menu button:hover {
+    background-color: var(--scndAltBgColor);
+    border-color: white;
+}
+
+.userProfile .userProfileDiv .banner .dropdown__menu a:hover {
+    background-color: var(--scndAltBgColor);
+    border-color: white;
 }
 
 .userProfile .userProfileDiv .banner .dropdown__menu>li {
     list-style: none;
     width: 200px;
-    padding: 3px;
-}
-
-.userProfile .userProfileDiv .banner .dropdown__menu>li>a {
-    display: block;
-    text-decoration: none;
-    padding: 8px 12px;
-    color: white;
-    background: var(--scndAltBgColor);
 }
 
 .userProfile .userProfileDiv .infos {
@@ -1072,6 +1336,10 @@ body nav .alertDiv button:hover {
     margin-bottom: 2vh;
 }
 
+.searchPage .searchBar .darkSearchForm input {
+    border: 2px solid white;
+}
+
 .searchPage .searchBar form {
     text-align: center;
 }
@@ -1101,6 +1369,10 @@ body nav .alertDiv button:hover {
 
 .searchPage .searchBar form button:hover {
     border-color: white;
+}
+
+.searchPage .contentDiv .darkSearchUser {
+    border: 2px solid white;
 }
 
 .searchPage .contentDiv .userDiv {
@@ -1252,7 +1524,6 @@ body nav .alertDiv button:hover {
 }
 
 .modif button {
-    font-family: "Inter", sans-serif;
     background-color: var(--scndAltBgColor);
     color: white;
     border-radius: 5px;
@@ -1493,7 +1764,6 @@ body nav .alertDiv button:hover {
 }
 
 .adminHome .userEdit button {
-    font-family: "Inter", sans-serif;
     background-color: var(--altBgColor);
     color: white;
     border: 1px solid var(--scndAltBgColor);
@@ -1558,7 +1828,6 @@ body nav .alertDiv button:hover {
 }
 
 .userCreation form button {
-    font-family: "Inter", sans-serif;
     background-color: var(--altBgColor);
     color: white;
     border: 1px solid var(--scndAltBgColor);

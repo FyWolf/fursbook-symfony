@@ -7,16 +7,20 @@
 {% block body %}
 <main class="searchPage">
     <div class="searchBar">
-        {{ form_start(form) }}
+        {% if darkMode %}
+            {{ form_start(form, {'attr': {'class': 'darkSearchForm', 'id': 'searchForm'}}) }}
+        {% else %}
+            {{ form_start(form, {'attr': {'id': 'searchForm'}}) }}
+        {% endif %}
             {{ form_row(form.search, {label: false, 'value' : actualSearch, 'attr': {'placeholder': "username"}}) }}
             <button type="submit" class="btn">{% trans %}search{% endtrans %}</button>
         {{ form_end(form) }}
     </div>
     <div class="contentDiv">
         {% for user in resultArray %}
-            <div class="userDiv">
+            <div class="userDiv {% if darkMode %}darkSearchUser{% endif %}" id="searchUserDiv">
                 <div>
-                <img src="{{ user.profilePicture }}">
+                    <img src="{{ user.profilePicture }}" alt="user profile picture">
                     <a href="/profile/{{ user.username }}">{{ user.username }}</a>
                 </div>
             </div>

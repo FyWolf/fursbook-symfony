@@ -1,7 +1,7 @@
-<article class="posts">
+<article class="posts {% if darkMode %}darkPost{% endif %}">
     <div class="userDiv">
         <div>
-            <img src="{{ asset(post.ownerProfilePicture) }}">
+            <img src="{{ asset(post.ownerProfilePicture) }}" alt="User profile picture">
             <a href="/profile/{{ post.ownerUsername }}">{{ post.ownerUsername }}</a>
         </div>
         <span>{{ post.date }}</span>
@@ -9,7 +9,7 @@
     <div class="contentdiv">
         <div class="top">
             <div class="dropdown">
-                <button onMouseDown="dropDownToggle({{post.postId}})"><img class="svg" id="ddButton{{post.postId}}" src="{{ asset('ressources/svg/ellipsis.svg') }}"></button>
+                <button onMouseDown="dropDownToggle({{post.postId}})"><img class="svg" id="ddButton{{post.postId}}" src="{{ asset('ressources/svg/ellipsis.svg') }}" alt="Contextual button"></button>
                 <ul class="menu hidden" id="ddMenu{{post.postId}}">
                     {% if app.user %}
                         {% if app.user.username == post.ownerUsername %}

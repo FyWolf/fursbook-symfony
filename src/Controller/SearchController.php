@@ -40,8 +40,8 @@ class SearchController extends AbstractController
             'loggedUserProfilePicture' => $userProfilePicture,
             'resultArray' => [],
             'actualSearch' => '',
-              ]);
-          }
+                ]);
+            }
 
     #[Route("/search/{search}", name: 'searchId')]
     public function searchId(Request $request, ManagerRegistry $doctrine, UserRepository $userRepository, string $search): Response
@@ -61,6 +61,18 @@ class SearchController extends AbstractController
             return $this->redirectToRoute('searchId', ['search' => $form->get('search')->getData()]);
         }
 
+        if(isset($_COOKIE['darkMode'])) {
+            if($_COOKIE['darkMode'] == 'true') {
+                $darkMode = true;
+            }
+            else {
+                $darkMode = false;
+            }
+        }
+        else {
+            $darkMode = false;
+        }
+
         $foundUsers = $userRepository->findByUsername('%'.$search.'%');
 
         return $this->render('fursbook/search.html.twig', [
@@ -69,6 +81,7 @@ class SearchController extends AbstractController
         'loggedUserProfilePicture' => $userProfilePicture,
         'resultArray' => $foundUsers,
         'actualSearch' => $search,
+        'darkMode' => $darkMode,
         ]);
     }
 }

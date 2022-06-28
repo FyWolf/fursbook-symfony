@@ -42,6 +42,12 @@
             <div class="content" id="modalContent">
             </div>
         </div>
+        <input id="accessiblityTriggerButton" class="accessiblityTriggerButton" type="checkbox">
+        <label for="accessiblityTriggerButton"></label>
+        <div class="accessMenu accessiblityOne" onClick="swapFont()"><p>Special font</p></div>
+        <div class="accessMenu accessiblityTwo" onClick="changeContrast()"><p>High contrast</p></div>
+        <div class="accessMenu accessiblityThree"><button onClick="changeFontSize(-1)">A-</button><button onClick="changeFontSize(0)">A</button><button onClick="changeFontSize(1)">A+</button></div>
+
         <link rel="stylesheet" href="{{ asset('css/main.css') }}">
     </body>
 </html>

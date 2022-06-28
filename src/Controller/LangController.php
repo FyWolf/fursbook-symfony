@@ -25,8 +25,8 @@ class LangController extends AbstractController
 
                 $response = new JsonResponse();
                 $response->setData(array(
-                  'done' => true
-                  )
+                    'done' => true
+                    )
                 );
                 return $response;
             }
@@ -35,8 +35,8 @@ class LangController extends AbstractController
 
                 $response = new JsonResponse();
                 $response->setData(array(
-                  'done' => true
-                  )
+                    'done' => true
+                    )
                 );
                 return $response;
             }

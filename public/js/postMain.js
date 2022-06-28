@@ -121,12 +121,13 @@ function openReportedPost(id) {
   const modalContent = document.getElementById("modalContent");
   let content = `
     <form onSubmit="return sendReport(${id})">
-      <select name="reason" id="modalSelect">
-      </select>
-      <textarea id="modalDesc"></textarea>
-      <button type="submit">Send</button>
+    <label for="reason">Report category</label>
+    <select name="reason" id="modalSelect">
+    </select>
+    <label for="description">Description</label>
+    <textarea name="description" id="modalDesc" maxLength="255"></textarea>
+    <button type="submit">Send</button>
     </form>
-    <button onClick="closeModal()">cancel</button>
   `;
   modalContent.innerHTML = content;
   const select = document.getElementById("modalSelect");
@@ -160,6 +161,8 @@ function sendReport(id) {
       'description': desc.value,
     },
     function (response) {
+      sendAlert("The report has been successfully sent", "success");
+      closeModal();
     },
   );
   return false;

@@ -5,12 +5,13 @@ function openReportedUser(id) {
     const modalContent = document.getElementById("modalContent");
     let content = `
         <form onSubmit="return sendUserReport(${id})">
+        <label for="reason">Report category</label>
         <select name="reason" id="modalSelect">
         </select>
-        <textarea id="modalDesc"></textarea>
+        <label for="description">Description</label>
+        <textarea name="description" id="modalDesc" maxLength="255"></textarea>
         <button type="submit">Send</button>
         </form>
-        <button onClick="closeModal()">cancel</button>
     `;
     modalContent.innerHTML = content;
     const select = document.getElementById("modalSelect");
@@ -44,6 +45,8 @@ function sendUserReport(id) {
             'description': desc.value,
         },
         function (response) {
+            sendAlert("The report has been successfully sent", "success");
+            closeModal();
         },
     );
     return false;

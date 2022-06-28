@@ -7,7 +7,7 @@
 {% block body %}
 <main class="userProfile">
     {% if isUserValid == true %}
-    <div class="userProfileDiv">
+    <div class="userProfileDiv {% if darkMode %}darkProfile{% endif %}" id="userProfile">
         <div class="banner">
             <img class="bannerImg" src="{{ asset(showedUser.profileBanner) }}">
             <img class="pfp"  src="{{ asset(showedUser.profilePicture) }}">
@@ -22,7 +22,7 @@
                             </li>
                         {% endif %}
                         <li>
-                            <button onClick="openReportedUser({{showedUser.id}})">Report posts</button>
+                            <button onClick="openReportedUser({{showedUser.id}})">Report profile</button>
                         </li>
                         {% else %}
                         <li>
@@ -60,7 +60,6 @@
     {% endfor %}
     </div>
     <div class="endScroll">
-        
     </div>
     {% endif %}
 

@@ -43,6 +43,19 @@ class ProfileController extends AbstractController
                 setlocale(LC_TIME, 'en');
             }
         }
+
+        if(isset($_COOKIE['darkMode'])) {
+            if($_COOKIE['darkMode'] == 'true') {
+                $darkMode = true;
+            }
+            else {
+                $darkMode = false;
+            }
+        }
+        else {
+            $darkMode = false;
+        }
+
         $repository = $doctrine->getRepository(User::class);
         $postRepo = $doctrine->getRepository(Posts::class);
         $showedUser = $repository->findOneBy(['username' => $username]);
@@ -58,6 +71,7 @@ class ProfileController extends AbstractController
                     'loggedUserUsername' => $userUsername,
                     'loggedUserProfilePicture' => $userProfilePicture,
                     'posts' => $resultPosts,
+                    'darkMode' => $darkMode,
                 ]);
 
                 $response = new JsonResponse();
@@ -112,7 +126,6 @@ class ProfileController extends AbstractController
             }
         }
 
-
         if ($showedUser) {
             $start = 0;
             $resultPosts = $postRepo->getUserPosts($doctrine, $showedUser, $start, $this->getUser());
@@ -124,6 +137,7 @@ class ProfileController extends AbstractController
                 'isUserValid' => $isUserValid,
                 'loggedUserProfilePicture' => $userProfilePicture,
                 'posts' => $resultPosts,
+                'darkMode' => $darkMode,
             ],);
         }
 
@@ -135,7 +149,5 @@ class ProfileController extends AbstractController
                 'loggedUserProfilePicture' => $userProfilePicture,
             ],);
         };
-
-
     }
 }

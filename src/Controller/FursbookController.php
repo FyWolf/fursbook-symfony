@@ -39,6 +39,18 @@ class FursbookController extends AbstractController
             }
         }
 
+        if(isset($_COOKIE['darkMode'])) {
+            if($_COOKIE['darkMode'] == 'true') {
+                $darkMode = true;
+            }
+            else {
+                $darkMode = false;
+            }
+        }
+        else {
+            $darkMode = false;
+        }
+
         $postRepo = $doctrine->getRepository(Posts::class);
         $resultPosts = $postRepo->getAllPosts($doctrine, 0, $this->getUser());
 
@@ -53,6 +65,7 @@ class FursbookController extends AbstractController
                     'loggedUserUsername' => $userUsername,
                     'loggedUserProfilePicture' => $userProfilePicture,
                     'posts' => $resultPosts,
+                    'darkMode' => $darkMode,
                 ]);
 
                 $response = new JsonResponse();
@@ -94,6 +107,7 @@ class FursbookController extends AbstractController
             'loggedUserUsername' => $userUsername,
             'loggedUserProfilePicture' => $userProfilePicture,
             'posts' => $resultPosts,
+            'darkMode' => $darkMode,
         ],);
     }
 

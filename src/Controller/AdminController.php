@@ -23,6 +23,17 @@ class AdminController extends AbstractController
         $userUsername = $this->getUser()->getUsername();
         $userProfilePicture = $this->getUser()->getProfilePicture();
 
+        if(isset($_COOKIE['darkMode'])) {
+            if($_COOKIE['darkMode'] == 'true') {
+                $darkMode = true;
+            }
+            else {
+                $darkMode = false;
+            }
+        }
+        else {
+            $darkMode = false;
+        }
 
         if($request->isXmlHttpRequest())
         {
@@ -99,6 +110,7 @@ class AdminController extends AbstractController
                             'report' => $report,
                             'mainReport' => $mainReport,
                             'post' => $resultPosts,
+                            'darkMode' => $darkMode,
                         ]),
                         )
                     );

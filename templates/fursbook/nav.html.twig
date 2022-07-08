@@ -9,10 +9,10 @@
                     </div>
                 {% endif %}
                 <div class="navLinks">
-                    <a href="/" title="home"><img class="svg" src="{{ asset('ressources/svg/navHome.svg') }}">{% trans %}home{% endtrans %}</a>
-                    <a href="/profile/{{ loggedUserUsername }}" title="user profile"><img class="svg" src="{{ asset('ressources/svg/sidePanelUser.svg') }}">{% trans %}profile{% endtrans %}</a>
-                    <a href="/settings" title="settings"><img class="svg" src="{{ asset('ressources/svg/navSettings.svg') }}">{% trans %}settings{% endtrans %}</a>
-                    <a href="/newpost" title="new post"><img class="svg" src="{{ asset('ressources/svg/write.svg') }}">{% trans %}newpost{% endtrans %}</a>
+                    <a href="/" title="home"><img class="svg" src="{{ asset('ressources/svg/navHome.svg') }}" alt="Home">{% trans %}home{% endtrans %}</a>
+                    <a href="/profile/{{ loggedUserUsername }}" title="user profile"><img class="svg" src="{{ asset('ressources/svg/sidePanelUser.svg') }}" alt="User Profile">{% trans %}profile{% endtrans %}</a>
+                    <a href="/settings" title="settings"><img class="svg" src="{{ asset('ressources/svg/navSettings.svg') }}" alt="settings">{% trans %}settings{% endtrans %}</a>
+                    <a href="/newpost" title="new post"><img class="svg" src="{{ asset('ressources/svg/write.svg') }}" alt="Create a new post">{% trans %}newpost{% endtrans %}</a>
                     {% if app.user %}
                         {% if 'ROLE_ADMIN' in app.user.roles %}
                             <a href="/admin" title="Admin pannel"><img class="svg" src="{{ asset('ressources/svg/admin.svg') }}">{% trans %}admin{% endtrans %}</a>
@@ -21,7 +21,7 @@
                 </div>
             </div>
             <div class="navSideBottomDiv">
-                <button class="langBtn" id="langButton"><img class="svg" src="{{ asset('ressources/svg/language.svg') }}"></button>
+                <button class="langBtn" id="langButton"><img class="svg" src="{{ asset('ressources/svg/language.svg') }}" alt="languages"></button>
                 <div class="langDiv hidden" id="langDiv">
                     <button onClick="setLocale('fr')">Français</button>
                     <button onClick="setLocale('en')">English</button>

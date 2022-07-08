@@ -26,6 +26,19 @@ class AdminController extends AbstractController
 
         if($request->isXmlHttpRequest())
         {
+
+            if(isset($_COOKIE['darkMode'])) {
+                if($_COOKIE['darkMode'] == 'true') {
+                    $darkMode = true;
+                }
+                else {
+                    $darkMode = false;
+                }
+            }
+            else {
+                $darkMode = false;
+            }
+
             $userRepos = $doctrine->getRepository(User::class);
             if($_POST['action'] == 'switch') {
                 if($_POST['pageName'] == 'userList') {
@@ -99,6 +112,7 @@ class AdminController extends AbstractController
                             'report' => $report,
                             'mainReport' => $mainReport,
                             'post' => $resultPosts,
+                            'darkMode' => $darkMode,
                         ]),
                         )
                     );

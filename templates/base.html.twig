@@ -9,12 +9,15 @@
         <meta name="robots" content="index, follow" />
         <meta name="keywords" content="furry, social media, social, fursbook, furbook, art, refsheet, fur, commission" />
         <link rel="shortcut icon" href="{{ asset('ressources/favicon.ico') }}" type="image/x-icon" />
+        <link rel="stylesheet" href="{{ asset('css/main.css') }}">
         <link rel="canonical" href="https://fursbook.org/" />
         <script src="{{ asset('js/main.js') }}" defer></script>
         <script src="{{ asset('js/sidebar.js') }}"></script>
         <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js" defer></script>
 
-
+        {% block stylesheets %}
+            {{ encore_entry_link_tags('app') }}
+        {% endblock %}
         {% block javascripts %}
             {{ encore_entry_script_tags('app') }}
         {% endblock %}
@@ -25,9 +28,6 @@
         </div>
         {% include "fursbook/nav.html.twig" %}
         {% block body %}{% endblock %}
-        {% block stylesheets %}
-            {{ encore_entry_link_tags('app') }}
-        {% endblock %}
         <div class="alphaWarning">
             <p>{% trans %}alpha1{% endtrans %}</p>
             <p>{% trans %}alpha2{% endtrans %}</p>
@@ -47,7 +47,5 @@
         <div class="accessMenu accessiblityOne" onClick="swapFont()"><p>Special font</p></div>
         <div class="accessMenu accessiblityTwo" onClick="changeContrast()"><p>High contrast</p></div>
         <div class="accessMenu accessiblityThree"><button onClick="changeFontSize(-1)">A-</button><button onClick="changeFontSize(0)">A</button><button onClick="changeFontSize(1)">A+</button></div>
-
-        <link rel="stylesheet" href="{{ asset('css/main.css') }}">
     </body>
 </html>

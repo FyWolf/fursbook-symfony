@@ -70,7 +70,6 @@ class AdminController extends AbstractController
                     $RepUserRepos = $doctrine->getRepository(ProfileReports::class);
                     $list = $RepUserRepos->adminGetReportedUsers(0);
                     $users = $RepUserRepos->countReportedUsers();
-                    dump($list);
                     $response = new JsonResponse();
                     $response->setData(array(
                         'page' => $this->renderView('fursbook/admin/pannel/usersReported.html.twig', [
@@ -86,7 +85,6 @@ class AdminController extends AbstractController
                     $RepPostRepos = $doctrine->getRepository(PostsReports::class);
                     $list = $RepPostRepos->adminGetReportedPosts(0);
                     $posts = $RepPostRepos->countReportedPosts();
-                    dump($list);
                     $response = new JsonResponse();
                     $response->setData(array(
                         'page' => $this->renderView('fursbook/admin/pannel/postsReported.html.twig', [
@@ -111,7 +109,6 @@ class AdminController extends AbstractController
                 }
 
                 elseif($_POST['pageName'] == 'managePostReport') {
-                    dump($_POST['id']);
                     $postRepo = $doctrine->getRepository(Posts::class);
                     $resultPosts = $postRepo->getPostById($doctrine, $this->getUser(), $_POST['id']);
                     $RepPostRepos = $doctrine->getRepository(PostsReports::class);

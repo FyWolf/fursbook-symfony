@@ -17,8 +17,10 @@ function likeButton(id) {
       },
       function (response) {
         if(response.liked){
-          svg.classList.remove("liked")
-          likeCounter.innerText = response.likes;
+          let html = `
+          <img class="svg " id="${id}" src="/ressources/svg/like.svg" alt="likes">${response.likes}
+          `
+          likeCounter.innerHTML = html;
         }
       },
     );
@@ -33,8 +35,10 @@ function likeButton(id) {
       },
       function (response) {
         if(response.liked){
-          svg.classList.add("liked")
-          likeCounter.innerText = response.likes;
+          let html = `
+          <img class="svg liked" id="${id}" src="/ressources/svg/like.svg" alt="likes">${response.likes}
+          `
+          likeCounter.innerHTML = html;
         }
       },
     );

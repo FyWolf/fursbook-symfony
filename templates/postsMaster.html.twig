@@ -34,7 +34,7 @@
         </div>
         <div class="bottom">
             <button class="commentBtn"><img class="svg" src="{{ asset('ressources/svg/comment.svg') }}" alt="comments"><p>0</p></button>
-            <button class="likeBtn" onMouseDown="likeButton({{post.postId}})"><img class="svg {% if post.isLiked %} liked {% endif %}" id="{{post.postId}}" src="{{asset('ressources/svg/like.svg')}}" alt="likes"><p id="like{{post.postId}}">{{post.nbLikes}}</p></button>
+            <button class="likeBtn" onMouseDown="likeButton({{post.postId}})" id="like{{post.postId}}"><img class="svg {% if post.isLiked %} liked {% endif %}" id="{{post.postId}}" src="{{asset('ressources/svg/like.svg')}}" alt="likes"></button>
         </div>
     </div>
 </article>

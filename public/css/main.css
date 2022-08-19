@@ -1702,6 +1702,7 @@ body nav .alertDiv button:hover {
     color: white;
     padding: 0.3vh;
     cursor: pointer;
+    border: 1px solid transparent;
     border-radius: 5px;
     -webkit-border-radius: 5px;
     -moz-border-radius: 5px;

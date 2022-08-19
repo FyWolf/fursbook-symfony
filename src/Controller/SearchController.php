@@ -37,6 +37,18 @@ class SearchController extends AbstractController
             }
         }
 
+        if(isset($_COOKIE['darkMode'])) {
+            if($_COOKIE['darkMode'] == 'true') {
+                $darkMode = true;
+            }
+            else {
+                $darkMode = false;
+            }
+        }
+        else {
+            $darkMode = false;
+        }
+
         if ($form->isSubmitted() && $form->isValid()) {
             return $this->redirectToRoute('searchId', ['search' => $form->get('search')->getData()]);
         }
@@ -47,6 +59,7 @@ class SearchController extends AbstractController
             'loggedUserProfilePicture' => $userProfilePicture,
             'resultArray' => [],
             'actualSearch' => '',
+            'darkMode' => $darkMode,
                 ]);
             }
 

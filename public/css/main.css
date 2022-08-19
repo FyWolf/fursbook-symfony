@@ -1770,7 +1770,8 @@ body nav .alertDiv button:hover {
     border: 1px solid var(--scndAltBgColor);
     border-radius: 5px;
     padding: 1vh;
-    border: 5px;
+    border: 1px solid transparent;
+    border-radius: 5px;
     -webkit-border-radius: 5px;
     -moz-border-radius: 5px;
     -ms-border-radius: 5px;
@@ -1797,6 +1798,7 @@ body nav .alertDiv button:hover {
 
 .adminHome .userEdit .userPictures div img {
     width: 35vw;
+    max-width: 800px;
 }
 
 /*

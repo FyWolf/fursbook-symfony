@@ -164,7 +164,7 @@ function openUsernamePrompt(id) {
   const div = document.getElementById('modif');
   div.innerHTML = `
   <form onSubmit="return sendUsername(${id})">
-    <input placeholder="Usename" name="text" pattern="[a-zA-Z0-9]" type="text" oninput="usernameCheck()" id="usernameInput" maxlength="25">
+    <input placeholder="Usename" name="text" type="text" oninput="usernameCheck()" id="usernameInput" maxlength="25">
     <div>
       <button type="submit">Save</button>
       <button onClick="cancel()">cancel</button>

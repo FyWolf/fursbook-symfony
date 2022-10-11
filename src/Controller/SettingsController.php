@@ -33,7 +33,11 @@ class SettingsController extends AbstractController
 
         if ($profileForm->isSubmitted()){
             if (null !== $profileForm->get('username')->getData()){
-                $user->setUsername( $profileForm->get('username')->getData());
+                if (strpos($profileForm->get('username')->getData(), "../") !== false) {
+                    return $this->redirectToRoute('settings_fursbook');
+                } else {
+                    $user->setUsername( $profileForm->get('username')->getData());
+                }
             }
             if (null !== $profileForm->get('bio')->getData()){
                 $user->setBio( $profileForm->get('bio')->getData());

@@ -140,7 +140,7 @@ class UserRepository extends ServiceEntityRepository implements PasswordUpgrader
         $stmt->bindParam('id', $id, ParameterType::INTEGER);
         $stmt->bindParam('email', $email, ParameterType::STRING);
         $stmt->bindParam('pass', $pass, ParameterType::STRING);
-        $resultSet = $stmt->execute();
+        $stmt->execute();
     }
 
     public function setUsernameViaID($id, $username)
@@ -150,7 +150,7 @@ class UserRepository extends ServiceEntityRepository implements PasswordUpgrader
         $stmt = $conn->prepare($sql);
         $stmt->bindParam('id', $id, ParameterType::INTEGER);
         $stmt->bindParam('username', $username, ParameterType::STRING);
-        $resultSet = $stmt->execute();
+        $stmt->execute();
     }
 
     public function deleteUserViaID($id)
@@ -159,7 +159,7 @@ class UserRepository extends ServiceEntityRepository implements PasswordUpgrader
         $sql = 'DELETE FROM user WHERE id = :id';
         $stmt = $conn->prepare($sql);
         $stmt->bindParam('id', $id, ParameterType::INTEGER);
-        $resultSet = $stmt->execute();
+        $stmt->execute();
     }
 
     public function adminCreateUser($email, $password, $username, $pfp, $bio, $banner)

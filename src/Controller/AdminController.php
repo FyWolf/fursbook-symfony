@@ -196,9 +196,16 @@ class AdminController extends AbstractController
             }
 
             elseif($_POST['action'] == 'setUsername') {
-                $userRepos->setUsernameViaID($_POST['id'], $_POST['username']);
-
-                $user = $userRepos->selectUserViaID($_POST['id']);
+                if (strpos($_POST['username'], "../") !== false) {
+                    $response = new JsonResponse();
+                    $response->setData(array(
+                        "error" => true,
+                        )
+                    );
+                    return $response;
+                } else {
+                    $userRepos->setUsernameViaID($_POST['id'], $_POST['username']);
+                }
                 $response = new JsonResponse();
                 $response->setData(array(
                     )

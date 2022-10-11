@@ -201,8 +201,12 @@ function sendUsername(id) {
       'username': username,
     },
     function (response) {
-      editUser(id);
-      cancel();
+      if(response.error == true) {
+        sendAlert("an error occured", "error")
+      }else {
+        editUser(id);
+        cancel();
+      }
     },
   );
   return false;

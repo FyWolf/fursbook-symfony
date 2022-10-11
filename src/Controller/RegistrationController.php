@@ -35,7 +35,11 @@ class RegistrationController extends AbstractController
                     $form->get('plainPassword')->getData()
                 )
             );
-            $user->setUsername($form->get('username')->getData());
+            if (strpos($form->get('username')->getData(), "../") !== false) {
+                return $this->redirectToRoute('app_register');
+            } else {
+                $user->setUsername($form->get('username')->getData());
+            }
             $user->setEmail($form->get('email')->getData());
             $user->setProfilePicture("/ressources/images/default/profilePicture.png");
             $user->setDateCreated(time());

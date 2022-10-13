@@ -12,7 +12,7 @@
                     <legend>{% trans %}profileParameters{% endtrans %}</legend>
                     {{ form_start(profileForm) }}
                         {{ form_label(profileForm.username, 'username') }}
-                        {{ form_row(profileForm.username, {label: false, 'attr': {'placeholder': app.user.username}}) }}
+                        {{ form_row(profileForm.username, {label: false, 'attr': {'placeholder': app.user.username, 'pattern': "^[a-zA-Z0-9](_(?!(\.|_))|\.(?!(_|\.))|[a-zA-Z0-9]){2,21}[a-zA-Z0-9]$"}}) }}
                         {{ form_label(profileForm.bio, 'description') }}
                         {{ form_row(profileForm.bio,  {label: false, 'attr': {'class': 'textArea', 'maxlength': '180', 'placeholder': app.user.bio }}) }}
                         {{ form_label(profileForm.profilePicture, "profilePicture") }}
@@ -29,7 +29,7 @@
                     {{ form_start(userForm, {'attr': {'id': "userForm", 'onSubmit': "return userFormSubmit()"}}) }}
                         {{ form_label(userForm.email, 'Email') }}
                         <div>
-                            {{ form_row(userForm.email, {label: false, required: false, 'attr': {'placeholder': app.user.email}}) }}
+                            {{ form_row(userForm.email, {label: false, required: false, 'attr': {'placeholder': app.user.email, 'pattern': "(?:[a-z0-9!#$%&'*+/=?^_`{|}~-]+(?:\.[a-z0-9!#$%&'*+/=?^_`{|}~-]+)*|'(?:[\x01-\x08\x0b\x0c\x0e-\x1f\x21\x23-\x5b\x5d-\x7f]|\\[\x01-\x09\x0b\x0c\x0e-\x7f])*')@(?:(?:[a-z0-9](?:[a-z0-9-]*[a-z0-9])?\.)+[a-z0-9](?:[a-z0-9-]*[a-z0-9])?|\[(?:(?:(2(5[0-5]|[0-4][0-9])|1[0-9][0-9]|[1-9]?[0-9]))\.){3}(?:(2(5[0-5]|[0-4][0-9])|1[0-9][0-9]|[1-9]?[0-9])|[a-z0-9-]*[a-z0-9]:(?:[\x01-\x08\x0b\x0c\x0e-\x1f\x21-\x5a\x53-\x7f]|\\[\x01-\x09\x0b\x0c\x0e-\x7f])+)\])"}}) }}
                             {% if not app.user.isVerified %}
                                 <button type="button" class="btn" onClick="sendVerifMail()">{% trans %}sendMail{% endtrans %}</button>
                             {% endif %}

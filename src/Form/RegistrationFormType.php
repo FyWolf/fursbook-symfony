@@ -3,7 +3,6 @@
 namespace App\Form;
 
 use Symfony\Component\Form\Extension\Core\Type\PasswordType;
-use Symfony\Component\Form\Extension\Core\Type\CheckboxType;
 use Symfony\Component\Form\Extension\Core\Type\EmailType;
 use Symfony\Component\Form\Extension\Core\Type\TextType;
 use Symfony\Component\OptionsResolver\OptionsResolver;
@@ -50,10 +49,6 @@ class RegistrationFormType extends AbstractType
                     ]),
                 ],
             ])
-            ->add('isSubscribed', CheckboxType::class)
-            ->add('CGU', CheckboxType::class, array(
-                "mapped" => false,
-            ))
         ;
     }
 

@@ -595,10 +595,6 @@ button {
     align-items: center;
 }
 
-.posts .contentdiv .bottom .commentBtn {
-    cursor: not-allowed;
-}
-
 .posts .contentdiv .bottom button img {
     width: 2.5vh;
     filter: invert(77%) sepia(37%) saturate(12%) hue-rotate(46deg) brightness(95%) contrast(94%);
@@ -806,17 +802,6 @@ body nav .alertDiv button:hover {
     position: relative;
     justify-self: flex-end;
     padding: 3vh;
-}
-
-.navSideBottomDiv .bottomLinks {
-    display: flex;
-    flex-direction: column;
-    margin-bottom: 10px;
-}
-
-.navSideBottomDiv .bottomLinks a {
-    color: white;
-    text-decoration: none;
 }
 
 .navSideBottomDiv a img {
@@ -1037,30 +1022,14 @@ body nav .alertDiv button:hover {
 
 .loginPage form a {
     text-decoration: none;
-    color: rgb(179, 179, 179);
-    font-size: 0.9rem;
+    color: white;
+    font-size: 0.8rem;
     align-self: flex-end;
     margin-bottom: 1vh;
 }
 
 .loginPage form a:hover {
     text-decoration: underline;
-}
-
-.loginPage form div:has(.checkbox) {
-    flex-direction: row;
-    width: 80%;
-    align-items: center;
-    justify-content: center;
-    margin-bottom: 10px;
-}
-
-.loginPage form div:has(.checkbox) label {
-    width: 100%;
-}
-
-.loginPage form .checkbox {
-    width: auto;
 }
 
 /***
@@ -1354,30 +1323,6 @@ body nav .alertDiv button:hover {
     border-color: white;
 }
 
-.settings section fieldset .newsletterSettings {
-    width: 90%;
-    display: flex;
-    align-items: center;
-    justify-content: space-evenly;
-}
-
-.settings section fieldset .newsletterSettings button {
-    background-color: var(--altBgColor);
-    color: white;
-    border: 1px solid black;
-    padding: 0.6vh 0.5vh;
-    border-radius: 10px;
-    font-size: 1rem;
-    cursor: pointer;
-    white-space: nowrap;
-    transition: all 0.2s ease-in-out;
-}
-
-.settings section fieldset .newsletterSettings button:hover {
-    border-color: white;
-}
-
-
 /***
     ####
         SEARCH PAGE CSS
@@ -1517,19 +1462,6 @@ body nav .alertDiv button:hover {
     font-size: 1.1rem;
     cursor: pointer;
     transition: all 0.2s ease-in-out;
-}
-
-
-/***
-    ####
-        TERMS & PRIVACY PAGE CSS
-    ####
-***/
-
-.terms {
-    width: 90vw;
-    max-width: 800px;
-    margin: auto;
 }
 
 

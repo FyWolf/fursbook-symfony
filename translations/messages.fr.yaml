@@ -1,6 +1,7 @@
 connectedWelcomeMainMessage: Bienvenue
 connectedWelcomeSubMessage: Qu'as tu envie d'écrire aujourd'hui ?
 profileNothingAvailable: Rien disponnible sur ce profil
+notificationsSettings: Paramètre de notification
 postNothingAvailable: Rien disponnible pour ce post
 welcomeMainMessage: Bienvenue !
 welcomeSubMessage: Vous pouvez vous connecter ici
@@ -17,9 +18,12 @@ errorOccured: Une erreur est survenue
 pwdMissMatch: Les mots de passe de correspondent pas
 description: Description
 newPassword: Nouveau mot de passe
+unsubscribe: se désinscrire
 userVerify: Vérifier le compte
 newAccount: Créer un compte
+dangerZone: Zone de danger
 infoSaved: Les informations ont bien été sauvegardé
+subscribe: S'inscrire
 password: Mot de passe
 settings: Paramètres
 sendPost: Envoyer

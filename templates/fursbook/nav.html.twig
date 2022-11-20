@@ -21,18 +21,24 @@
                 </div>
             </div>
             <div class="navSideBottomDiv">
-                <button class="langBtn" id="langButton"><img class="svg" src="{{ asset('ressources/svg/language.svg') }}" alt="languages"></button>
-                <div class="langDiv hidden" id="langDiv">
-                    <button onClick="setLocale('fr')">Français</button>
-                    <button onClick="setLocale('en')">English</button>
+                <div class="bottomLinks">
+                    <a href="/terms">Terms of use</a>
+                    <a href="/privacy">Privacy policy</a>
                 </div>
-                {% if not app.user %}
-                    <a href="/login"><img class="svg" src="{{ asset('ressources/svg/signInLogo.svg') }}" alt="sign in"></a>
-                {% endif %}
+                <div>
+                    <button class="langBtn" id="langButton"><img class="svg" src="{{ asset('ressources/svg/language.svg') }}" alt="languages"></button>
+                    <div class="langDiv hidden" id="langDiv">
+                        <button onClick="setLocale('fr')">Français</button>
+                        <button onClick="setLocale('en')">English</button>
+                    </div>
+                    {% if not app.user %}
+                        <a href="/login"><img class="svg" src="{{ asset('ressources/svg/signInLogo.svg') }}" alt="sign in"></a>
+                    {% endif %}
 
-                {% if app.user %}
-                    <a href="/logout"><img class="svg" src="{{ asset('ressources/svg/signOutLogo.svg') }}" alt="sign in"></a>
-                {% endif %}
+                    {% if app.user %}
+                        <a href="/logout"><img class="svg" src="{{ asset('ressources/svg/signOutLogo.svg') }}" alt="sign in"></a>
+                    {% endif %}
+                </div>
             </div>
         </div>
         <div class="js-sidebar--background"></div>

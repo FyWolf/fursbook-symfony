@@ -121,10 +121,104 @@ class FursbookController extends AbstractController
         else {
             $userUsername = "";
             $userProfilePicture = "";
+            if(isset($_COOKIE['lang'])) {
+                setlocale(LC_TIME, $_COOKIE['lang']);
+            }
+            else {
+                setlocale(LC_TIME, 'en');
+            }
         }
+
+        if(isset($_COOKIE['darkMode'])) {
+            if($_COOKIE['darkMode'] == 'true') {
+                $darkMode = true;
+            }
+            else {
+                $darkMode = false;
+            }
+        }
+        else {
+            $darkMode = false;
+        }
+
         return $this->render('fursbook/recovery.html.twig', [
             'loggedUserUsername' => $userUsername,
             'loggedUserProfilePicture' => $userProfilePicture,
+            'darkMode' => $darkMode,
+        ],);
+    }
+
+    #[Route('/terms', name: 'CGU_fursbook')]
+    public function terms(): Response
+    {
+        if ($this->getUser()) {
+            $userUsername = $this->getUser()->getUsername();
+            $userProfilePicture = $this->getUser()->getProfilePicture();
+        }
+        else {
+            $userUsername = "";
+            $userProfilePicture = "";
+            if(isset($_COOKIE['lang'])) {
+                setlocale(LC_TIME, $_COOKIE['lang']);
+            }
+            else {
+                setlocale(LC_TIME, 'en');
+            }
+        }
+
+        if(isset($_COOKIE['darkMode'])) {
+            if($_COOKIE['darkMode'] == 'true') {
+                $darkMode = true;
+            }
+            else {
+                $darkMode = false;
+            }
+        }
+        else {
+            $darkMode = false;
+        }
+
+        return $this->render('fursbook/terms.html.twig', [
+            'loggedUserUsername' => $userUsername,
+            'loggedUserProfilePicture' => $userProfilePicture,
+            'darkMode' => $darkMode,
+        ],);
+    }
+
+    #[Route('/privacy', name: 'privacy_fursbook')]
+    public function privacy(): Response
+    {
+        if ($this->getUser()) {
+            $userUsername = $this->getUser()->getUsername();
+            $userProfilePicture = $this->getUser()->getProfilePicture();
+        }
+        else {
+            $userUsername = "";
+            $userProfilePicture = "";
+            if(isset($_COOKIE['lang'])) {
+                setlocale(LC_TIME, $_COOKIE['lang']);
+            }
+            else {
+                setlocale(LC_TIME, 'en');
+            }
+        }
+
+        if(isset($_COOKIE['darkMode'])) {
+            if($_COOKIE['darkMode'] == 'true') {
+                $darkMode = true;
+            }
+            else {
+                $darkMode = false;
+            }
+        }
+        else {
+            $darkMode = false;
+        }
+
+        return $this->render('fursbook/privacy.html.twig', [
+            'loggedUserUsername' => $userUsername,
+            'loggedUserProfilePicture' => $userProfilePicture,
+            'darkMode' => $darkMode,
         ],);
     }
 }

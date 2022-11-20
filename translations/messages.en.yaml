@@ -1,6 +1,7 @@
 connectedWelcomeMainMessage: Welcome
 connectedWelcomeSubMessage: What do you want to write today ?
 profileNothingAvailable: Nothing available for that profile
+notificationsSettings: Notification settings
 postNothingAvailable: Nothing available for that post
 welcomeMainMessage: Welcome !
 welcomeSubMessage: You can connect here
@@ -17,9 +18,12 @@ errorOccured: An error had occured
 pwdMissMatch: Passwords doesn't match
 description: Description
 newPassword: New password
+unsubscribe: Unsubscribe
 userVerify: Verify account
 newAccount: Create an account
+dangerZone: Danger zone
 infoSaved: The informations has been saved
+subscribe: Subscribe
 password: Password
 settings: Settings
 sendPost: Send post

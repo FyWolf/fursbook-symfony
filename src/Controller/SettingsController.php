@@ -95,9 +95,11 @@ class SettingsController extends AbstractController
                     ->to($this->getUser()->getEmail())
                     ->subject('Email confirmation')
                     ->html('
-                    <p>Welcome to Fursbook '.$this->getUser()->getUsername().' !</p>
-                    <p>To verify your account, please open the link:</p>
-                    <a href="'.$signatureComponents->getSignedUrl().'">Verify my account</a>
+                    <div style="background-color: #261d2f; text-align: center; color: white; font-size: 1.3em; max-width: 600px; border-radius: 5px; margin: auto; padding: 10px;">
+                        <p>Welcome to Fursbook '.$this->getUser()->getUsername().' !</p>
+                        <p>To verify your account, please open the link:</p>
+                        <a href="'.$signatureComponents->getSignedUrl().'" style="color: white; background-color: #311f3f; border: 1px solid white; padding: 0.5vh 1vh; border-radius: 10px; font-size: 1rem; cursor: pointer; text-decoration: none;">Verify my account</a>
+                    <div>
                     ');
 
                 $mailer->send($email);
@@ -128,7 +130,6 @@ class SettingsController extends AbstractController
             }
 
             elseif ($_POST['action'] == 'setNewMail'){
-                dump('coucou1');
                 if ($userPasswordHasher->isPasswordValid($this->getUser(), $_POST['oldPwd'])) {
                     $dsn = $this->getParameter('dsn');
                     $transport = Transport::fromDsn($dsn);
@@ -140,9 +141,11 @@ class SettingsController extends AbstractController
                         ->to($this->getUser()->getEmail())
                         ->subject('Email changed')
                         ->html('
-                        <p>Hello '.$this->getUser()->getUsername().'</p>
-                        <p>Your email has been changed to that adress:</p>
-                        <p>'.$_POST['newMail'].'</p>
+                        <div style="background-color: #261d2f; text-align: center; color: white; font-size: 1.3em; max-width: 600px; border-radius: 5px; margin: auto; padding: 10px;">
+                            <p>Hello '.$this->getUser()->getUsername().'</p>
+                            <p>Your email adress onf Fursbook has been changed to that address:</p>
+                            <p>'.$_POST['newMail'].'</p>
+                        </div>
                         ');
 
                     $mailer->send($email);

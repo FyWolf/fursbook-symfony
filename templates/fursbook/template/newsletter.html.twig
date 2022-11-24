@@ -1,0 +1,13 @@
+<article class="posts newsletter {% if darkMode %}darkPost{% endif %}">
+<div class="userDiv">
+    <div>
+        <img class="svg" src="/ressources/svg/logo.svg" alt="User profile picture">
+        <p>Fursbook Admin</p>
+    </div>
+    <span>{{ newsletter.date }}</span>
+</div>
+<div class="contentdiv">
+    <h2>{{ newsletter.title }}</h2>
+    {{ newsletter.content | raw }}
+</div>
+</article>

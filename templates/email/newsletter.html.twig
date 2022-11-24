@@ -1,0 +1,20 @@
+<!DOCTYPE html>
+<html>
+    <head>
+    </head>
+    <body style="background-color: #261d2f; color: white; font-size: 1.3em; max-width: 600px; border-radius: 5px; margin: auto; padding: 10px;">
+        <header style="display: flex; margin: auto; height: 4rem; width: 100%; vertical-align: middle; text-align: center; margin-bottom: 10px;">
+            <img src="{{ DOMAIN_NAME ~ asset('ressources/logo-white.png') }}" /><h1 style="line-height: 0.8;">ursbook</h1>
+        </header>
+        <div style="text-align: center; width: 100%; margin-bottom: 10px; border-top: 1px solid #3f2652; border-bottom: 1px solid #3f2652;">
+            {{ content | raw }}
+        </div>
+        <footer style="display: flex; color: white; font-size: 0.7rem;">
+            <a href="https://fursbook.org/privacy" style="text-decoration: none; color: white;">Privacy Policy</a>
+            <p style="margin: 5px; line-height: 0;">|</p>
+            <a href="https://fursbook.org/terms" style="text-decoration: none; color: white;">Terms of use</a>
+            <p style="margin: 5px; line-height: 0;">|</p>
+            <a href="https://fursbook.org/settings/unsubscribe" style="text-decoration: none; color: white;">Unsubscribe</a>
+        </footer>
+    </body>
+</html>

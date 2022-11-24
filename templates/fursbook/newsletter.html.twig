@@ -1,0 +1,21 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}
+    Fursbook | Newsletter
+{% endblock %}
+
+{% block body %}
+    <main class="newsletter">
+        <div class="contentdiv" id="contentdiv">
+            {% for newsletter in newsletters %}
+                {% include "/fursbook/template/newsletter.html.twig" %}
+            {% endfor %}
+        </div>
+        <div class="endScroll">
+        </div>
+    </main>
+{% endblock %}
+
+{% block javascripts %}
+    <script src="/js/newsletter.js" defer></script>
+{% endblock %}

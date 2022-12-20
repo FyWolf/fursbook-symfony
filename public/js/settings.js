@@ -104,3 +104,27 @@ $("#user_settings_newPassword2").on("input", function(){
 $("#user_settings_oldPassword").on("input", function(){
     passwdOld.classList.remove("error");
 });
+
+function newsletterSub() {
+    $.post(
+        window.location.pathname,
+        {
+            'action': 'newsletterSub',
+        },
+        function (response) {
+            location.reload();
+        },
+    );
+}
+
+function newsletterUnSub() {
+    $.post(
+        window.location.pathname,
+        {
+            'action': 'newsletterUnSub',
+        },
+        function (response) {
+            location.reload();
+        },
+    );
+}

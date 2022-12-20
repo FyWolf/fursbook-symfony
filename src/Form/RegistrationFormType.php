@@ -50,6 +50,7 @@ class RegistrationFormType extends AbstractType
                     ]),
                 ],
             ])
+            ->add('isSubscribed', CheckboxType::class)
             ->add('CGU', CheckboxType::class, array(
                 "mapped" => false,
             ))

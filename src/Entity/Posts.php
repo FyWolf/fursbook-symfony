@@ -14,7 +14,8 @@ class Posts
     #[ORM\Column(type: 'integer')]
     private $id;
 
-    #[ORM\Column(type: 'integer', length: 11)]
+    #[ORM\ManyToOne(targetEntity: User::class)]
+    #[ORM\JoinColumn(nullable: false, onDelete:"CASCADE")]
     private $Owner;
 
     #[ORM\Column(type: 'string', length: 300, nullable: true)]
@@ -43,7 +44,7 @@ class Posts
         return $this->id;
     }
 
-    public function getOwner(): ?string
+    public function getOwner()
     {
         return $this->Owner;
     }
@@ -56,7 +57,7 @@ class Posts
     }
 
 
-    public function setOwner(string $Owner): self
+    public function setOwner($Owner): self
     {
         $this->Owner = $Owner;
 

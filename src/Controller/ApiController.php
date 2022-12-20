@@ -10,6 +10,7 @@ use Symfony\Component\HttpFoundation\Request;
 use Doctrine\Persistence\ManagerRegistry;
 use Doctrine\ORM\EntityManagerInterface;
 use App\Entity\Likes;
+use App\Entity\Posts;
 
 class ApiController extends AbstractController
 {
@@ -21,8 +22,10 @@ class ApiController extends AbstractController
             if($_POST['action'] == 'like') {
                 if($this->getUser()){
                     $like = new Likes;
-                    $like->setPostId($_POST['id']);
-                    $like->setUserId($this->getUser()->getId());
+                    $postRepo = $doctrine->getRepository(Posts::class);
+                    $post = $postRepo->find($_POST['id']);
+                    $like->setPostId($post);
+                    $like->setUserId($this->getUser());
                     $entityManager->persist($like);
                     $entityManager->flush();
                     $likeRepos = $doctrine->getRepository(Likes::class);

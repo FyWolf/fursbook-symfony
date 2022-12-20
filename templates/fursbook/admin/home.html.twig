@@ -20,8 +20,8 @@
             </div>
             <button class="accordion">Newslester</button>
             <div class="panel">
-                <button class="navButton" onClick="selectPannel('newNews')"><img class="svg" src="{{ asset('ressources/svg/catLink.svg') }}" alt=""> New News</button>
-                <button class="navButton" onClick="selectPannel('newsList')"><img class="svg" src="{{ asset('ressources/svg/catLink.svg') }}" alt=""> News list</button>
+                <button class="navButton" onClick="selectPannel('newNews')"><img class="svg" src="{{ asset('ressources/svg/catLink.svg') }}" alt=""> New Newsletter</button>
+                <button class="navButton" onClick="selectPannel('newsList')"><img class="svg" src="{{ asset('ressources/svg/catLink.svg') }}" alt=""> Newsletter list</button>
             </div>
         </div>
         <div class="content" id="mainContent">
@@ -31,6 +31,11 @@
     </div>
 {% endblock %}
 
+{% block stylesheets %}
+    <link rel="stylesheet" href="{{ asset('css/trix.css') }}">
+{% endblock %}
+
 {% block javascripts %}
+    <script src="/js/trix.js" defer></script>
     <script src="/js/admin.js" defer></script>
 {% endblock %}

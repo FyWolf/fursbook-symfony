@@ -23,6 +23,19 @@
                         {{ form_end(profileForm) }}
                 </fieldset>
         </section>
+        <section class="notificationsSettings">
+                <fieldset>
+                    <legend>{% trans %}notificationsSettings{% endtrans %}</legend>
+                    <div class="newsletterSettings">
+                        <p>Newsletter: </p>
+                        {% if app.user.isSubscribed %}
+                            <button onClick="newsletterUnSub()">{% trans %}unsubscribe{% endtrans %}</button>
+                        {% else %}
+                            <button onClick="newsletterSub()">{% trans %}subscribe{% endtrans %}</button>
+                        {% endif %}
+                    </div>
+                </fieldset>
+        </section>
         <section class="UserSettings">
                 <fieldset>
                     <legend>{% trans %}userParameters{% endtrans %}</legend>
@@ -50,6 +63,11 @@
                     {{ form_end(userForm) }}
                 </fieldset>
         </section>
+        {# <section class="dangerZone">
+                <fieldset>
+                    <legend>{% trans %}dangerZone{% endtrans %}</legend>
+                </fieldset>
+        </section> #}
     </main>
 
 {% endblock %}

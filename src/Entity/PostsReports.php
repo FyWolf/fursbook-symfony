@@ -16,15 +16,15 @@ class PostsReports
     #[ORM\Column(type: 'integer')]
     private $id;
 
-    #[ORM\ManyToOne(targetEntity: Posts::class, inversedBy: 'id')]
-    #[ORM\Column(type: 'integer')]
+    #[ORM\ManyToOne(targetEntity: Posts::class)]
+    #[ORM\JoinColumn(nullable: false, onDelete:"CASCADE")]
     private $post;
 
     #[ORM\Column(type: 'string', length: 255, nullable: true)]
     private $description;
 
-    #[ORM\ManyToOne(targetEntity: User::class, inversedBy: 'id')]
-    #[ORM\Column(type: 'integer')]
+    #[ORM\ManyToOne(targetEntity: User::class)]
+    #[ORM\JoinColumn(nullable: false, onDelete:"CASCADE")]
     private $user;
 
     #[ORM\Column(type: 'string', length: 255)]

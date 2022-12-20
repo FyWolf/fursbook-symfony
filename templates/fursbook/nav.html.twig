@@ -13,6 +13,7 @@
                     <a href="/profile/{{ loggedUserUsername }}" title="user profile"><img class="svg" src="{{ asset('ressources/svg/sidePanelUser.svg') }}" alt="User Profile">{% trans %}profile{% endtrans %}</a>
                     <a href="/settings" title="settings"><img class="svg" src="{{ asset('ressources/svg/navSettings.svg') }}" alt="settings">{% trans %}settings{% endtrans %}</a>
                     <a href="/newpost" title="new post"><img class="svg" src="{{ asset('ressources/svg/write.svg') }}" alt="Create a new post">{% trans %}newpost{% endtrans %}</a>
+                    <a href="/newsletter" title="Newsletter"><img class="svg" src="{{ asset('ressources/svg/newsletter.svg') }}" alt="Watch the news of the site">Newsletter</a>
                     {% if app.user %}
                         {% if 'ROLE_ADMIN' in app.user.roles %}
                             <a href="/admin" title="Admin pannel"><img class="svg" src="{{ asset('ressources/svg/admin.svg') }}">{% trans %}admin{% endtrans %}</a>

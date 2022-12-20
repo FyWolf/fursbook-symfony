@@ -57,9 +57,4 @@
 .env
 
 /node_modules
-<<<<<<< Updated upstream
 public/ressources/images/newsletter
-=======
-
-/public/ressources/images/newsletter
->>>>>>> Stashed changes

@@ -11,7 +11,7 @@
         {% for report in list %}
             <tr>
                 <td><a href="/profile/{{ report.author }}">{{ report.author }}</a></td>
-                <td>Profile id: <a href="/profile/{{ report.target }}">{{ report.profile }} ({{ report.target }})</a></td>
+                <td>Profile id: <a href="/profile/{{ report.target }}">{{ report.profile_id }} ({{ report.target }})</a></td>
                 <td>{{ report.count }}</td>
                 <td>
                     <div>

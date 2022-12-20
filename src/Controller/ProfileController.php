@@ -95,7 +95,9 @@ class ProfileController extends AbstractController
 
             if($_POST['action'] == 'sendPostsReport') {
                     $report = new PostsReports;
-                    $report->SetPostId($_POST['postId']);
+                    $postRepos = $doctrine->getRepository(Posts::class);
+                    $target = $postRepos->find($_POST['postId']);
+                    $report->SetPostId($target);
                     $report->SetReasonId($_POST['reasonId']);
                     $report->setUserId($this->getUser()->getId());
                     $report->setDescription($_POST['description']);
@@ -111,9 +113,11 @@ class ProfileController extends AbstractController
 
             if($_POST['action'] == 'sendUserReport') {
                     $report = new ProfileReports;
-                    $report->setProfileId($_POST['targetId']);
+                    $userRepos = $doctrine->getRepository(User::class);
+                    $target = $userRepos->find($_POST['targetId']);
+                    $report->setProfileId($target);
                     $report->setReasonId($_POST['reasonId']);
-                    $report->setUserId($this->getUser()->getId());
+                    $report->setUserId($this->getUser());
                     $report->setDescription($_POST['description']);
                     $report->setDate(time());
                     $entityManager->persist($report);

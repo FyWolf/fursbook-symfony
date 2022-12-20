@@ -167,6 +167,34 @@ class SettingsController extends AbstractController
                     dump('coucou');
                 }
             }
+
+            elseif ($_POST['action'] == 'newsletterUnSub'){
+                $user = $this->getUser();
+                $user->setIsSubscribed(false);
+                $entityManager->persist($user);
+                $entityManager->flush();
+
+                $response = new JsonResponse();
+                $response->setData(array(
+                        'done' => true,
+                    )
+                );
+                return $response;
+            }
+
+            elseif ($_POST['action'] == 'newsletterSub'){
+                $user = $this->getUser();
+                $user->setIsSubscribed(true);
+                $entityManager->persist($user);
+                $entityManager->flush();
+
+                $response = new JsonResponse();
+                $response->setData(array(
+                        'done' => true,
+                    )
+                );
+                return $response;
+            }
         }
 
         $userForm = $this->createForm(UserSettingsType::class);
@@ -177,6 +205,53 @@ class SettingsController extends AbstractController
             'loggedUserProfilePicture' => $userProfilePicture,
             'profileForm' => $profileForm->createView(),
             'userForm' => $userForm->createView()
+        ],);
+    }
+
+    #[Route('/settings/unsubscribe', name: 'newsletter_unsubscribe')]
+    public function unsubscribe(EntityManagerInterface $entityManager): Response
+    {
+        if ($this->getUser()) {
+            $userUsername = $this->getUser()->getUsername();
+            $userProfilePicture = $this->getUser()->getProfilePicture();
+        }
+        else {
+            $userUsername = "";
+            $userProfilePicture = "";
+            if(isset($_COOKIE['lang'])) {
+                setlocale(LC_TIME, $_COOKIE['lang']);
+            }
+            else {
+                setlocale(LC_TIME, 'en');
+            }
+        }
+
+        if(isset($_COOKIE['darkMode'])) {
+            if($_COOKIE['darkMode'] == 'true') {
+                $darkMode = true;
+            }
+            else {
+                $darkMode = false;
+            }
+        }
+        else {
+            $darkMode = false;
+        }
+
+        $user = $this->getUser();
+        if($user->isIsSubscribed() == true)
+        {
+        $user->setIsSubscribed(false);
+        $entityManager->persist($user);
+        $entityManager->flush();
+        }else {
+            return $this->redirectToRoute('home_fursbook');
+        }
+
+        return $this->render('fursbook/unsubscribe.html.twig', [
+            'loggedUserUsername' => $userUsername,
+            'loggedUserProfilePicture' => $userProfilePicture,
+            'darkMode' => $darkMode,
         ],);
     }
 }

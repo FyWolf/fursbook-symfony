@@ -16,14 +16,14 @@ class ProfileReports
     private $id;
 
     #[ORM\ManyToOne(targetEntity: User::class, inversedBy: "id")]
-    #[ORM\Column(type: 'integer')]
+    #[ORM\JoinColumn(nullable: false, onDelete:"CASCADE")]
     private $profile;
 
     #[ORM\Column(type: 'string', length: 255, nullable: true)]
     private $description;
 
-    #[ORM\ManyToOne(targetEntity: User::class, inversedBy: "id")]
-    #[ORM\Column(type: 'integer')]
+    #[ORM\ManyToOne(targetEntity: User::class)]
+    #[ORM\JoinColumn(nullable: false, onDelete:"CASCADE")]
     private $user;
 
     #[ORM\Column(type: 'string', length: 255)]
@@ -43,7 +43,7 @@ class ProfileReports
         return $this->profile;
     }
 
-    public function setProfileId(int $profile): self
+    public function setProfileId($profile)
     {
         $this->profile = $profile;
 
@@ -67,7 +67,7 @@ class ProfileReports
         return $this->user;
     }
 
-    public function setUserId(int $user): self
+    public function setUserId($user)
     {
         $this->user = $user;
 

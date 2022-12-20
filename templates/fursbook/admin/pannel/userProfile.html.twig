@@ -23,6 +23,11 @@
         {% else %}
             <p>This user isn't verified !</p>
         {% endif %}
+        {% if user.is_subscribed %}
+            <p>This user is subscribed to the newsletter !</p>
+        {% else %}
+            <p>This user isn't subscribed to the newsletter !</p>
+        {% endif %}
         <p>Date of creation: {{ user.creation_date | date('H:i d/m/y') }}</p>
     </div>
     <div class="userActions">

@@ -20,6 +20,10 @@
                     label: 'Password'
                 }) }}
 
+                {{ form_row(registrationForm.isSubscribed, {
+                    label: 'Subscribe to the newsletter',
+                    'attr': {'class': 'checkbox'}
+                }) }}
 
                 {{ form_row(registrationForm.CGU, {
                     label: 'I have read the <a href="/terms">Therms and condition</a> and <a href="/privacy">Privacy policy</a>',

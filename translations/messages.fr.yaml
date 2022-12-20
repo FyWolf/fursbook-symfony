@@ -11,6 +11,7 @@ profilePicture: Image de profil
 unverifiedMail: Votre compte dispose d'un accès restreint tant que vous n'avez pas vérifié votre mail.
 userParameters: Paramètres d'utilisateur
 reTypePassword: Re-tapez votre mot de passe
+nothingDisplay: Rien à affichers
 profileBanner: Banière de profil
 profileNoUser: Aucun utilisateur as été trouvé avec ce nom d'utilisateur
 profileNoBio: Cet utilisateur n'as pas de description, quelle personne mystérieuse :O
@@ -31,6 +32,7 @@ username: Nom d'utilisateur
 sendMail: Vérifier l'email
 mailSent: Mail de vérification envoyé
 pwdWrong: Mot de passe érroné
+lastNews: Dernière annonce
 profile: Profil
 connect: Se connecter
 newpost: Nouveau post

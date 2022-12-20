@@ -11,6 +11,7 @@ profilePicture: Profile Picture
 unverifiedMail: Your account has restricted access to the website until you verify your email.
 userParameters: User settings
 reTypePassword: Retype password
+nothingDisplay: Nothing to display
 profileBanner: Profile banner
 profileNoUser: No user has been found with that username
 profileNoBio: This user doesn't have a desctiption, what a mysterious person :O
@@ -31,6 +32,7 @@ username: Username
 sendMail: Verify mail
 mailSent: Verification mail sent
 pwdWrong: Wrong password
+lastNews: Last news
 profile: Profile
 connect: Login
 newpost: New post

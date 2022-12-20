@@ -11,13 +11,13 @@
         {% for report in list %}
             <tr>
                 <td><a href="/profile/{{ report.author }}">{{ report.author }}</a></td>
-                <td>Post id: {{ report.post }} ({{ report.target }})</td>
+                <td>Post id: {{ report.post_id }} ({{ report.target }})</td>
                 <td>{{ report.count }}</td>
                 <td>
                     <div>
                         <button onClick="actionDropDown({{ report.id }})" id="dropBtn{{ report.id }}">Action <img class="svg" src="{{ asset('ressources/svg/arrowLeft.svg') }}" alt=""></button>
                         <div class="dropDownDiv hidden" id="drop{{ report.id }}">
-                            <button onClick="editPostReport({{ report.post }})">Manage report</button>
+                            <button onClick="editPostReport({{ report.post_id }})">Manage report</button>
                         </div>
                     </div>
                 </td>

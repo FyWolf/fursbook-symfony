@@ -15,12 +15,12 @@ class Likes
     #[ORM\Column(type: 'integer')]
     private $id;
 
-    #[ORM\ManyToOne(targetEntity: Posts::class, inversedBy: 'id')]
-    #[ORM\Column(type: 'integer')]
+    #[ORM\ManyToOne(targetEntity: Posts::class)]
+    #[ORM\JoinColumn(nullable: false, onDelete:"CASCADE")]
     private $post_id;
 
-    #[ORM\ManyToOne(targetEntity: User::class, inversedBy: 'id')]
-    #[ORM\Column(type: 'integer')]
+    #[ORM\ManyToOne(targetEntity: User::class)]
+    #[ORM\JoinColumn(nullable: false, onDelete:"CASCADE")]
     private $user_id;
 
     public function getId(): ?int
@@ -33,7 +33,7 @@ class Likes
         return $this->post_id;
     }
 
-    public function setPostId(int $post_id): self
+    public function setPostId($post_id): self
     {
         $this->post_id = $post_id;
 
@@ -45,7 +45,7 @@ class Likes
         return $this->user_id;
     }
 
-    public function setUserId(int $user_id): self
+    public function setUserId($user_id): self
     {
         $this->user_id = $user_id;
 

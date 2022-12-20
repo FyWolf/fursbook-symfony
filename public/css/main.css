@@ -399,6 +399,7 @@ button {
 
 .posts .contentdiv {
     background-color: var(--scndAltBgColor);
+    border: 2px solid var(--altBgColor);
     padding: 1vh;
     border-radius: 10px;
     -webkit-border-radius: 10px;
@@ -606,6 +607,27 @@ button {
 
 .posts .contentdiv .bottom button .liked {
     filter: invert(22%) sepia(92%) saturate(4906%) hue-rotate(346deg) brightness(108%) contrast(92%);
+}
+
+/***
+    ####
+        NEWSLETTER
+    ####
+***/
+
+.newsletter .userDiv div img {
+    border-radius: 0;
+    -webkit-border-radius: 0;
+    -moz-border-radius: 0;
+    -ms-border-radius: 0;
+    -o-border-radius: 0;
+    object-fit: contain;
+    width: 5rem;
+}
+
+.newsletter .contentdiv img {
+    width: 100%;
+    height: auto;
 }
 
 /***
@@ -886,6 +908,23 @@ body nav .alertDiv button:hover {
     display: flex;
     flex-direction: column;
     align-items: center;
+    padding: 0 5px;
+    margin: 0 auto;
+    max-width: 500px;
+    padding-bottom: 5vh;
+    border-bottom: 2px solid var(--scndAltBgColor);
+}
+
+.homePage .leftContentDiv .homeNews {
+    font-size: 2rem;
+    font-weight: 100;
+    align-self: center;
+}
+
+.homePage .leftContentDiv .newsletter {
+    width: 100%;
+    align-self: flex-end;
+    margin: 0;
 }
 
 .homePage .postDiv {
@@ -1967,6 +2006,10 @@ body nav .alertDiv button:hover {
 
     .homePage .leftContentDiv {
         align-items: flex-end;
+        justify-self: end;
+        margin: 0;
+        border: none;
+        width: 100%;
     }
 
     /***

@@ -71,12 +71,12 @@ class PostsReportsRepository extends ServiceEntityRepository
         $sql = 'SELECT posts_reports.*, author.username AS author, target.username AS target, COUNT(*) AS count
                 FROM posts_reports
                 INNER JOIN user AS author
-                ON posts_reports.user = author.id
+                ON posts_reports.user_id = author.id
                 INNER JOIN posts AS post
-                ON posts_reports.post = post.id
+                ON posts_reports.post_id = post.id
                 INNER JOIN user AS target
-                ON post.owner = target.id
-                GROUP BY posts_reports.post
+                ON post.owner_id = target.id
+                GROUP BY posts_reports.post_id
                 LIMIT 15 OFFSET :offset';
         $stmt = $conn->prepare($sql);
         $stmt->bindParam('offset', $offset, ParameterType::INTEGER);
@@ -98,7 +98,7 @@ class PostsReportsRepository extends ServiceEntityRepository
         $conn = $this->getEntityManager()->getConnection();
         $sql = 'SELECT *
                 FROM posts_reports
-                WHERE posts_reports.post = :id';
+                WHERE posts_reports.post_id = :id';
         $stmt = $conn->prepare($sql);
         $stmt->bindParam('id', $id, ParameterType::INTEGER);
         $resultSet = $stmt->execute();
@@ -111,12 +111,12 @@ class PostsReportsRepository extends ServiceEntityRepository
         $sql = 'SELECT target.username AS targetUsername, author.username AS authorUsername, posts_reports.*
                 FROM posts_reports
                 INNER JOIN posts AS post
-                ON posts_reports.post = post.id
+                ON posts_reports.post_id = post.id
                 INNER JOIN user AS target
-                ON post.owner = target.id
+                ON post.owner_id = target.id
                 INNER JOIN user AS author
-                ON posts_reports.user = author.id
-                WHERE posts_reports.post = :id';
+                ON posts_reports.user_id = author.id
+                WHERE posts_reports.post_id = :id';
         $stmt = $conn->prepare($sql);
         $stmt->bindParam('id', $id, ParameterType::INTEGER);
         $resultSet = $stmt->execute();

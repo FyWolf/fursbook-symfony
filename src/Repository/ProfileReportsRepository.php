@@ -68,13 +68,13 @@ class ProfileReportsRepository extends ServiceEntityRepository
     public function adminGetReportedUsers($offset)
     {
         $conn = $this->getEntityManager()->getConnection();
-        $sql = 'SELECT profile_reports.id, profile_reports.user, profile_reports.profile, author.username AS author, target.username AS target, COUNT(*) AS count
+        $sql = 'SELECT profile_reports.id, profile_reports.user_id, profile_reports.profile_id, author.username AS author, target.username AS target, COUNT(*) AS count
                 FROM profile_reports
                 INNER JOIN user AS author
-                ON profile_reports.user = author.id
+                ON profile_reports.user_id = author.id
                 INNER JOIN user AS target
-                ON profile_reports.profile = target.id
-                GROUP BY profile_reports.profile
+                ON profile_reports.profile_id = target.id
+                GROUP BY profile_reports.profile_id
                 LIMIT 15 OFFSET :offset';
         $stmt = $conn->prepare($sql);
         $stmt->bindParam('offset', $offset, ParameterType::INTEGER);

@@ -14,6 +14,7 @@ use App\Repository\UserRepository;
 use App\Entity\ReportReasons;
 use App\Entity\PostsReports;
 use App\Form\SettingsType;
+use App\Entity\Newsletter;
 use App\Entity\Posts;
 use App\Entity\Likes;
 use App\Entity\User;
@@ -52,7 +53,9 @@ class FursbookController extends AbstractController
         }
 
         $postRepo = $doctrine->getRepository(Posts::class);
+        $newsRepo = $doctrine->getRepository(Newsletter::class);
         $resultPosts = $postRepo->getAllPosts($doctrine, 0, $this->getUser());
+        $news = $newsRepo->getLastNews();
 
         if($request->isXmlHttpRequest())
         {
@@ -89,9 +92,11 @@ class FursbookController extends AbstractController
 
             if($_POST['action'] == 'sendPostsReport') {
                     $report = new PostsReports;
-                    $report->SetPostId($_POST['postId']);
+                    $postRepos = $doctrine->getRepository(Posts::class);
+                    $target = $postRepos->find($_POST['postId']);
+                    $report->SetPostId($target);
                     $report->SetReasonId($_POST['reasonId']);
-                    $report->setUserId($this->getUser()->getId());
+                    $report->setUserId($this->getUser());
                     $report->setDescription($_POST['description']);
                     $report->setDate(time());
                     $entityManager->persist($report);
@@ -108,6 +113,7 @@ class FursbookController extends AbstractController
             'loggedUserProfilePicture' => $userProfilePicture,
             'posts' => $resultPosts,
             'darkMode' => $darkMode,
+            'newsletter' => $news,
         ],);
     }
 

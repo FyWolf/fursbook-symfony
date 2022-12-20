@@ -43,6 +43,7 @@ class RegistrationController extends AbstractController
             $user->setEmail($form->get('email')->getData());
             $user->setProfilePicture("/ressources/images/default/profilePicture.png");
             $user->setDateCreated(time());
+            $user->setIsSubscribed($form->get('isSubscribed')->getData());
             $entityManager->persist($user);
             $entityManager->flush();
 

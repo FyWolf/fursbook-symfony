@@ -25,7 +25,7 @@ class newPostController extends AbstractController
 
             if ($form->isSubmitted() && $form->isValid()) {
                 $post = new Posts();
-                $post->setOwner($this->getUser()->getId());
+                $post->setOwner($this->getUser());
                 $post->setDatePosted(time());
                 $nbPictures = 0;
                 if ($form->get('content')->getData() !== null) {

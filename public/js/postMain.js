@@ -66,38 +66,18 @@ function getmoredata() {
       }
     },
   );
- }
+  }
 
-function isElementInViewport (el) {
-  let rect = el.getBoundingClientRect();
-  return (
-    rect.top >= 0 &&
-    rect.left >= 0 &&
-    rect.bottom <= (window.innerHeight || document.documentElement.clientHeight) &&
-    rect.right <= (window.innerWidth || document.documentElement.clientWidth)
-  );
-}
-
-function onVisibilityChange(el, callback) {
-  let old_visible;
-  return function () {
-    let visible = isElementInViewport(el);
-    if (visible != old_visible) {
-      old_visible = visible;
-      if (typeof callback == 'function') {
-        callback();
-      }
+let observer = new IntersectionObserver(function(entries) {
+	if(entries[0].isIntersecting === true)
+    if(!window.__isFetching && !endContent) {
+      getmoredata();
+      postsDiv.classList.add("spinner");
+      window.__offset += 5;
     }
-  }
-}
+}, { threshold: [1] });
 
-let handler = onVisibilityChange(el, function() {
-  if(!window.__isFetching && !endContent) {
-    getmoredata();
-    postsDiv.classList.add("spinner");
-    window.__offset += 5;
-  }
-});
+observer.observe(document.querySelector(".endScroll"));
 
 function dropDownToggle(id) {
   const DD = document.getElementById("ddMenu" + id);

@@ -94,13 +94,7 @@ class SettingsController extends AbstractController
                     ->from('no-reply@fursbook.org')
                     ->to($this->getUser()->getEmail())
                     ->subject('Email confirmation')
-                    ->html('
-                    <div style="background-color: #261d2f; text-align: center; color: white; font-size: 1.3em; max-width: 600px; border-radius: 5px; margin: auto; padding: 10px;">
-                        <p>Welcome to Fursbook '.$this->getUser()->getUsername().' !</p>
-                        <p>To verify your account, please open the link:</p>
-                        <a href="'.$signatureComponents->getSignedUrl().'" style="color: white; background-color: #311f3f; border: 1px solid white; padding: 0.5vh 1vh; border-radius: 10px; font-size: 1rem; cursor: pointer; text-decoration: none;">Verify my account</a>
-                    <div>
-                    ');
+                    ->html($this->render('email/verify.html.twig', ['url' => $signatureComponents->getSignedUrl(), 'username' => $user->getUsername()])->getContent());
 
                 $mailer->send($email);
 

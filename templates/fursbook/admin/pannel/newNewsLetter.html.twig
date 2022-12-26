@@ -1,19 +1,19 @@
 <div class="newNewsletter">
     <h1>New Newsletter</h1>
         <form onSubmit="event.preventDefault(); createNewsletter()">
-            <label for="newsletterName">Newsletter name</label>
+            <label for="newsletterName">Newsletter name:</label>
             <input id="newsletterName" name="name" type="title" />
-            <label for="newsletterContent">Newsletter content</label>
+            <label for="newsletterContent">Newsletter content:</label>
             <input id="newsletterContent" type="hidden" name="content" />
             <trix-editor input="newsletterContent"></trix-editor>
             <div>
-                <label for="newsletterMail">Send newsletter mail</label>
+                <label for="newsletterMail">Send newsletter mail:</label>
                 <input id="newsletterMail" type="checkbox" onChange="enableNewsletterMail()" />
             </div>
             <div id="newsletterMailEditor" class="hidden">
-                <label for="newsletterMailName">Newsletter mail name</label>
+                <label for="newsletterMailName">Newsletter mail name:</label>
                 <input id="newsletterMailName" name="name" type="mailTitle" />
-                <label for="newsletterMailContent">Newsletter mail content</label>
+                <label for="newsletterMailContent">Newsletter mail content:</label>
                 <input id="newsletterMailContent" type="hidden" name="mailContent" />
                 <trix-editor input="newsletterMailContent"></trix-editor>
             </div>

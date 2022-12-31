@@ -951,7 +951,7 @@ body nav .alertDiv button:hover {
     margin: 0;
 }
 
-.homePage .leftContentDiv a {
+.homePage .leftContentDiv > a {
     color: white;
     display: flex;
     align-items: center;

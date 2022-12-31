@@ -630,6 +630,20 @@ button {
     height: auto;
 }
 
+.newsletter .contentdiv a {
+    color: white;
+    transition: all ease-in-out 0.5s;
+    -webkit-transition: all ease-in-out 0.5s;
+    -moz-transition: all ease-in-out 0.5s;
+    -ms-transition: all ease-in-out 0.5s;
+    -o-transition: all ease-in-out 0.5s;
+}
+
+
+.newsletter .contentdiv a:hover {
+    color: grey;
+    cursor: pointer;
+}
 /***
     ####
         MOBILE NAVBAR / SIDE NAVBAR

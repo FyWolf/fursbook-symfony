@@ -1955,6 +1955,59 @@ body nav .alertDiv button:hover {
 }
 
 /*
+####
+    ADMIN NEWSLETTER CREATION PANNEL CSS
+####
+*/
+
+.newNewsletter {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.newNewsletter form {
+    width: 90%;
+    max-width: 700px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 10px;
+}
+
+.newNewsletter form input,
+.newNewsletter form trix-editor {
+    width: 100%;
+    color: white;
+    background-color: var(--altBgColor);
+    border: 1px solid var(--mainBgColor);
+    border-radius: 5px;
+    -webkit-border-radius: 5px;
+    -moz-border-radius: 5px;
+    -ms-border-radius: 5px;
+    -o-border-radius: 5px;
+    padding: 1vh;
+}
+
+.newNewsletter form button {
+    background-color: var(--altBgColor);
+    color: white;
+    border: 1px solid var(--scndAltBgColor);
+    border-radius: 5px;
+    padding: 1vh;
+    border: 5px;
+    -webkit-border-radius: 5px;
+    -moz-border-radius: 5px;
+    -ms-border-radius: 5px;
+    -o-border-radius: 5px;
+    cursor: pointer;
+}
+
+.newNewsletter form button:hover {
+    background-color: var(--scndAltBgColor);
+}
+
+/*
     Media query DESKTOP
 */
 

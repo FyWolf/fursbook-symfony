@@ -64,11 +64,7 @@ class RegistrationController extends AbstractController
                 ->from('no-reply@fursbook.org')
                 ->to($user->getEmail())
                 ->subject('Email confirmation')
-                ->html('
-                <p>Welcome to Fursbook '.$user->getUsername().' !</p>
-                <p>To verify your account, please open the link:</p>
-                <a href="'.$signatureComponents->getSignedUrl().'">Verify my account</a>
-                ');
+                ->html($this->render('email/verify.html.twig', ['url' => $signatureComponents->getSignedUrl(), 'username' => $user->getUsername()])->getContent());
 
             $mailer->send($email);
 

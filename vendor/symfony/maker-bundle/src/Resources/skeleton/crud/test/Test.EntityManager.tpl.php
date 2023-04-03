@@ -7,18 +7,15 @@ namespace <?= $namespace ?>;
 
 class <?= $class_name ?> extends WebTestCase<?= "\n" ?>
 {
-<?= $use_typed_properties ? null : "    /** @var KernelBrowser */\n" ?>
-    private <?= $use_typed_properties ? 'KernelBrowser ' : null ?>$client;
-<?= $use_typed_properties ? null : "    /** @var EntityManagerInterface */\n" ?>
-    private <?= $use_typed_properties ? 'EntityManagerInterface ' : null ?>$manager;
-<?= $use_typed_properties ? null : "    /** @var EntityRepository */\n" ?>
-    private <?= $use_typed_properties ? 'EntityRepository ' : null ?>$repository;
-    private <?= $use_typed_properties ? 'string ' : null ?>$path = '<?= $route_path; ?>/';
+    private KernelBrowser $client;
+    private EntityManagerInterface $manager;
+    private EntityRepository $repository;
+    private string $path = '<?= $route_path; ?>/';
 
     protected function setUp(): void
     {
         $this->client = static::createClient();
-        $this->manager = (static::getContainer()->get('doctrine'))->getManager();
+        $this->manager = static::getContainer()->get('doctrine')->getManager();
         $this->repository = $this->manager->getRepository(<?= $entity_class_name; ?>::class);
 
         foreach ($this->repository->findAll() as $object) {
@@ -65,7 +62,7 @@ class <?= $class_name ?> extends WebTestCase<?= "\n" ?>
         $fixture->set<?= ucfirst($form_field); ?>('My Title');
 <?php endforeach; ?>
 
-        $this->repository->add($fixture, true);
+        $this->repository->save($fixture, true);
 
         $this->client->request('GET', sprintf('%s%s', $this->path, $fixture->getId()));
 

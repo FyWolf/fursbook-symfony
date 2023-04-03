@@ -57,7 +57,7 @@ Finally, be aware that if the <info>--complete</info> option is passed, this
 task will drop all database assets (e.g. tables, etc) that are *not* described
 by the current metadata. In other words, without this option, this task leaves
 untouched any "extra" tables that exist in the database, but which aren't
-described by any metadata.
+described by any metadata. Not passing that option is deprecated.
 
 <comment>Hint:</comment> If you have a database with tables that should not be managed
 by the ORM, you can use a DBAL functionality to filter the tables and sequences down
@@ -73,13 +73,19 @@ EOT
      */
     protected function executeSchemaCommand(InputInterface $input, OutputInterface $output, SchemaTool $schemaTool, array $metadatas, SymfonyStyle $ui)
     {
+        $notificationUi = $ui->getErrorStyle();
+
         // Defining if update is complete or not (--complete not defined means $saveMode = true)
         $saveMode = ! $input->getOption('complete');
+
+        if ($saveMode) {
+            $notificationUi->warning('Not passing the "--complete" option to "orm:schema-tool:update" is deprecated and will not be supported when using doctrine/dbal 4');
+        }
 
         $sqls = $schemaTool->getUpdateSchemaSql($metadatas, $saveMode);
 
         if (empty($sqls)) {
-            $ui->success('Nothing to update - your database is already in sync with the current entity metadata.');
+            $notificationUi->success('Nothing to update - your database is already in sync with the current entity metadata.');
 
             return 0;
         }
@@ -88,32 +94,32 @@ EOT
         $force   = $input->getOption('force') === true;
 
         if ($dumpSql) {
-            $ui->text('The following SQL statements will be executed:');
-            $ui->newLine();
-            $ui->listing($sqls);
+            foreach ($sqls as $sql) {
+                $ui->writeln(sprintf('%s;', $sql));
+            }
         }
 
         if ($force) {
             if ($dumpSql) {
-                $ui->newLine();
+                $notificationUi->newLine();
             }
 
-            $ui->text('Updating database schema...');
-            $ui->newLine();
+            $notificationUi->text('Updating database schema...');
+            $notificationUi->newLine();
 
             $schemaTool->updateSchema($metadatas, $saveMode);
 
             $pluralization = count($sqls) === 1 ? 'query was' : 'queries were';
 
-            $ui->text(sprintf('    <info>%s</info> %s executed', count($sqls), $pluralization));
-            $ui->success('Database schema updated successfully!');
+            $notificationUi->text(sprintf('    <info>%s</info> %s executed', count($sqls), $pluralization));
+            $notificationUi->success('Database schema updated successfully!');
         }
 
         if ($dumpSql || $force) {
             return 0;
         }
 
-        $ui->caution(
+        $notificationUi->caution(
             [
                 'This operation should not be executed in a production environment!',
                 '',
@@ -122,7 +128,7 @@ EOT
             ]
         );
 
-        $ui->text(
+        $notificationUi->text(
             [
                 sprintf('The Schema-Tool would execute <info>"%s"</info> queries to update the database.', count($sqls)),
                 '',

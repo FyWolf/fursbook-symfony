@@ -12,8 +12,8 @@
 namespace Symfony\Bundle\MakerBundle\Doctrine;
 
 use Doctrine\DBAL\Connection;
+use Doctrine\DBAL\Types\Types;
 use Doctrine\ORM\EntityManagerInterface;
-use Doctrine\ORM\Mapping\Driver\AnnotationDriver;
 use Doctrine\ORM\Mapping\Driver\AttributeDriver;
 use Doctrine\ORM\Mapping\MappingException as ORMMappingException;
 use Doctrine\ORM\Mapping\NamingStrategy;
@@ -25,7 +25,8 @@ use Doctrine\Persistence\Mapping\Driver\MappingDriver;
 use Doctrine\Persistence\Mapping\Driver\MappingDriverChain;
 use Doctrine\Persistence\Mapping\MappingException as PersistenceMappingException;
 use Symfony\Bundle\MakerBundle\Util\ClassNameDetails;
-use Symfony\Bundle\MakerBundle\Util\PhpCompatUtil;
+use Symfony\Component\Uid\Ulid;
+use Symfony\Component\Uid\Uuid;
 
 /**
  * @author Fabien Potencier <fabien@symfony.com>
@@ -36,27 +37,12 @@ use Symfony\Bundle\MakerBundle\Util\PhpCompatUtil;
  */
 final class DoctrineHelper
 {
-    /**
-     * @var string
-     */
-    private $entityNamespace;
-    private $phpCompatUtil;
-    private $registry;
-
-    /**
-     * @var array|null
-     */
-    private $mappingDriversByPrefix;
-
-    private $attributeMappingSupport;
-
-    public function __construct(string $entityNamespace, PhpCompatUtil $phpCompatUtil, ManagerRegistry $registry = null, bool $attributeMappingSupport = false, array $annotatedPrefixes = null)
-    {
+    public function __construct(
+        private string $entityNamespace,
+        private ?ManagerRegistry $registry = null,
+        private ?array $mappingDriversByPrefix = null,
+    ) {
         $this->entityNamespace = trim($entityNamespace, '\\');
-        $this->phpCompatUtil = $phpCompatUtil;
-        $this->registry = $registry;
-        $this->attributeMappingSupport = $attributeMappingSupport;
-        $this->mappingDriversByPrefix = $annotatedPrefixes;
     }
 
     public function getRegistry(): ManagerRegistry
@@ -85,7 +71,7 @@ final class DoctrineHelper
         try {
             /** @var EntityManagerInterface $em */
             $em = $this->getRegistry()->getManagerForClass($className);
-        } catch (\ReflectionException $exception) {
+        } catch (\ReflectionException) {
             // this exception will be thrown by the registry if the class isn't created yet.
             // an example case is the "make:entity" command, which needs to know which driver is used for the class to determine
             // if the class should be generated with attributes or annotations. If this exception is thrown, we will check based on the
@@ -114,7 +100,7 @@ final class DoctrineHelper
             }
 
             foreach ($metadataDriver->getDrivers() as $namespace => $driver) {
-                if (0 === strpos($className, $namespace)) {
+                if (str_starts_with($className, $namespace)) {
                     return $this->isInstanceOf($driver, $driverClass);
                 }
             }
@@ -125,17 +111,12 @@ final class DoctrineHelper
         $managerName = array_search($em, $this->getRegistry()->getManagers(), true);
 
         foreach ($this->mappingDriversByPrefix[$managerName] as [$prefix, $prefixDriver]) {
-            if (0 === strpos($className, $prefix)) {
+            if (str_starts_with($className, $prefix)) {
                 return $this->isInstanceOf($prefixDriver, $driverClass);
             }
         }
 
         return false;
-    }
-
-    public function isClassAnnotated(string $className): bool
-    {
-        return $this->doesClassUseDriver($className, AnnotationDriver::class);
     }
 
     public function doesClassUsesAttributes(string $className): bool
@@ -145,7 +126,7 @@ final class DoctrineHelper
 
     public function isDoctrineSupportingAttributes(): bool
     {
-        return $this->isDoctrineInstalled() && $this->attributeMappingSupport && $this->phpCompatUtil->canUseAttributes();
+        return $this->isDoctrineInstalled();
     }
 
     public function getEntitiesForAutocomplete(): array
@@ -166,23 +147,16 @@ final class DoctrineHelper
         return $entities;
     }
 
-    /**
-     * @return array|ClassMetadata
-     */
-    public function getMetadata(string $classOrNamespace = null, bool $disconnected = false)
+    public function getMetadata(string $classOrNamespace = null, bool $disconnected = false): array|ClassMetadata
     {
-        // Invalidating the cached AnnotationDriver::$classNames to find new Entity classes
+        // Invalidating the cached AttributeDriver::$classNames to find new Entity classes
         foreach ($this->mappingDriversByPrefix ?? [] as $managerName => $prefixes) {
-            foreach ($prefixes as [$prefix, $annotationDriver]) {
-                if (null !== $annotationDriver) {
-                    if ($annotationDriver instanceof AnnotationDriver) {
-                        $classNames = (new \ReflectionClass(AnnotationDriver::class))->getProperty('classNames');
-                    } else {
-                        $classNames = (new \ReflectionClass(AttributeDriver::class))->getProperty('classNames');
-                    }
+            foreach ($prefixes as [$prefix, $attributeDriver]) {
+                if ($attributeDriver instanceof AttributeDriver) {
+                    $classNames = (new \ReflectionClass(AttributeDriver::class))->getProperty('classNames');
 
                     $classNames->setAccessible(true);
-                    $classNames->setValue($annotationDriver, null);
+                    $classNames->setValue($attributeDriver, null);
                 }
             }
         }
@@ -196,7 +170,7 @@ final class DoctrineHelper
             if ($disconnected) {
                 try {
                     $loaded = $cmf->getAllMetadata();
-                } catch (ORMMappingException|PersistenceMappingException $e) {
+                } catch (ORMMappingException|PersistenceMappingException) {
                     $loaded = $this->isInstanceOf($cmf, AbstractClassMetadataFactory::class) ? $cmf->getLoadedMetadata() : [];
                 }
 
@@ -208,14 +182,11 @@ final class DoctrineHelper
                 }
 
                 if (null === $this->mappingDriversByPrefix) {
-                    // Invalidating the cached AnnotationDriver::$classNames to find new Entity classes
+                    // Invalidating the cached AttributeDriver::$classNames to find new Entity classes
                     $metadataDriver = $em->getConfiguration()->getMetadataDriverImpl();
+
                     if ($this->isInstanceOf($metadataDriver, MappingDriverChain::class)) {
                         foreach ($metadataDriver->getDrivers() as $driver) {
-                            if ($this->isInstanceOf($driver, AnnotationDriver::class)) {
-                                $classNames->setValue($driver, null);
-                            }
-
                             if ($this->isInstanceOf($driver, AttributeDriver::class)) {
                                 $classNames->setValue($driver, null);
                             }
@@ -232,7 +203,7 @@ final class DoctrineHelper
                         return $m;
                     }
 
-                    if (0 === strpos($m->getName(), $classOrNamespace)) {
+                    if (str_starts_with($m->getName(), $classOrNamespace)) {
                         $metadata[$m->getName()] = $m;
                     }
                 }
@@ -260,6 +231,64 @@ final class DoctrineHelper
         }
 
         return (bool) $this->getMetadata($className);
+    }
+
+    /**
+     * Determines if the property-type will make the column type redundant.
+     *
+     * See ClassMetadataInfo::validateAndCompleteTypedFieldMapping()
+     */
+    public static function canColumnTypeBeInferredByPropertyType(string $columnType, string $propertyType): bool
+    {
+        // todo: guessing on enum's could be added
+
+        return match ($propertyType) {
+            '\\'.\DateInterval::class => Types::DATEINTERVAL === $columnType,
+            '\\'.\DateTime::class => Types::DATETIME_MUTABLE === $columnType,
+            '\\'.\DateTimeImmutable::class => Types::DATETIME_IMMUTABLE === $columnType,
+            'array' => Types::JSON === $columnType,
+            'bool' => Types::BOOLEAN === $columnType,
+            'float' => Types::FLOAT === $columnType,
+            'int' => Types::INTEGER === $columnType,
+            'string' => Types::STRING === $columnType,
+            default => false,
+        };
+    }
+
+    public static function getPropertyTypeForColumn(string $columnType): ?string
+    {
+        return match ($columnType) {
+            Types::STRING, Types::TEXT, Types::GUID, Types::BIGINT, Types::DECIMAL => 'string',
+            Types::ARRAY, Types::SIMPLE_ARRAY, Types::JSON => 'array',
+            Types::BOOLEAN => 'bool',
+            Types::INTEGER, Types::SMALLINT => 'int',
+            Types::FLOAT => 'float',
+            Types::DATETIME_MUTABLE, Types::DATETIMETZ_MUTABLE, Types::DATE_MUTABLE, Types::TIME_MUTABLE => '\\'.\DateTimeInterface::class,
+            Types::DATETIME_IMMUTABLE, Types::DATETIMETZ_IMMUTABLE, Types::DATE_IMMUTABLE, Types::TIME_IMMUTABLE => '\\'.\DateTimeImmutable::class,
+            Types::DATEINTERVAL => '\\'.\DateInterval::class,
+            Types::OBJECT => 'object',
+            'uuid' => '\\'.Uuid::class,
+            'ulid' => '\\'.Ulid::class,
+            default => null,
+        };
+    }
+
+    /**
+     * Given the string "column type", this returns the "Types::STRING" constant.
+     *
+     * This is, effectively, a reverse lookup: given the final string, give us
+     * the constant to be used in the generated code.
+     */
+    public static function getTypeConstant(string $columnType): ?string
+    {
+        $reflection = new \ReflectionClass(Types::class);
+        $constants = array_flip($reflection->getConstants());
+
+        if (!isset($constants[$columnType])) {
+            return null;
+        }
+
+        return sprintf('Types::%s', $constants[$columnType]);
     }
 
     private function isInstanceOf($object, string $class): bool

@@ -12,22 +12,25 @@ use Doctrine\ORM\EntityRepository;
  * @Annotation
  * @NamedArgumentConstructor()
  * @Target("CLASS")
+ * @template T of object
  */
 #[Attribute(Attribute::TARGET_CLASS)]
-final class Entity implements Annotation
+final class Entity implements MappingAttribute
 {
     /**
      * @var string|null
-     * @psalm-var class-string<EntityRepository>|null
+     * @psalm-var class-string<EntityRepository<T>>|null
+     * @readonly
      */
     public $repositoryClass;
 
-    /** @var bool */
+    /**
+     * @var bool
+     * @readonly
+     */
     public $readOnly = false;
 
-    /**
-     * @psalm-param class-string<EntityRepository>|null $repositoryClass
-     */
+    /** @psalm-param class-string<EntityRepository<T>>|null $repositoryClass */
     public function __construct(?string $repositoryClass = null, bool $readOnly = false)
     {
         $this->repositoryClass = $repositoryClass;

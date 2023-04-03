@@ -18,7 +18,7 @@ use Doctrine\DBAL\Types\Type;
  */
 abstract class AbstractSqlExecutor
 {
-    /** @var mixed[]|string */
+    /** @var list<string>|string */
     protected $_sqlStatements;
 
     /** @var QueryCacheProfile */
@@ -34,9 +34,7 @@ abstract class AbstractSqlExecutor
         return $this->_sqlStatements;
     }
 
-    /**
-     * @return void
-     */
+    /** @return void */
     public function setQueryCacheProfile(QueryCacheProfile $qcp)
     {
         $this->queryCacheProfile = $qcp;

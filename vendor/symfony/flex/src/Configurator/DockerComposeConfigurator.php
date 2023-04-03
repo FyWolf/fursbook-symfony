@@ -48,7 +48,7 @@ class DockerComposeConfigurator extends AbstractConfigurator
 
         $this->configureDockerCompose($recipe, $config, $options['force'] ?? false);
 
-        $this->write('Docker Compose definitions have been modified. Please run "docker-compose up --build" again to apply the changes.');
+        $this->write('Docker Compose definitions have been modified. Please run "docker compose up --build" again to apply the changes.');
     }
 
     public function unconfigure(Recipe $recipe, $config, Lock $lock)
@@ -76,7 +76,7 @@ class DockerComposeConfigurator extends AbstractConfigurator
             file_put_contents($dockerComposeFile, ltrim($contents, "\n"));
         }
 
-        $this->write('Docker Compose definitions have been modified. Please run "docker-compose up" again to apply the changes.');
+        $this->write('Docker Compose definitions have been modified. Please run "docker compose up" again to apply the changes.');
     }
 
     public function update(RecipeUpdate $recipeUpdate, array $originalConfig, array $newConfig): void
@@ -315,9 +315,9 @@ class DockerComposeConfigurator extends AbstractConfigurator
             return [];
         }
 
-        $files = array_map(function ($file) use ($rootDir) {
+        $files = array_filter(array_map(function ($file) use ($rootDir) {
             return $this->findDockerComposeFile($rootDir, $file);
-        }, array_keys($config));
+        }, array_keys($config)));
 
         $originalContents = [];
         foreach ($files as $file) {

@@ -25,26 +25,20 @@ use Symfony\Bundle\MakerBundle\Util\ClassSourceManipulator;
  */
 final class EntityRegenerator
 {
-    private $doctrineHelper;
-    private $fileManager;
-    private $generator;
-    private $entityClassGenerator;
-    private $overwrite;
-
-    public function __construct(DoctrineHelper $doctrineHelper, FileManager $fileManager, Generator $generator, EntityClassGenerator $entityClassGenerator, bool $overwrite)
-    {
-        $this->doctrineHelper = $doctrineHelper;
-        $this->fileManager = $fileManager;
-        $this->generator = $generator;
-        $this->entityClassGenerator = $entityClassGenerator;
-        $this->overwrite = $overwrite;
+    public function __construct(
+        private DoctrineHelper $doctrineHelper,
+        private FileManager $fileManager,
+        private Generator $generator,
+        private EntityClassGenerator $entityClassGenerator,
+        private bool $overwrite,
+    ) {
     }
 
     public function regenerateEntities(string $classOrNamespace): void
     {
         try {
             $metadata = $this->doctrineHelper->getMetadata($classOrNamespace);
-        } catch (MappingException|LegacyCommonMappingException|PersistenceMappingException $mappingException) {
+        } catch (MappingException|LegacyCommonMappingException|PersistenceMappingException) {
             $metadata = $this->doctrineHelper->getMetadata($classOrNamespace, true);
         }
 
@@ -78,7 +72,7 @@ final class EntityRegenerator
             $embeddedClasses = [];
 
             foreach ($classMetadata->embeddedClasses as $fieldName => $mapping) {
-                if (false !== strpos($fieldName, '.')) {
+                if (str_contains($fieldName, '.')) {
                     continue;
                 }
 
@@ -97,8 +91,8 @@ final class EntityRegenerator
 
             foreach ($classMetadata->fieldMappings as $fieldName => $mapping) {
                 // skip embedded fields
-                if (false !== strpos($fieldName, '.')) {
-                    list($fieldName, $embeddedFiledName) = explode('.', $fieldName);
+                if (str_contains($fieldName, '.')) {
+                    [$fieldName, $embeddedFiledName] = explode('.', $fieldName);
 
                     $operations[$embeddedClasses[$fieldName]]->addEntityField($embeddedFiledName, $mapping);
 
@@ -128,49 +122,50 @@ final class EntityRegenerator
 
                 switch ($mapping['type']) {
                     case ClassMetadata::MANY_TO_ONE:
-                        $relation = (new RelationManyToOne())
-                            ->setPropertyName($mapping['fieldName'])
-                            ->setIsNullable($getIsNullable($mapping))
-                            ->setTargetClassName($mapping['targetEntity'])
-                            ->setTargetPropertyName($mapping['inversedBy'])
-                            ->setMapInverseRelation(null !== $mapping['inversedBy'])
-                        ;
+                        $relation = (new RelationManyToOne(
+                            propertyName: $mapping['fieldName'],
+                            targetClassName: $mapping['targetEntity'],
+                            targetPropertyName: $mapping['inversedBy'],
+                            mapInverseRelation: null !== $mapping['inversedBy'],
+                            isOwning: true,
+                            isNullable: $getIsNullable($mapping),
+                        ));
 
                         $manipulator->addManyToOneRelation($relation);
 
                         break;
                     case ClassMetadata::ONE_TO_MANY:
-                        $relation = (new RelationOneToMany())
-                            ->setPropertyName($mapping['fieldName'])
-                            ->setTargetClassName($mapping['targetEntity'])
-                            ->setTargetPropertyName($mapping['mappedBy'])
-                            ->setOrphanRemoval($mapping['orphanRemoval'])
-                        ;
+                        $relation = (new RelationOneToMany(
+                            propertyName: $mapping['fieldName'],
+                            targetClassName: $mapping['targetEntity'],
+                            targetPropertyName: $mapping['mappedBy'],
+                            orphanRemoval: $mapping['orphanRemoval'],
+                        ));
 
                         $manipulator->addOneToManyRelation($relation);
 
                         break;
                     case ClassMetadata::MANY_TO_MANY:
-                        $relation = (new RelationManyToMany())
-                            ->setPropertyName($mapping['fieldName'])
-                            ->setTargetClassName($mapping['targetEntity'])
-                            ->setTargetPropertyName($mapping['mappedBy'])
-                            ->setIsOwning($mapping['isOwningSide'])
-                            ->setMapInverseRelation($mapping['isOwningSide'] ? (null !== $mapping['inversedBy']) : true)
-                        ;
+                        $relation = (new RelationManyToMany(
+                            propertyName: $mapping['fieldName'],
+                            targetClassName: $mapping['targetEntity'],
+                            targetPropertyName: $mapping['mappedBy'],
+                            mapInverseRelation: $mapping['isOwningSide'] ? (null !== $mapping['inversedBy']) : true,
+                            isOwning: $mapping['isOwningSide'],
+                        ));
 
                         $manipulator->addManyToManyRelation($relation);
 
                         break;
                     case ClassMetadata::ONE_TO_ONE:
-                        $relation = (new RelationOneToOne())
-                            ->setPropertyName($mapping['fieldName'])
-                            ->setTargetClassName($mapping['targetEntity'])
-                            ->setTargetPropertyName($mapping['isOwningSide'] ? $mapping['inversedBy'] : $mapping['mappedBy'])
-                            ->setIsOwning($mapping['isOwningSide'])
-                            ->setMapInverseRelation($mapping['isOwningSide'] ? (null !== $mapping['inversedBy']) : true)
-                            ->setIsNullable($getIsNullable($mapping))
-                        ;
+                        $relation = (new RelationOneToOne(
+                            propertyName: $mapping['fieldName'],
+                            targetClassName: $mapping['targetEntity'],
+                            targetPropertyName: $mapping['isOwningSide'] ? $mapping['inversedBy'] : $mapping['mappedBy'],
+                            mapInverseRelation: $mapping['isOwningSide'] ? (null !== $mapping['inversedBy']) : true,
+                            isOwning: $mapping['isOwningSide'],
+                            isNullable: $getIsNullable($mapping),
+                        ));
 
                         $manipulator->addOneToOneRelation($relation);
 
@@ -204,13 +199,12 @@ final class EntityRegenerator
     private function createClassManipulator(string $classPath): ClassSourceManipulator
     {
         return new ClassSourceManipulator(
-            $this->fileManager->getFileContents($classPath),
-            $this->overwrite,
-            // use annotations
+            sourceCode: $this->fileManager->getFileContents($classPath),
+            overwrite: $this->overwrite,
             // if properties need to be generated then, by definition,
             // some non-annotation config is being used, and so, the
             // properties should not have annotations added to them
-            false
+            useAttributesForDoctrineMapping: false
         );
     }
 
@@ -244,11 +238,11 @@ final class EntityRegenerator
         /** @var \ReflectionClass $classReflection */
         $classReflection = $classMetadata->reflClass;
 
-        $targetFields = array_merge(
-            array_keys($classMetadata->fieldMappings),
-            array_keys($classMetadata->associationMappings),
-            array_keys($classMetadata->embeddedClasses)
-        );
+        $targetFields = [
+            ...array_keys($classMetadata->fieldMappings),
+            ...array_keys($classMetadata->associationMappings),
+            ...array_keys($classMetadata->embeddedClasses),
+        ];
 
         if ($classReflection) {
             // exclude traits
@@ -263,10 +257,8 @@ final class EntityRegenerator
             $targetFields = array_diff($targetFields, $traitProperties);
 
             // exclude inherited properties
-            $targetFields = array_filter($targetFields, function ($field) use ($classReflection) {
-                return $classReflection->hasProperty($field) &&
-                    $classReflection->getProperty($field)->getDeclaringClass()->getName() == $classReflection->getName();
-            });
+            $targetFields = array_filter($targetFields, static fn ($field) => $classReflection->hasProperty($field) &&
+                $classReflection->getProperty($field)->getDeclaringClass()->getName() === $classReflection->getName());
         }
 
         return $targetFields;

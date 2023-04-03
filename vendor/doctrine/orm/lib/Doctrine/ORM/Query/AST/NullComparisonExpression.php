@@ -17,12 +17,11 @@ class NullComparisonExpression extends Node
     /** @var Node */
     public $expression;
 
-    /**
-     * @param Node $expression
-     */
-    public function __construct($expression)
+    /** @param Node $expression */
+    public function __construct($expression, bool $not = false)
     {
         $this->expression = $expression;
+        $this->not        = $not;
     }
 
     /**

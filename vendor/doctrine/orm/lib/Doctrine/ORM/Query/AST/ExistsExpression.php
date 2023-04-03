@@ -17,12 +17,11 @@ class ExistsExpression extends Node
     /** @var Subselect */
     public $subselect;
 
-    /**
-     * @param Subselect $subselect
-     */
-    public function __construct($subselect)
+    /** @param Subselect $subselect */
+    public function __construct($subselect, bool $not = false)
     {
         $this->subselect = $subselect;
+        $this->not       = $not;
     }
 
     /**

@@ -6,11 +6,8 @@ namespace <?= $namespace; ?>;
 
 class <?= $class_name ?> implements NormalizerInterface, CacheableSupportsMethodInterface
 {
-    private $normalizer;
-
-    public function __construct(ObjectNormalizer $normalizer)
+    public function __construct(private ObjectNormalizer $normalizer)
     {
-        $this->normalizer = $normalizer;
     }
 
     public function normalize($object, string $format = null, array $context = []): array
@@ -24,7 +21,7 @@ class <?= $class_name ?> implements NormalizerInterface, CacheableSupportsMethod
 
     public function supportsNormalization($data, string $format = null, array $context = []): bool
     {
-        return $data instanceof \App\Entity\<?= str_replace('Normalizer', null, $class_name) ?>;
+        return $data instanceof \App\Entity\<?= str_replace('Normalizer', '', $class_name) ?>;
     }
 
     public function hasCacheableSupportsMethod(): bool

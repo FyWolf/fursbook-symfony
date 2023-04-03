@@ -43,12 +43,14 @@ class DateTimeToStringTransformer extends BaseDateTimeTransformer
      * @param string|null $inputTimezone  The name of the input timezone
      * @param string|null $outputTimezone The name of the output timezone
      * @param string      $format         The date format
+     * @param string|null $parseFormat    The parse format when different from $format
      */
-    public function __construct(string $inputTimezone = null, string $outputTimezone = null, string $format = 'Y-m-d H:i:s')
+    public function __construct(string $inputTimezone = null, string $outputTimezone = null, string $format = 'Y-m-d H:i:s', string $parseFormat = null)
     {
         parent::__construct($inputTimezone, $outputTimezone);
 
-        $this->generateFormat = $this->parseFormat = $format;
+        $this->generateFormat = $format;
+        $this->parseFormat = $parseFormat ?? $format;
 
         // See https://php.net/datetime.createfromformat
         // The character "|" in the format makes sure that the parts of a date
@@ -111,7 +113,7 @@ class DateTimeToStringTransformer extends BaseDateTimeTransformer
         $outputTz = new \DateTimeZone($this->outputTimezone);
         $dateTime = \DateTime::createFromFormat($this->parseFormat, $value, $outputTz);
 
-        $lastErrors = \DateTime::getLastErrors();
+        $lastErrors = \DateTime::getLastErrors() ?: ['error_count' => 0, 'warning_count' => 0];
 
         if (0 < $lastErrors['warning_count'] || 0 < $lastErrors['error_count']) {
             throw new TransformationFailedException(implode(', ', array_merge(array_values($lastErrors['warnings']), array_values($lastErrors['errors']))));

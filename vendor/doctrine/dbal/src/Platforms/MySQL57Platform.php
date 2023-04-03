@@ -18,9 +18,18 @@ class MySQL57Platform extends MySQLPlatform
 {
     /**
      * {@inheritdoc}
+     *
+     * @deprecated
      */
     public function hasNativeJsonType()
     {
+        Deprecation::triggerIfCalledFromOutside(
+            'doctrine/dbal',
+            'https://github.com/doctrine/dbal/pull/5509',
+            '%s is deprecated.',
+            __METHOD__,
+        );
+
         return true;
     }
 
@@ -72,7 +81,7 @@ class MySQL57Platform extends MySQLPlatform
             'doctrine/dbal',
             'https://github.com/doctrine/dbal/issues/4510',
             'MySQL57Platform::getReservedKeywordsClass() is deprecated,'
-                . ' use MySQL57Platform::createReservedKeywordsList() instead.'
+                . ' use MySQL57Platform::createReservedKeywordsList() instead.',
         );
 
         return Keywords\MySQL57Keywords::class;

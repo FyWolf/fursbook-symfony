@@ -33,11 +33,8 @@ use Symfony\Component\Console\Style\SymfonyStyle;
  */
 final class MakeCommand extends AbstractMaker
 {
-    private $phpCompatUtil;
-
-    public function __construct(PhpCompatUtil $phpCompatUtil)
+    public function __construct(private PhpCompatUtil $phpCompatUtil)
     {
-        $this->phpCompatUtil = $phpCompatUtil;
     }
 
     public static function getCommandName(): string
@@ -61,7 +58,7 @@ final class MakeCommand extends AbstractMaker
     public function generate(InputInterface $input, ConsoleStyle $io, Generator $generator): void
     {
         $commandName = trim($input->getArgument('name'));
-        $commandNameHasAppPrefix = 0 === strpos($commandName, 'app:');
+        $commandNameHasAppPrefix = str_starts_with($commandName, 'app:');
 
         $commandClassNameDetails = $generator->createClassNameDetails(
             $commandNameHasAppPrefix ? substr($commandName, 4) : $commandName,
@@ -77,11 +74,8 @@ final class MakeCommand extends AbstractMaker
             InputOption::class,
             OutputInterface::class,
             SymfonyStyle::class,
+            AsCommand::class,
         ]);
-
-        if ($this->phpCompatUtil->canUseAttributes()) {
-            $useStatements->addUseStatement(AsCommand::class);
-        }
 
         $generator->generateClass(
             $commandClassNameDetails->getFullName(),

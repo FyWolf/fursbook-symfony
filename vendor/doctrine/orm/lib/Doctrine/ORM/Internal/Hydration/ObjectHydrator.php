@@ -4,12 +4,13 @@ declare(strict_types=1);
 
 namespace Doctrine\ORM\Internal\Hydration;
 
+use BackedEnum;
 use Doctrine\Common\Collections\ArrayCollection;
-use Doctrine\Common\Proxy\Proxy;
 use Doctrine\ORM\Mapping\ClassMetadata;
 use Doctrine\ORM\PersistentCollection;
 use Doctrine\ORM\Query;
 use Doctrine\ORM\UnitOfWork;
+use Doctrine\Persistence\Proxy;
 
 use function array_fill_keys;
 use function array_keys;
@@ -43,6 +44,9 @@ class ObjectHydrator extends AbstractHydrator
 
     /** @var mixed[] */
     private $initializedCollections = [];
+
+    /** @var array<string, PersistentCollection> */
+    private $uninitializedCollections = [];
 
     /** @var mixed[] */
     private $existingCollections = [];
@@ -112,10 +116,11 @@ class ObjectHydrator extends AbstractHydrator
 
         parent::cleanup();
 
-        $this->identifierMap          =
-        $this->initializedCollections =
-        $this->existingCollections    =
-        $this->resultPointers         = [];
+        $this->identifierMap            =
+        $this->initializedCollections   =
+        $this->uninitializedCollections =
+        $this->existingCollections      =
+        $this->resultPointers           = [];
 
         if ($eagerLoad) {
             $this->_uow->triggerEagerLoads();
@@ -126,10 +131,11 @@ class ObjectHydrator extends AbstractHydrator
 
     protected function cleanupAfterRowIteration(): void
     {
-        $this->identifierMap          =
-        $this->initializedCollections =
-        $this->existingCollections    =
-        $this->resultPointers         = [];
+        $this->identifierMap            =
+        $this->initializedCollections   =
+        $this->uninitializedCollections =
+        $this->existingCollections      =
+        $this->resultPointers           = [];
     }
 
     /**
@@ -146,6 +152,12 @@ class ObjectHydrator extends AbstractHydrator
         // Take snapshots from all newly initialized collections
         foreach ($this->initializedCollections as $coll) {
             $coll->takeSnapshot();
+        }
+
+        foreach ($this->uninitializedCollections as $coll) {
+            if (! $coll->isInitialized()) {
+                $coll->setInitialized(true);
+            }
         }
 
         return $result;
@@ -235,7 +247,12 @@ class ObjectHydrator extends AbstractHydrator
             }
 
             $discrMap           = $this->_metadataCache[$className]->discriminatorMap;
-            $discriminatorValue = (string) $data[$discrColumn];
+            $discriminatorValue = $data[$discrColumn];
+            if ($discriminatorValue instanceof BackedEnum) {
+                $discriminatorValue = $discriminatorValue->value;
+            }
+
+            $discriminatorValue = (string) $discriminatorValue;
 
             if (! isset($discrMap[$discriminatorValue])) {
                 throw HydrationException::invalidDiscriminatorValue($discriminatorValue, array_keys($discrMap));
@@ -411,8 +428,8 @@ class ObjectHydrator extends AbstractHydrator
                         }
                     } elseif (! $reflFieldValue) {
                         $this->initRelatedCollection($parentObject, $parentClass, $relationField, $parentAlias);
-                    } elseif ($reflFieldValue instanceof PersistentCollection && $reflFieldValue->isInitialized() === false) {
-                        $reflFieldValue->setInitialized(true);
+                    } elseif ($reflFieldValue instanceof PersistentCollection && $reflFieldValue->isInitialized() === false && ! isset($this->uninitializedCollections[$oid . $relationField])) {
+                        $this->uninitializedCollections[$oid . $relationField] = $reflFieldValue;
                     }
                 } else {
                     // PATH B: Single-valued association

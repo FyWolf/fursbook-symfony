@@ -17,9 +17,7 @@ use function is_string;
 use function is_subclass_of;
 use function sprintf;
 
-/**
- * @internal
- */
+/** @internal */
 final class AttributeReader
 {
     /** @var array<class-string<Annotation>,bool> */
@@ -30,7 +28,7 @@ final class AttributeReader
      *
      * @template T of Annotation
      */
-    public function getClassAnnotations(ReflectionClass $class): array
+    public function getClassAttributes(ReflectionClass $class): array
     {
         return $this->convertToAttributeInstances($class->getAttributes());
     }
@@ -40,7 +38,7 @@ final class AttributeReader
      *
      * @template T of Annotation
      */
-    public function getMethodAnnotations(ReflectionMethod $method): array
+    public function getMethodAttributes(ReflectionMethod $method): array
     {
         return $this->convertToAttributeInstances($method->getAttributes());
     }
@@ -50,50 +48,50 @@ final class AttributeReader
      *
      * @template T of Annotation
      */
-    public function getPropertyAnnotations(ReflectionProperty $property): array
+    public function getPropertyAttributes(ReflectionProperty $property): array
     {
         return $this->convertToAttributeInstances($property->getAttributes());
     }
 
     /**
-     * @param class-string<T> $annotationName The name of the annotation.
+     * @param class-string<T> $attributeName The name of the annotation.
      *
      * @return T|null
      *
      * @template T of Annotation
      */
-    public function getPropertyAnnotation(ReflectionProperty $property, $annotationName)
+    public function getPropertyAttribute(ReflectionProperty $property, $attributeName)
     {
-        if ($this->isRepeatable($annotationName)) {
+        if ($this->isRepeatable($attributeName)) {
             throw new LogicException(sprintf(
-                'The attribute "%s" is repeatable. Call getPropertyAnnotationCollection() instead.',
-                $annotationName
+                'The attribute "%s" is repeatable. Call getPropertyAttributeCollection() instead.',
+                $attributeName
             ));
         }
 
-        return $this->getPropertyAnnotations($property)[$annotationName]
-            ?? ($this->isRepeatable($annotationName) ? new RepeatableAttributeCollection() : null);
+        return $this->getPropertyAttributes($property)[$attributeName]
+            ?? ($this->isRepeatable($attributeName) ? new RepeatableAttributeCollection() : null);
     }
 
     /**
-     * @param class-string<T> $annotationName The name of the annotation.
+     * @param class-string<T> $attributeName The name of the annotation.
      *
      * @return RepeatableAttributeCollection<T>
      *
      * @template T of Annotation
      */
-    public function getPropertyAnnotationCollection(
+    public function getPropertyAttributeCollection(
         ReflectionProperty $property,
-        string $annotationName
+        string $attributeName
     ): RepeatableAttributeCollection {
-        if (! $this->isRepeatable($annotationName)) {
+        if (! $this->isRepeatable($attributeName)) {
             throw new LogicException(sprintf(
-                'The attribute "%s" is not repeatable. Call getPropertyAnnotation() instead.',
-                $annotationName
+                'The attribute "%s" is not repeatable. Call getPropertyAttribute() instead.',
+                $attributeName
             ));
         }
 
-        return $this->getPropertyAnnotations($property)[$annotationName] ?? new RepeatableAttributeCollection();
+        return $this->getPropertyAttributes($property)[$attributeName] ?? new RepeatableAttributeCollection();
     }
 
     /**
@@ -110,7 +108,7 @@ final class AttributeReader
         foreach ($attributes as $attribute) {
             $attributeName = $attribute->getName();
             assert(is_string($attributeName));
-            // Make sure we only get Doctrine Annotations
+            // Make sure we only get Doctrine Attributes
             if (! is_subclass_of($attributeName, Annotation::class)) {
                 continue;
             }
@@ -134,9 +132,7 @@ final class AttributeReader
         return $instances;
     }
 
-    /**
-     * @param class-string<Annotation> $attributeClassName
-     */
+    /** @param class-string<Annotation> $attributeClassName */
     private function isRepeatable(string $attributeClassName): bool
     {
         if (isset($this->isRepeatableAttribute[$attributeClassName])) {

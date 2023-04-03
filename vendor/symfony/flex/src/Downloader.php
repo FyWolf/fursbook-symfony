@@ -218,8 +218,8 @@ class Downloader
                         break;
                     }
 
-                    if (isset($links['recipes_template_relative'])) {
-                        $links['recipes_template'] = preg_replace('{[^/\?]*+(?=\?|$)}', $links['recipes_template_relative'], $endpoint, 1);
+                    if (isset($links['recipe_template_relative'])) {
+                        $links['recipe_template'] = preg_replace('{[^/\?]*+(?=\?|$)}', $links['recipe_template_relative'], $endpoint, 1);
                     }
 
                     $urls[] = strtr($links['recipe_template'], [
@@ -239,7 +239,6 @@ class Downloader
             }
 
             if (null !== $this->endpoints) {
-                $data['locks'][$package->getName()]['version'] = $version;
                 continue;
             }
 

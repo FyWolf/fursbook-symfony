@@ -32,10 +32,13 @@ use function array_map;
 use function array_shift;
 use function assert;
 use function count;
+use function func_num_args;
+use function in_array;
 use function is_array;
 use function is_numeric;
 use function is_object;
 use function is_scalar;
+use function is_string;
 use function iterator_count;
 use function iterator_to_array;
 use function ksort;
@@ -195,9 +198,7 @@ abstract class AbstractQuery
         return $this;
     }
 
-    /**
-     * @return bool TRUE if the query results are enable for second level cache, FALSE otherwise.
-     */
+    /** @return bool TRUE if the query results are enabled for second level cache, FALSE otherwise. */
     public function isCacheable()
     {
         return $this->cacheable;
@@ -225,17 +226,13 @@ abstract class AbstractQuery
         return $this->cacheRegion;
     }
 
-    /**
-     * @return bool TRUE if the query cache and second level cache are enabled, FALSE otherwise.
-     */
+    /** @return bool TRUE if the query cache and second level cache are enabled, FALSE otherwise. */
     protected function isCacheEnabled()
     {
         return $this->cacheable && $this->hasCache;
     }
 
-    /**
-     * @return int
-     */
+    /** @return int */
     public function getLifetime()
     {
         return $this->lifetime;
@@ -282,7 +279,7 @@ abstract class AbstractQuery
      * The returned SQL syntax depends on the connection driver that is used
      * by this query object at the time of this method call.
      *
-     * @return string SQL query
+     * @return list<string>|string SQL query
      */
     abstract public function getSQL();
 
@@ -324,7 +321,7 @@ abstract class AbstractQuery
     /**
      * Gets a query parameter.
      *
-     * @param mixed $key The key (index or name) of the bound parameter.
+     * @param int|string $key The key (index or name) of the bound parameter.
      *
      * @return Parameter|null The value of the bound parameter, or NULL if not available.
      */
@@ -353,7 +350,6 @@ abstract class AbstractQuery
      */
     public function setParameters($parameters)
     {
-        // BC compatibility with 2.3-
         if (is_array($parameters)) {
             /** @psalm-var ArrayCollection<int, Parameter> $parameterCollection */
             $parameterCollection = new ArrayCollection();
@@ -401,8 +397,7 @@ abstract class AbstractQuery
      *
      * @param mixed $value
      *
-     * @return mixed[]|string|int|float|bool
-     * @psalm-return array|scalar
+     * @return mixed
      *
      * @throws ORMInvalidArgumentException
      */
@@ -547,6 +542,15 @@ abstract class AbstractQuery
     public function setHydrationCacheProfile(?QueryCacheProfile $profile = null)
     {
         if ($profile === null) {
+            if (func_num_args() < 1) {
+                Deprecation::trigger(
+                    'doctrine/orm',
+                    'https://github.com/doctrine/orm/pull/9791',
+                    'Calling %s without arguments is deprecated, pass null instead.',
+                    __METHOD__
+                );
+            }
+
             $this->_hydrationCacheProfile = null;
 
             return $this;
@@ -572,9 +576,7 @@ abstract class AbstractQuery
         return $this;
     }
 
-    /**
-     * @return QueryCacheProfile|null
-     */
+    /** @return QueryCacheProfile|null */
     public function getHydrationCacheProfile()
     {
         return $this->_hydrationCacheProfile;
@@ -591,6 +593,15 @@ abstract class AbstractQuery
     public function setResultCacheProfile(?QueryCacheProfile $profile = null)
     {
         if ($profile === null) {
+            if (func_num_args() < 1) {
+                Deprecation::trigger(
+                    'doctrine/orm',
+                    'https://github.com/doctrine/orm/pull/9791',
+                    'Calling %s without arguments is deprecated, pass null instead.',
+                    __METHOD__
+                );
+            }
+
             $this->_queryCacheProfile = null;
 
             return $this;
@@ -645,6 +656,15 @@ abstract class AbstractQuery
     public function setResultCache(?CacheItemPoolInterface $resultCache = null)
     {
         if ($resultCache === null) {
+            if (func_num_args() < 1) {
+                Deprecation::trigger(
+                    'doctrine/orm',
+                    'https://github.com/doctrine/orm/pull/9791',
+                    'Calling %s without arguments is deprecated, pass null instead.',
+                    __METHOD__
+                );
+            }
+
             if ($this->_queryCacheProfile) {
                 $this->_queryCacheProfile = new QueryCacheProfile($this->_queryCacheProfile->getLifetime(), $this->_queryCacheProfile->getCacheKey());
             }
@@ -806,9 +826,7 @@ abstract class AbstractQuery
         return $this->_expireResultCache;
     }
 
-    /**
-     * @return QueryCacheProfile|null
-     */
+    /** @return QueryCacheProfile|null */
     public function getQueryCacheProfile()
     {
         return $this->_queryCacheProfile;
@@ -817,17 +835,22 @@ abstract class AbstractQuery
     /**
      * Change the default fetch mode of an association for this query.
      *
-     * $fetchMode can be one of ClassMetadata::FETCH_EAGER or ClassMetadata::FETCH_LAZY
-     *
-     * @param string $class
-     * @param string $assocName
-     * @param int    $fetchMode
+     * @param class-string $class
+     * @param string       $assocName
+     * @param int          $fetchMode
+     * @psalm-param Mapping\ClassMetadata::FETCH_EAGER|Mapping\ClassMetadata::FETCH_LAZY $fetchMode
      *
      * @return $this
      */
     public function setFetchMode($class, $assocName, $fetchMode)
     {
-        if ($fetchMode !== Mapping\ClassMetadata::FETCH_EAGER) {
+        if (! in_array($fetchMode, [Mapping\ClassMetadata::FETCH_EAGER, Mapping\ClassMetadata::FETCH_LAZY], true)) {
+            Deprecation::trigger(
+                'doctrine/orm',
+                'https://github.com/doctrine/orm/pull/9777',
+                'Calling %s() with something else than ClassMetadata::FETCH_EAGER or ClassMetadata::FETCH_LAZY is deprecated.',
+                __METHOD__
+            );
             $fetchMode = Mapping\ClassMetadata::FETCH_LAZY;
         }
 
@@ -1054,7 +1077,8 @@ abstract class AbstractQuery
      *
      * @param ArrayCollection|mixed[]|null $parameters    The query parameters.
      * @param string|int|null              $hydrationMode The hydration mode to use.
-     * @psalm-param string|AbstractQuery::HYDRATE_*|null $hydrationMode The hydration mode to use.
+     * @psalm-param ArrayCollection<int, Parameter>|array<string, mixed>|null $parameters
+     * @psalm-param string|AbstractQuery::HYDRATE_*|null                      $hydrationMode The hydration mode to use.
      *
      * @return IterableResult
      */
@@ -1297,12 +1321,15 @@ abstract class AbstractQuery
     protected function getHydrationCacheId()
     {
         $parameters = [];
+        $types      = [];
 
         foreach ($this->getParameters() as $parameter) {
             $parameters[$parameter->getName()] = $this->processParameterValue($parameter->getValue());
+            $types[$parameter->getName()]      = $parameter->getType();
         }
 
-        $sql                    = $this->getSQL();
+        $sql = $this->getSQL();
+        assert(is_string($sql));
         $queryCacheProfile      = $this->getHydrationCacheProfile();
         $hints                  = $this->getHints();
         $hints['hydrationMode'] = $this->getHydrationMode();
@@ -1310,7 +1337,7 @@ abstract class AbstractQuery
         ksort($hints);
         assert($queryCacheProfile !== null);
 
-        return $queryCacheProfile->generateCacheKeys($sql, $parameters, $hints);
+        return $queryCacheProfile->generateCacheKeys($sql, $parameters, $types, $hints);
     }
 
     /**
@@ -1374,7 +1401,8 @@ abstract class AbstractQuery
      */
     protected function getHash()
     {
-        $query  = $this->getSQL();
+        $query = $this->getSQL();
+        assert(is_string($query));
         $hints  = $this->getHints();
         $params = array_map(function (Parameter $parameter) {
             $value = $parameter->getValue();

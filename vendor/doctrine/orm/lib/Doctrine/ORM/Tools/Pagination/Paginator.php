@@ -16,6 +16,7 @@ use Doctrine\ORM\Query\ResultSetMapping;
 use Doctrine\ORM\QueryBuilder;
 use IteratorAggregate;
 use ReturnTypeWillChange;
+use Traversable;
 
 use function array_key_exists;
 use function array_map;
@@ -25,7 +26,8 @@ use function count;
 /**
  * The paginator can handle various complex scenarios with DQL.
  *
- * @template T
+ * @template-covariant T
+ * @implements IteratorAggregate<array-key, T>
  */
 class Paginator implements Countable, IteratorAggregate
 {
@@ -40,7 +42,7 @@ class Paginator implements Countable, IteratorAggregate
     /** @var bool|null */
     private $useOutputWalkers;
 
-    /** @var int */
+    /** @var int|null */
     private $count;
 
     /**
@@ -124,8 +126,8 @@ class Paginator implements Countable, IteratorAggregate
     /**
      * {@inheritdoc}
      *
-     * @return ArrayIterator
-     * @psalm-return ArrayIterator<array-key, T>
+     * @return Traversable
+     * @psalm-return Traversable<array-key, T>
      */
     #[ReturnTypeWillChange]
     public function getIterator()
@@ -157,7 +159,7 @@ class Paginator implements Countable, IteratorAggregate
 
             $this->appendTreeWalker($whereInQuery, WhereInWalker::class);
             $whereInQuery->setHint(WhereInWalker::HINT_PAGINATOR_ID_COUNT, count($ids));
-            $whereInQuery->setFirstResult(null)->setMaxResults(null);
+            $whereInQuery->setFirstResult(0)->setMaxResults(null);
             $whereInQuery->setParameter(WhereInWalker::PAGINATOR_ID_ALIAS, $ids);
             $whereInQuery->setCacheable($this->query->isCacheable());
             $whereInQuery->expireQueryCache();
@@ -241,7 +243,7 @@ class Paginator implements Countable, IteratorAggregate
             $this->unbindUnusedQueryParams($countQuery);
         }
 
-        $countQuery->setFirstResult(null)->setMaxResults(null);
+        $countQuery->setFirstResult(0)->setMaxResults(null);
 
         return $countQuery;
     }

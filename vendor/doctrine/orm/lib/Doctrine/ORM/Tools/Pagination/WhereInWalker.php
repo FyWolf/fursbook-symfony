@@ -4,13 +4,12 @@ declare(strict_types=1);
 
 namespace Doctrine\ORM\Tools\Pagination;
 
-use Doctrine\ORM\Mapping\ClassMetadata;
 use Doctrine\ORM\Query\AST\ArithmeticExpression;
 use Doctrine\ORM\Query\AST\ConditionalExpression;
 use Doctrine\ORM\Query\AST\ConditionalFactor;
 use Doctrine\ORM\Query\AST\ConditionalPrimary;
 use Doctrine\ORM\Query\AST\ConditionalTerm;
-use Doctrine\ORM\Query\AST\InExpression;
+use Doctrine\ORM\Query\AST\InListExpression;
 use Doctrine\ORM\Query\AST\InputParameter;
 use Doctrine\ORM\Query\AST\NullComparisonExpression;
 use Doctrine\ORM\Query\AST\PathExpression;
@@ -28,7 +27,13 @@ use function is_array;
 use function reset;
 
 /**
- * Appends a condition "id IN (:foo_1, :foo_2)" to the whereClause of the AST.
+ * Appends a condition equivalent to "WHERE IN (:dpid_1, :dpid_2, ...)" to the whereClause of the AST.
+ *
+ * The parameter namespace (dpid) is defined by
+ * the PAGINATOR_ID_ALIAS
+ *
+ * The total number of parameters is retrieved from
+ * the HINT_PAGINATOR_ID_COUNT query hint.
  */
 class WhereInWalker extends TreeWalkerAdapter
 {
@@ -42,22 +47,8 @@ class WhereInWalker extends TreeWalkerAdapter
      */
     public const PAGINATOR_ID_ALIAS = 'dpid';
 
-    /**
-     * Appends a condition equivalent to "WHERE IN (:dpid_1, :dpid_2, ...)" to the whereClause of the AST.
-     *
-     * The parameter namespace (dpid) is defined by
-     * the PAGINATOR_ID_ALIAS
-     *
-     * The total number of parameters is retrieved from
-     * the HINT_PAGINATOR_ID_COUNT query hint.
-     *
-     * @return void
-     *
-     * @throws RuntimeException
-     */
     public function walkSelectStatement(SelectStatement $AST)
     {
-        $queryComponents = $this->_getQueryComponents();
         // Get the root entity and alias from the AST fromClause
         $from = $AST->fromClause->identificationVariableDeclarations;
 
@@ -65,10 +56,9 @@ class WhereInWalker extends TreeWalkerAdapter
             throw new RuntimeException('Cannot count query which selects two FROM components, cannot make distinction');
         }
 
-        $fromRoot  = reset($from);
-        $rootAlias = $fromRoot->rangeVariableDeclaration->aliasIdentificationVariable;
-        $rootClass = $queryComponents[$rootAlias]['metadata'];
-        assert($rootClass instanceof ClassMetadata);
+        $fromRoot            = reset($from);
+        $rootAlias           = $fromRoot->rangeVariableDeclaration->aliasIdentificationVariable;
+        $rootClass           = $this->getMetadataForDqlAlias($rootAlias);
         $identifierFieldName = $rootClass->getSingleIdentifierFieldName();
 
         $pathType = PathExpression::TYPE_STATE_FIELD;
@@ -86,8 +76,10 @@ class WhereInWalker extends TreeWalkerAdapter
             $arithmeticExpression->simpleArithmeticExpression = new SimpleArithmeticExpression(
                 [$pathExpression]
             );
-            $expression                                       = new InExpression($arithmeticExpression);
-            $expression->literals[]                           = new InputParameter(':' . self::PAGINATOR_ID_ALIAS);
+            $expression                                       = new InListExpression(
+                $arithmeticExpression,
+                [new InputParameter(':' . self::PAGINATOR_ID_ALIAS)]
+            );
 
             $this->convertWhereInIdentifiersToDatabaseValue(
                 PersisterHelper::getTypeOfField(
@@ -98,8 +90,7 @@ class WhereInWalker extends TreeWalkerAdapter
                 )[0]
             );
         } else {
-            $expression      = new NullComparisonExpression($pathExpression);
-            $expression->not = false;
+            $expression = new NullComparisonExpression($pathExpression);
         }
 
         $conditionalPrimary                              = new ConditionalPrimary();

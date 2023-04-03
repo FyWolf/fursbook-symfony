@@ -62,7 +62,7 @@ class SequenceGenerator extends AbstractIdGenerator implements Serializable
                 $connection->ensureConnectedToPrimary();
             }
 
-            $this->_nextValue = (int) $connection->executeQuery($sql)->fetchOne();
+            $this->_nextValue = (int) $connection->fetchOne($sql);
             $this->_maxValue  = $this->_nextValue + $this->_allocationSize;
         }
 
@@ -99,9 +99,7 @@ class SequenceGenerator extends AbstractIdGenerator implements Serializable
         return serialize($this->__serialize());
     }
 
-    /**
-     * @return array<string, mixed>
-     */
+    /** @return array<string, mixed> */
     public function __serialize(): array
     {
         return [
@@ -122,9 +120,7 @@ class SequenceGenerator extends AbstractIdGenerator implements Serializable
         $this->__unserialize(unserialize($serialized));
     }
 
-    /**
-     * @param array<string, mixed> $data
-     */
+    /** @param array<string, mixed> $data */
     public function __unserialize(array $data): void
     {
         $this->_sequenceName   = $data['sequenceName'];

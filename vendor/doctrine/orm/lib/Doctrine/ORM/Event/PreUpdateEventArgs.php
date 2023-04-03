@@ -12,7 +12,7 @@ use function get_debug_type;
 use function sprintf;
 
 /**
- * Class that holds event arguments for a preInsert/preUpdate event.
+ * Class that holds event arguments for a preUpdate event.
  */
 class PreUpdateEventArgs extends LifecycleEventArgs
 {
@@ -108,7 +108,7 @@ class PreUpdateEventArgs extends LifecycleEventArgs
             throw new InvalidArgumentException(sprintf(
                 'Field "%s" is not a valid field of the entity "%s" in PreUpdateEventArgs.',
                 $field,
-                get_debug_type($this->getEntity())
+                get_debug_type($this->getObject())
             ));
         }
     }

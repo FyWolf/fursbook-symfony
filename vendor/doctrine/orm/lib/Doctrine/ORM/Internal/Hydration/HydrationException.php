@@ -11,9 +11,7 @@ use function sprintf;
 
 class HydrationException extends ORMException
 {
-    /**
-     * @return HydrationException
-     */
+    /** @return HydrationException */
     public static function nonUniqueResult()
     {
         return new self('The result returned by the query was not unique.');
@@ -83,18 +81,17 @@ class HydrationException extends ORMException
     }
 
     /**
-     * @param string   $discrValue
-     * @param string[] $discrMap
-     * @psalm-param array<string, string> $discrMap
+     * @param string           $discrValue
+     * @param list<int|string> $discrValues
      *
      * @return HydrationException
      */
-    public static function invalidDiscriminatorValue($discrValue, $discrMap)
+    public static function invalidDiscriminatorValue($discrValue, $discrValues)
     {
         return new self(sprintf(
             'The discriminator value "%s" is invalid. It must be one of "%s".',
             $discrValue,
-            implode('", "', $discrMap)
+            implode('", "', $discrValues)
         ));
     }
 }

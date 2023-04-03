@@ -24,11 +24,9 @@ use Symfony\Component\OptionsResolver\OptionsResolver;
  */
 final class FormTypeRenderer
 {
-    private $generator;
-
-    public function __construct(Generator $generator)
-    {
-        $this->generator = $generator;
+    public function __construct(
+        private Generator $generator,
+    ) {
     }
 
     public function render(ClassNameDetails $formClassDetails, array $formFields, ClassNameDetails $boundClassDetails = null, array $constraintClasses = [], array $extraUseClasses = []): void
@@ -36,7 +34,7 @@ final class FormTypeRenderer
         $fieldTypeUseStatements = [];
         $fields = [];
         foreach ($formFields as $name => $fieldTypeOptions) {
-            $fieldTypeOptions = $fieldTypeOptions ?? ['type' => null, 'options_code' => null];
+            $fieldTypeOptions ??= ['type' => null, 'options_code' => null];
 
             if (isset($fieldTypeOptions['type'])) {
                 $fieldTypeUseStatements[] = $fieldTypeOptions['type'];

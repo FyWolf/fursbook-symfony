@@ -17,12 +17,11 @@ class EmptyCollectionComparisonExpression extends Node
     /** @var bool */
     public $not;
 
-    /**
-     * @param PathExpression $expression
-     */
-    public function __construct($expression)
+    /** @param PathExpression $expression */
+    public function __construct($expression, bool $not = false)
     {
         $this->expression = $expression;
+        $this->not        = $not;
     }
 
     /**

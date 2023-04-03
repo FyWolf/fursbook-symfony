@@ -21,14 +21,9 @@ use Doctrine\Persistence\Mapping\ClassMetadata;
  */
 final class EntityDetails
 {
-    private $metadata;
-
-    /**
-     * @param ClassMetadata|LegacyClassMetadata $metadata
-     */
-    public function __construct($metadata)
-    {
-        $this->metadata = $metadata;
+    public function __construct(
+        private ClassMetadata|LegacyClassMetadata $metadata,
+    ) {
     }
 
     public function getRepositoryClass(): ?string
@@ -57,9 +52,7 @@ final class EntityDetails
 
         if (!empty($this->metadata->embeddedClasses)) {
             foreach (array_keys($this->metadata->embeddedClasses) as $embeddedClassKey) {
-                $fields = array_filter($fields, function ($v) use ($embeddedClassKey) {
-                    return 0 !== strpos($v, $embeddedClassKey.'.');
-                });
+                $fields = array_filter($fields, static fn ($v) => !str_starts_with($v, $embeddedClassKey.'.'));
             }
         }
 

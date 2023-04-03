@@ -254,7 +254,7 @@ abstract class AbstractNormalizer implements NormalizerInterface, DenormalizerIn
     {
         $groups = $context[self::GROUPS] ?? $this->defaultContext[self::GROUPS] ?? [];
 
-        return is_scalar($groups) ? (array) $groups : $groups;
+        return \is_scalar($groups) ? (array) $groups : $groups;
     }
 
     /**
@@ -387,7 +387,7 @@ abstract class AbstractNormalizer implements NormalizerInterface, DenormalizerIn
                     }
 
                     $exception = NotNormalizableValueException::createForUnexpectedDataType(
-                        sprintf('Failed to create object because the object miss the "%s" property.', $constructorParameter->name),
+                        sprintf('Failed to create object because the class misses the "%s" property.', $constructorParameter->name),
                         $data,
                         ['unknown'],
                         $context['deserialization_path'] ?? null,

@@ -43,6 +43,7 @@ use Symfony\Component\Routing\Generator\UrlGeneratorInterface;
 use Symfony\Component\Security\Core\Authentication\Token\TokenInterface;
 use Symfony\Component\Security\Core\Exception\AuthenticationException;
 use Symfony\Component\Security\Core\Security;
+use Symfony\Component\Security\Guard\AuthenticatorInterface as GuardAuthenticatorInterface;
 use Symfony\Component\Security\Http\Authentication\AuthenticationUtils;
 use Symfony\Component\Security\Http\Authenticator\AbstractAuthenticator;
 use Symfony\Component\Security\Http\Authenticator\AbstractLoginFormAuthenticator;
@@ -64,19 +65,13 @@ final class MakeAuthenticator extends AbstractMaker
     private const AUTH_TYPE_EMPTY_AUTHENTICATOR = 'empty-authenticator';
     private const AUTH_TYPE_FORM_LOGIN = 'form-login';
 
-    private $fileManager;
-    private $configUpdater;
-    private $generator;
-    private $doctrineHelper;
-    private $securityControllerBuilder;
-
-    public function __construct(FileManager $fileManager, SecurityConfigUpdater $configUpdater, Generator $generator, DoctrineHelper $doctrineHelper, SecurityControllerBuilder $securityControllerBuilder)
-    {
-        $this->fileManager = $fileManager;
-        $this->configUpdater = $configUpdater;
-        $this->generator = $generator;
-        $this->doctrineHelper = $doctrineHelper;
-        $this->securityControllerBuilder = $securityControllerBuilder;
+    public function __construct(
+        private FileManager $fileManager,
+        private SecurityConfigUpdater $configUpdater,
+        private Generator $generator,
+        private DoctrineHelper $doctrineHelper,
+        private SecurityControllerBuilder $securityControllerBuilder,
+    ) {
     }
 
     public static function getCommandName(): string
@@ -103,7 +98,8 @@ final class MakeAuthenticator extends AbstractMaker
         $manipulator = new YamlSourceManipulator($this->fileManager->getFileContents($path));
         $securityData = $manipulator->getData();
 
-        if (!($securityData['security']['enable_authenticator_manager'] ?? false)) {
+        // @legacy - Can be removed when Symfony 5.4 support is dropped
+        if (interface_exists(GuardAuthenticatorInterface::class) && !($securityData['security']['enable_authenticator_manager'] ?? false)) {
             throw new RuntimeCommandException('MakerBundle only supports the new authenticator based security system. See https://symfony.com/doc/current/security.html');
         }
 
@@ -222,7 +218,7 @@ final class MakeAuthenticator extends AbstractMaker
             );
             $generator->dumpFile($path, $newYaml);
             $securityYamlUpdated = true;
-        } catch (YamlManipulationFailedException $e) {
+        } catch (YamlManipulationFailedException) {
         }
 
         if (self::AUTH_TYPE_FORM_LOGIN === $input->getArgument('authenticator-type')) {
@@ -337,7 +333,10 @@ final class MakeAuthenticator extends AbstractMaker
             throw new RuntimeCommandException(sprintf('Method "login" already exists on class %s', $controllerClassNameDetails->getFullName()));
         }
 
-        $manipulator = new ClassSourceManipulator($controllerSourceCode, true);
+        $manipulator = new ClassSourceManipulator(
+            sourceCode: $controllerSourceCode,
+            overwrite: true
+        );
 
         $this->securityControllerBuilder->addLoginMethod($manipulator);
 

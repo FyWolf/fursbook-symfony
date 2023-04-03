@@ -13,7 +13,6 @@ namespace Symfony\Bundle\MakerBundle\Doctrine;
 
 use ApiPlatform\Metadata\ApiResource;
 use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository;
-use Doctrine\ORM\Mapping;
 use Doctrine\Persistence\ManagerRegistry;
 use Symfony\Bundle\MakerBundle\Generator;
 use Symfony\Bundle\MakerBundle\Str;
@@ -30,13 +29,10 @@ use Symfony\UX\Turbo\Attribute\Broadcast;
  */
 final class EntityClassGenerator
 {
-    private $generator;
-    private $doctrineHelper;
-
-    public function __construct(Generator $generator, DoctrineHelper $doctrineHelper)
-    {
-        $this->generator = $generator;
-        $this->doctrineHelper = $doctrineHelper;
+    public function __construct(
+        private Generator $generator,
+        private DoctrineHelper $doctrineHelper,
+    ) {
     }
 
     public function generateEntityClass(ClassNameDetails $entityClassDetails, bool $apiResource, bool $withPasswordUpgrade = false, bool $generateRepositoryClass = true, bool $broadcast = false): string
@@ -51,7 +47,7 @@ final class EntityClassGenerator
 
         $useStatements = new UseStatementGenerator([
             $repoClassDetails->getFullName(),
-            [Mapping::class => 'ORM'],
+            ['Doctrine\\ORM\\Mapping' => 'ORM'],
         ]);
 
         if ($broadcast) {
@@ -73,7 +69,6 @@ final class EntityClassGenerator
                 'broadcast' => $broadcast,
                 'should_escape_table_name' => $this->doctrineHelper->isKeyword($tableName),
                 'table_name' => $tableName,
-                'doctrine_use_attributes' => $this->doctrineHelper->isDoctrineSupportingAttributes() && $this->doctrineHelper->doesClassUsesAttributes($entityClassDetails->getFullName()),
             ]
         );
 

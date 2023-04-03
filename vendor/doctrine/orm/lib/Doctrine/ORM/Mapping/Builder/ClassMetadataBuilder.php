@@ -4,8 +4,12 @@ declare(strict_types=1);
 
 namespace Doctrine\ORM\Mapping\Builder;
 
+use BackedEnum;
+use Doctrine\Deprecations\Deprecation;
 use Doctrine\ORM\Mapping\ClassMetadata;
 use Doctrine\ORM\Mapping\ClassMetadataInfo;
+
+use function get_class;
 
 /**
  * Builder Object for ClassMetadata
@@ -19,12 +23,21 @@ class ClassMetadataBuilder
 
     public function __construct(ClassMetadataInfo $cm)
     {
+        if (! $cm instanceof ClassMetadata) {
+            Deprecation::trigger(
+                'doctrine/orm',
+                'https://github.com/doctrine/orm/pull/249',
+                'Passing an instance of %s to %s is deprecated, please pass a ClassMetadata instance instead.',
+                get_class($cm),
+                __METHOD__,
+                ClassMetadata::class
+            );
+        }
+
         $this->cm = $cm;
     }
 
-    /**
-     * @return ClassMetadataInfo
-     */
+    /** @return ClassMetadataInfo */
     public function getClassMetadata()
     {
         return $this->cm;
@@ -206,16 +219,19 @@ class ClassMetadataBuilder
      * @param string $name
      * @param string $type
      * @param int    $length
+     * @psalm-param class-string<BackedEnum>|null $enumType
      *
      * @return $this
      */
-    public function setDiscriminatorColumn($name, $type = 'string', $length = 255)
+    public function setDiscriminatorColumn($name, $type = 'string', $length = 255, ?string $columnDefinition = null, ?string $enumType = null)
     {
         $this->cm->setDiscriminatorColumn(
             [
                 'name' => $name,
                 'type' => $type,
                 'length' => $length,
+                'columnDefinition' => $columnDefinition,
+                'enumType' => $enumType,
             ]
         );
 

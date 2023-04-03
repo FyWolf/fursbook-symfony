@@ -6,21 +6,21 @@ use Doctrine\ORM\Tools\Console\Command\ConvertMappingCommand;
 use Doctrine\ORM\Tools\Export\Driver\AbstractExporter;
 use Doctrine\ORM\Tools\Export\Driver\XmlExporter;
 use Doctrine\ORM\Tools\Export\Driver\YamlExporter;
-use Symfony\Component\Console\Input\InputInterface;
 use Symfony\Component\Console\Input\InputOption;
-use Symfony\Component\Console\Output\OutputInterface;
 
 use function assert;
 
 /**
  * Convert Doctrine ORM metadata mapping information between the various supported
  * formats.
+ *
+ * @deprecated use Doctrine\ORM\Tools\Console\Command\ConvertMappingCommand instead
  */
 class ConvertMappingDoctrineCommand extends ConvertMappingCommand
 {
-    /**
-     * {@inheritDoc}
-     */
+    use OrmProxyCommand;
+
+    /** @return void */
     protected function configure()
     {
         parent::configure();
@@ -32,16 +32,6 @@ class ConvertMappingDoctrineCommand extends ConvertMappingCommand
         }
 
         $this->addOption('em', null, InputOption::VALUE_OPTIONAL, 'The entity manager to use for this command');
-    }
-
-    /**
-     * {@inheritDoc}
-     */
-    protected function execute(InputInterface $input, OutputInterface $output)
-    {
-        DoctrineCommandHelper::setApplicationEntityManager($this->getApplication(), $input->getOption('em'));
-
-        return parent::execute($input, $output);
     }
 
     /**

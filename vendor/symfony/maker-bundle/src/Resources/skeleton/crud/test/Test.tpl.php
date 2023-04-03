@@ -7,16 +7,14 @@ namespace <?= $namespace ?>;
 
 class <?= $class_name ?> extends WebTestCase<?= "\n" ?>
 {
-<?= $use_typed_properties ? null : "    /** @var KernelBrowser */\n" ?>
-    private <?= $use_typed_properties ? 'KernelBrowser ' : null ?>$client;
-<?= $use_typed_properties ? null : "    /** @var $repository_class_name */\n" ?>
-    private <?= $use_typed_properties ? "$repository_class_name " : null ?>$repository;
-    private <?= $use_typed_properties ? 'string ' : null ?>$path = '<?= $route_path; ?>/';
+    private KernelBrowser $client;
+    private <?= "$repository_class_name " ?>$repository;
+    private string $path = '<?= $route_path; ?>/';
 
     protected function setUp(): void
     {
         $this->client = static::createClient();
-        $this->repository = (static::getContainer()->get('doctrine'))->getRepository(<?= $entity_class_name; ?>::class);
+        $this->repository = static::getContainer()->get('doctrine')->getRepository(<?= $entity_class_name; ?>::class);
 
         foreach ($this->repository->findAll() as $object) {
             $this->repository->remove($object, true);
@@ -36,6 +34,8 @@ class <?= $class_name ?> extends WebTestCase<?= "\n" ?>
 
     public function testNew(): void
     {
+        $originalNumObjectsInRepository = count($this->repository->findAll());
+
         $this->markTestIncomplete();
         $this->client->request('GET', sprintf('%snew', $this->path));
 
@@ -47,9 +47,9 @@ class <?= $class_name ?> extends WebTestCase<?= "\n" ?>
 <?php endforeach; ?>
         ]);
 
-        self::assertResponseRedirects('/sweet/food/');
+        self::assertResponseRedirects('<?= $route_path; ?>/');
 
-        self::assertSame(1, $this->repository->count([]));
+        self::assertSame($originalNumObjectsInRepository + 1, count($this->repository->findAll()));
     }
 
     public function testShow(): void
@@ -60,7 +60,7 @@ class <?= $class_name ?> extends WebTestCase<?= "\n" ?>
         $fixture->set<?= ucfirst($form_field); ?>('My Title');
 <?php endforeach; ?>
 
-        $this->repository->add($fixture, true);
+        $this->repository->save($fixture, true);
 
         $this->client->request('GET', sprintf('%s%s', $this->path, $fixture->getId()));
 
@@ -78,7 +78,7 @@ class <?= $class_name ?> extends WebTestCase<?= "\n" ?>
         $fixture->set<?= ucfirst($form_field); ?>('My Title');
 <?php endforeach; ?>
 
-        $this->repository->add($fixture, true);
+        $this->repository->save($fixture, true);
 
         $this->client->request('GET', sprintf('%s%s/edit', $this->path, $fixture->getId()));
 
@@ -100,17 +100,22 @@ class <?= $class_name ?> extends WebTestCase<?= "\n" ?>
     public function testRemove(): void
     {
         $this->markTestIncomplete();
+
+        $originalNumObjectsInRepository = count($this->repository->findAll());
+
         $fixture = new <?= $entity_class_name; ?>();
 <?php foreach ($form_fields as $form_field => $typeOptions): ?>
         $fixture->set<?= ucfirst($form_field); ?>('My Title');
 <?php endforeach; ?>
 
-        $this->repository->add($fixture, true);
+        $this->repository->save($fixture, true);
+
+        self::assertSame($originalNumObjectsInRepository + 1, count($this->repository->findAll()));
 
         $this->client->request('GET', sprintf('%s%s', $this->path, $fixture->getId()));
         $this->client->submitForm('Delete');
 
+        self::assertSame($originalNumObjectsInRepository, count($this->repository->findAll()));
         self::assertResponseRedirects('<?= $route_path; ?>/');
-        self::assertSame(0, $this->repository->count([]));
     }
 }

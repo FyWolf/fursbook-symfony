@@ -31,13 +31,13 @@ final class LoginLinkHandler implements LoginLinkHandlerInterface
     private $urlGenerator;
     private $userProvider;
     private array $options;
-    private $signatureHashUtil;
+    private $signatureHasher;
 
-    public function __construct(UrlGeneratorInterface $urlGenerator, UserProviderInterface $userProvider, SignatureHasher $signatureHashUtil, array $options)
+    public function __construct(UrlGeneratorInterface $urlGenerator, UserProviderInterface $userProvider, SignatureHasher $signatureHasher, array $options)
     {
         $this->urlGenerator = $urlGenerator;
         $this->userProvider = $userProvider;
-        $this->signatureHashUtil = $signatureHashUtil;
+        $this->signatureHasher = $signatureHasher;
         $this->options = array_merge([
             'route_name' => null,
             'lifetime' => 600,
@@ -52,7 +52,7 @@ final class LoginLinkHandler implements LoginLinkHandlerInterface
         $parameters = [
             'user' => $user->getUserIdentifier(),
             'expires' => $expires,
-            'hash' => $this->signatureHashUtil->computeSignatureHash($user, $expires),
+            'hash' => $this->signatureHasher->computeSignatureHash($user, $expires),
         ];
 
         if ($request) {
@@ -83,17 +83,21 @@ final class LoginLinkHandler implements LoginLinkHandlerInterface
     {
         $userIdentifier = $request->get('user');
 
-        try {
-            $user = $this->userProvider->loadUserByIdentifier($userIdentifier);
-        } catch (UserNotFoundException $exception) {
-            throw new InvalidLoginLinkException('User not found.', 0, $exception);
+        if (!$hash = $request->get('hash')) {
+            throw new InvalidLoginLinkException('Missing "hash" parameter.');
+        }
+        if (!$expires = $request->get('expires')) {
+            throw new InvalidLoginLinkException('Missing "expires" parameter.');
         }
 
-        $hash = $request->get('hash');
-        $expires = $request->get('expires');
-
         try {
-            $this->signatureHashUtil->verifySignatureHash($user, $expires, $hash);
+            $this->signatureHasher->acceptSignatureHash($userIdentifier, $expires, $hash);
+
+            $user = $this->userProvider->loadUserByIdentifier($userIdentifier);
+
+            $this->signatureHasher->verifySignatureHash($user, $expires, $hash);
+        } catch (UserNotFoundException $e) {
+            throw new InvalidLoginLinkException('User not found.', 0, $e);
         } catch (ExpiredSignatureException $e) {
             throw new ExpiredLoginLinkException(ucfirst(str_ireplace('signature', 'login link', $e->getMessage())), 0, $e);
         } catch (InvalidSignatureException $e) {

@@ -37,19 +37,19 @@ class Join
      */
     protected $conditionType;
 
-    /** @var string|Comparison|Composite|null */
+    /** @var string|Comparison|Composite|Func|null */
     protected $condition;
 
     /** @var string|null */
     protected $indexBy;
 
     /**
-     * @param string                           $joinType      The condition type constant. Either INNER_JOIN or LEFT_JOIN.
-     * @param string                           $join          The relationship to join.
-     * @param string|null                      $alias         The alias of the join.
-     * @param string|null                      $conditionType The condition type constant. Either ON or WITH.
-     * @param string|Comparison|Composite|null $condition     The condition for the join.
-     * @param string|null                      $indexBy       The index for the join.
+     * @param string                                $joinType      The condition type constant. Either INNER_JOIN or LEFT_JOIN.
+     * @param string                                $join          The relationship to join.
+     * @param string|null                           $alias         The alias of the join.
+     * @param string|null                           $conditionType The condition type constant. Either ON or WITH.
+     * @param string|Comparison|Composite|Func|null $condition     The condition for the join.
+     * @param string|null                           $indexBy       The index for the join.
      * @psalm-param self::INNER_JOIN|self::LEFT_JOIN $joinType
      * @psalm-param self::ON|self::WITH|null $conditionType
      */
@@ -72,17 +72,13 @@ class Join
         return $this->joinType;
     }
 
-    /**
-     * @return string
-     */
+    /** @return string */
     public function getJoin()
     {
         return $this->join;
     }
 
-    /**
-     * @return string|null
-     */
+    /** @return string|null */
     public function getAlias()
     {
         return $this->alias;
@@ -97,25 +93,19 @@ class Join
         return $this->conditionType;
     }
 
-    /**
-     * @return string|Comparison|Composite|null
-     */
+    /** @return string|Comparison|Composite|Func|null */
     public function getCondition()
     {
         return $this->condition;
     }
 
-    /**
-     * @return string|null
-     */
+    /** @return string|null */
     public function getIndexBy()
     {
         return $this->indexBy;
     }
 
-    /**
-     * @return string
-     */
+    /** @return string */
     public function __toString()
     {
         return strtoupper($this->joinType) . ' JOIN ' . $this->join

@@ -12,7 +12,7 @@ unverifiedMail: Votre compte dispose d'un accès restreint tant que vous n'avez 
 userParameters: Paramètres d'utilisateur
 reTypePassword: Re-tapez votre mot de passe
 nothingDisplay: Rien à afficher
-profileBanner: Banière de profil
+profileBanner: Bannière de profil
 profileNoUser: Aucun utilisateur as été trouvé avec ce nom d'utilisateur
 profileNoBio: Cet utilisateur n'as pas de description, quelle personne mystérieuse :O
 errorOccured: Une erreur est survenue

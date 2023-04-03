@@ -57,5 +57,6 @@
 .env
 
 /node_modules
-public/ressources/images/newsletter
-public/userRessources
+/public/ressources/images/newsletter
+/public/userRessources/
+/vendor

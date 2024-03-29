@@ -13,7 +13,7 @@
         <link rel="canonical" href="https://fursbook.org{{ app.request.pathinfo }}" />
         <script src="{{ asset('js/main.js') }}" defer></script>
         <script src="{{ asset('js/sidebar.js') }}"></script>
-        <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js" defer></script>
+        <script src="{{ asset('js/jquery.min.js') }}" defer></script>
 
         {% block stylesheets %}
             {{ encore_entry_link_tags('app') }}

@@ -21,21 +21,30 @@ class ApiController extends AbstractController
         {
             if($_POST['action'] == 'like') {
                 if($this->getUser()){
-                    $like = new Likes;
-                    $postRepo = $doctrine->getRepository(Posts::class);
-                    $post = $postRepo->find($_POST['id']);
-                    $like->setPostId($post);
-                    $like->setUserId($this->getUser());
-                    $entityManager->persist($like);
-                    $entityManager->flush();
                     $likeRepos = $doctrine->getRepository(Likes::class);
-                    $countLikes = $likeRepos->countLikes($_POST['id']);
+                    $isLiked = $likeRepos->checkIfLiked($_POST['id'], $this->getUser()->getId());
                     $response = new JsonResponse();
-                    $response->setData(array(
-                        'likes' => $countLikes,
-                        'liked' => true,
-                        )
-                    );
+                    if(!$isLiked) {
+                        $like = new Likes;
+                        $postRepo = $doctrine->getRepository(Posts::class);
+                        $post = $postRepo->find($_POST['id']);
+                        $like->setPostId($post);
+                        $like->setUserId($this->getUser());
+                        $entityManager->persist($like);
+                        $entityManager->flush();
+                        $likeRepos = $doctrine->getRepository(Likes::class);
+                        $countLikes = $likeRepos->countLikes($_POST['id']);
+                        $response->setData(array(
+                            'likes' => $countLikes,
+                            'liked' => true,
+                            )
+                        );
+                    }else {
+                        $response->setData(array(
+                            'liked' => false,
+                            )
+                        );
+                    }
                     return $response;
                 }
             }

@@ -151,6 +151,3 @@ function sendReport(id) {
   );
   return false;
 }
-
-// jQuery
-$(window).on('DOMContentLoaded load resize scroll', handler);
